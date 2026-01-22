@@ -31,7 +31,8 @@ Develop a website application platform using any library are available in the wo
   - [Behance](https://www.behance.net/) 
   - [Mobbin](https://mobbin.com/browse/ios/apps)
   - [Screenlane](https://screenlane.com/) <br>
-    and your application not need to use your own design
+  
+    > **Note:** and your application not need to use your own design
     
 ### 4. Deploy your best project
 Deploy your website so that it can be accessed by the public.<br>
