@@ -1,29 +1,29 @@
 "use client"
-// import { handleLogin } from "@/actions/authActions";
+
+import { handleLogin } from "@/actions/authActions";
 import BtnBulat from "@/components/BtnBulat";
 import LineBar from "@/components/LineBar";
-// import { useAuthStore } from "@/store/authStore";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useActionState, useEffect, useState } from "react"
 
 function Login() {
   const [showPass, setShowPass] = useState<boolean>(false);
-  // const [state, formAction, pending] = useActionState(handleLogin, {
-  //   success: false,
-  //   message: "",
-  //   email: ""
-  // })
+  const router = useRouter();
 
-  // const setSession = useAuthStore((state) => state.setSession);
-  // const router = useRouter();
-  // useEffect(() => {
-  //   if (state.success && state.user) {
-  //     setSession(state.user);
-  //     router.push('/');
-  //     router.refresh();
-  //   }
-  // }, [state, setSession, router]);
+  const [state, formAction, pending] = useActionState(handleLogin, {
+    success: false,
+    message: "",
+    email: "",
+    user: null
+  })
+
+  useEffect(()=>{
+    if (state.success && state.user) {
+      router.push('/dashboard');
+      router.refresh();
+    }
+  }, [state.user, state.success, router])
 
   return (
     <>
@@ -37,10 +37,10 @@ function Login() {
               <h2 className="font-bold text-3xl text-black">Login</h2>
               <p className="text-sm mt-4 text-black">Login if you already have an account.</p>
 
-              {/* action={formAction}  */}
-              <form className="flex flex-col gap-4">
+
+              <form action={formAction} className="flex flex-col gap-4">
                 <input className="p-2 mt-8 rounded-xl border" type="email" name="email" placeholder="Email" required
-                // defaultValue={state && state.email}
+                  defaultValue={state && state.email}
                 ></input>
                 <div className="relative">
                   <input type={showPass ? "text" : "password"} className="p-2 rounded-xl border w-full" name="password" id="password" placeholder="Password" required></input>
@@ -66,13 +66,13 @@ function Login() {
                     </path>
                   </svg>
                 </div>
-                {/* disabled={pending} */}
-                <button type="submit" className="disabled:opacity-50">
-                  {/* pending ? "Memproses..." : */}
-                  <BtnBulat teks={"Login"} btnBg="bg-black" pointerBg="bg-slate-300" border="none" cl="text-white rounded-xl " ></BtnBulat>
+
+                <button type="submit" className="disabled:opacity-50" disabled={pending}>
+
+                  <BtnBulat teks={pending ? "Memproses..." : "Login"} btnBg="bg-black" pointerBg="bg-slate-300" border="none" cl="text-white rounded-xl " ></BtnBulat>
                 </button>
               </form>
-              {/* {state && <p className="p-2 text-sm">{state.message}</p>} */}
+              <p className="text-sm mt-2">{state.message}</p>
               <div className="mt-4 text-sm md:text-xs flex gap-2 items-baseline container-mr">
                 <p className="mr-3 md:mr-0">If you don&apos;t have an account</p>
                 <Link href='/register' className="**:font-bold"><LineBar>register</LineBar></Link>

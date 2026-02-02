@@ -1,6 +1,11 @@
+import { createClient } from '@/lib/supabase/server';
 import Link from 'next/link'
+import LogoutBtn from './logoutBtn';
 
-function Sidebar() {
+async function Sidebar() {
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+
   return (
     <div className="hidden md:flex md:w-64 md:flex-col h-screen fixed top-0 left-0">
       <div className="flex flex-col gap-3 grow p-5 overflow-y-auto bg-white shadow-lg
@@ -8,8 +13,8 @@ function Sidebar() {
         <p className='text-3xl font-bold my-3'>nexStore</p>
 
         <div className="flex flex-col w-full p-3 mb-3 font-medium bg-black/10 text-gray-900 transition-all duration-200 rounded-lg">
-          <p>username</p>
-          <p className='text-xs opacity-70'>user@email.com</p>
+          <p>{user?.user_metadata.name}</p>
+          <p className='text-xs opacity-70'>{user?.email}</p>
         </div>
 
         <hr className="border-black" />
@@ -43,7 +48,7 @@ function Sidebar() {
 
         <hr className="border-black" />
 
-        <button className='menus'>Logout</button>
+        <LogoutBtn></LogoutBtn>
       </div>
     </div>
   )
