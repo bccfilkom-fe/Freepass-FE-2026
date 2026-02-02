@@ -155,39 +155,7 @@ const Navbar = () => {
             </div>
           </div>
         )}
-
-        
-        {/* <div 
-          className={`absolute bg-gradient-to-br from-[#18484b] to-[#215E61] shadow-2xl w-40 -right-3 z-50 flex flex-col rounded-2xl text-white font-semibold overflow-hidden transition-all duration-300 ease-out origin-top
-            ${isOpen 
-              ? 'opacity-100 scale-y-100 translate-y-0' 
-              : 'opacity-0 scale-y-0 -translate-y-4 pointer-events-none'
-            }`}
-        >
-          <Link href="/home" onClick={handleClickItem} 
-             className="px-4 py-2 hover:bg-[#215E61] hover:rounded-t-2xl transition-colors flex items-center">
-              <SearchIcon className='w-fit h-fit px-2 py-1 rounded-full text-white transition-colors cursor-pointer'/>
-              Search
-          </Link>
-          <Link href="#about" onClick={handleClickItem} 
-             className="px-4 py-2 hover:bg-[#215E61] transition-colors flex items-center">
-              <LogInIcon className='w-fit h-fit px-2 py-1 rounded-full text-white transition-colors cursor-pointer' />
-              Account
-          </Link>
-          <Link href="#Experience" onClick={handleClickItem} 
-             className="px-4 py-2 hover:bg-[#215E61] transition-colors flex items-center">
-              <ShoppingCart className='w-fit h-fit px-2 py-1 rounded-full text-white transition-colors cursor-pointer'/>
-              Cart
-          </Link>
-          <Link href="#Contact" onClick={handleClickItem} 
-             className="px-4 py-2 hover:bg-[#215E61] hover:rounded-b-2xl transition-colors flex items-center">
-              <ShoppingBag className='w-fit h-fit px-2 py-1 rounded-full text-white transition-colors cursor-pointer'/>
-              Shop
-          </Link>
-        </div> */}
-      </div>
-
-      
+      </div> 
     </nav>
   );
 };
