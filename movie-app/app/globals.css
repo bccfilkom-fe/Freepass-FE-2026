@@ -123,3 +123,14 @@
     @apply bg-background text-foreground;
   }
 }
+
+@utility scrollbar-hide {
+  /* firefox */
+  scrollbar-width: none;
+  /* IE and Edge */
+  -ms-overflow-style: none;
+  /* chrome, safari, opera */
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
