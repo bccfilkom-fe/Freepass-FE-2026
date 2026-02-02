@@ -1,0 +1,6 @@
+@import "tailwindcss";
+
+@utility mycontainer {
+  @apply container mx-auto max-w-7xl w-full px-4 md:px-12 lg:px-16 xl:px-18 py-2
+}
+
