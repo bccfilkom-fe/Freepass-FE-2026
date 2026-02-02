@@ -1,15 +1,19 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Barlow_Semi_Condensed, Michroma } from "next/font/google";
 import "./globals.css";
+import { Toaster } from "sonner";
+import AuthProvider from "./AuthProvider";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const barlow = Barlow_Semi_Condensed({
+  variable: "--font-barlow",
   subsets: ["latin"],
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"]
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const michroma = Michroma({
+  variable: "--font-michroma",
   subsets: ["latin"],
+  weight: "400"
 });
 
 export const metadata: Metadata = {
@@ -19,15 +23,21 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
+  modal,
 }: Readonly<{
   children: React.ReactNode;
+  modal: React.ReactNode;
 }>) {
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${barlow.className} text-base lg:text-xl antialiased`}
       >
-        {children}
+        <AuthProvider>
+          <Toaster position="top-center"/>
+          {children}
+          {modal}
+        </AuthProvider>
       </body>
     </html>
   );
