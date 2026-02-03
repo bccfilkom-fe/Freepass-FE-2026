@@ -41,6 +41,14 @@ export const queryKeyStore = {
       [...queryKeyStore.order.all, "feedback", orderId] as const,
   },
 
+  // ==================== Review ====================
+  review: {
+    all: ["review"] as const,
+    lists: () => [...queryKeyStore.review.all, "list"] as const,
+    list: (canteenId: string, limit?: number) =>
+      [...queryKeyStore.review.lists(), canteenId, limit] as const,
+  },
+
   // ==================== Owner ====================
   owner: {
     menus: {
