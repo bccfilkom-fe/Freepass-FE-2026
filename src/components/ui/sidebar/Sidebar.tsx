@@ -1,10 +1,14 @@
 import { createClient } from '@/lib/supabase/server';
 import Link from 'next/link'
 import LogoutBtn from './logoutBtn';
+import { headers } from 'next/headers';
 
 async function Sidebar() {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
+
+  const header = await headers();
+  const pathname = new URL(header.get('referer') || "").pathname;
 
   return (
     <div className="hidden md:flex md:w-64 md:flex-col h-screen fixed top-0 left-0">
@@ -19,7 +23,8 @@ async function Sidebar() {
 
         <hr className="border-black" />
 
-        <nav className='flex flex-col gap-2 py-2'>
+        <nav className={`flex flex-col gap-2 py-2
+        `}>
           <Link href={"/"} className='menus'>
             <svg className="shrink-0 w-5 h-5 mr-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
               <path strokeLinecap="round" strokeLinejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />

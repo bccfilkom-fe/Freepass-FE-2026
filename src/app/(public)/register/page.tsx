@@ -1,6 +1,7 @@
 "use client"
 import { handleRegister } from "@/actions/authActions";
 import BtnBulat from "@/components/BtnBulat"
+import ErrText from "@/components/errText";
 import LineBar from "@/components/LineBar";
 import Link from "next/link"
 import { useActionState, useState } from "react"
@@ -34,13 +35,13 @@ function Register() {
                   <input className="p-2 mt-8 rounded-xl border" type="nama" name="nama" placeholder="Nama" required
                     defaultValue={state && state.nama}
                   ></input>
-                  {state.namaError && <p className="text-sm px-3 text-red-700">✖ {state.namaError}</p>}
+                  {state.namaError && <ErrText teks={state.namaError}></ErrText>}
                 </div>
                 <div className="flex flex-col gap-0.5">
                   <input className="p-2 rounded-xl border" type="email" name="email" placeholder="Email" required
                     defaultValue={state && state.email}
                   ></input>
-                  {state.emailError && <p className="text-sm px-3 text-red-700">✖ {state.emailError}</p>}
+                  {state.emailError && <ErrText teks={state.emailError}></ErrText>}
                 </div>
                 <div className="flex flex-col gap-0.5">
                   <div className="relative">
@@ -66,7 +67,7 @@ function Register() {
                       </path>
                     </svg>
                   </div>
-                  {state.passError && <p className="text-sm px-3 text-red-700">✖ {state.passError}</p>}
+                  {state.passError && <ErrText teks={state.passError}></ErrText>}
                 </div>
                 <button disabled={pending} type="submit" className="disabled:opacity-50">
                   <BtnBulat teks={pending ? "Memproses..." : "Register"} btnBg="bg-black" pointerBg="bg-slate-300" border="none" cl="text-white rounded-xl" ></BtnBulat>

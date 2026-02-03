@@ -18,7 +18,7 @@ function Login() {
     user: null
   })
 
-  useEffect(()=>{
+  useEffect(() => {
     if (state.success && state.user) {
       router.push('/dashboard');
       router.refresh();
@@ -68,11 +68,15 @@ function Login() {
                 </div>
 
                 <button type="submit" className="disabled:opacity-50" disabled={pending}>
-
                   <BtnBulat teks={pending ? "Memproses..." : "Login"} btnBg="bg-black" pointerBg="bg-slate-300" border="none" cl="text-white rounded-xl " ></BtnBulat>
                 </button>
               </form>
-              <p className="text-sm mt-2">{state.message}</p>
+              {state &&
+                state.success ?
+                <p className="text-sm mt-2">{state.message}</p>
+                :
+                <p className="text-sm mt-2 text-red-700">✖ {state.message}</p>
+              }
               <div className="mt-4 text-sm md:text-xs flex gap-2 items-baseline container-mr">
                 <p className="mr-3 md:mr-0">If you don&apos;t have an account</p>
                 <Link href='/register' className="**:font-bold"><LineBar>register</LineBar></Link>

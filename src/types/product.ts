@@ -1,14 +1,15 @@
-export type category = "Men's Clothing" | "Women's Clothing" | "Jewelery" | "Electronics";
+import { category } from "./categories"
 
 export type product = {
-  id: number,
-  sku: string,
+  id?: number,
+  code: string,
   qty: number,
   title: string,
   price: number,
-  description: string,
-  category: category,
-  image: string,
-  rating_rate: number,
-  rating_count: number
+  description?: string,
+  category_id: number,
+  nexstore_category?: category,
+  image?: string,
+  rating_rate?: number,
+  rating_count?: number
 }
