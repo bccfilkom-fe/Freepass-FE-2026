@@ -4,7 +4,7 @@ import { NextResponse, NextRequest } from 'next/server'
 // hilangkan test
 const protectedRoutes = ['/categories', '/dashboard', '/movements', '/product', '/test']
 
-export async function proxy(request: NextRequest) {
+export async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
   const cookieStore = await cookies();
   const session = cookieStore.get("session_token");
