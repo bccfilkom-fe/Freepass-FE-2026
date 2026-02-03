@@ -10,7 +10,8 @@ import Link from "next/link";
 import { use } from "react";
 import { toast } from "sonner";
 import { CanteenDetailHeader } from "@/components/canteen";
-import { MenuList } from "@/components/menu";
+import { CartFAB } from "@/components/cart-fab";
+import { AddToCartSheetContent, MenuList } from "@/components/menu";
 import { MenuListSkeleton } from "@/components/menu/menu-list-skeleton";
 import { ReviewPreview } from "@/components/review";
 import { Alert } from "@/components/ui/alert";
@@ -19,6 +20,7 @@ import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useCanteen, useCanteenMenu } from "@/hooks/use-canteens";
 import { useCartStore } from "@/stores/cart-store";
+import { useSheetStore } from "@/stores/sheet-store";
 import type { MenuItem } from "@/types/ui";
 
 interface CanteenDetailPageProps {
@@ -51,6 +53,7 @@ export default function CanteenDetailPage({ params }: CanteenDetailPageProps) {
   const decrementItem = useCartStore((state) => state.decrementItem);
   const getItemQuantity = useCartStore((state) => state.getItemQuantity);
   const canAddFromCanteen = useCartStore((state) => state.canAddFromCanteen);
+  const openSheet = useSheetStore((state) => state.openSheet);
 
   // Build quantity map
   const itemQuantities: Record<string, number> = {};
@@ -70,8 +73,23 @@ export default function CanteenDetailPage({ params }: CanteenDetailPageProps) {
       return;
     }
 
-    addItem(item);
-    toast.success(`${item.name} added to cart`);
+    // Open quantity selector sheet
+    openSheet({
+      children: (
+        <AddToCartSheetContent
+          item={item}
+          onConfirm={(item, quantity) => {
+            // Add the item with the selected quantity
+            for (let i = 0; i < quantity; i++) {
+              addItem(item);
+            }
+            toast.success(
+              `${quantity} ${item.name}${quantity > 1 ? "s" : ""} added to cart`,
+            );
+          }}
+        />
+      ),
+    });
   };
 
   const handleIncrement = (item: MenuItem) => {
@@ -135,7 +153,7 @@ export default function CanteenDetailPage({ params }: CanteenDetailPageProps) {
   }
 
   return (
-    <div className="container mx-auto p-6">
+    <div className="container mx-auto p-6 pb-32">
       {/* Back button */}
       <Link href="/canteens">
         <Button variant="ghost" className="mb-6">
@@ -180,6 +198,9 @@ export default function CanteenDetailPage({ params }: CanteenDetailPageProps) {
           />
         )}
       </div>
+
+      {/* Floating Action Button */}
+      <CartFAB canteenId={canteenId} />
     </div>
   );
 }
