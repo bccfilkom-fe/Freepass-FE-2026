@@ -16,20 +16,29 @@ interface CanteenCardProps {
   canteen: Canteen;
   onClick?: () => void;
   className?: string;
+  disabled: boolean;
 }
 
 // TODO: improve this to use link insted of onClick handldr for SSR
-export function CanteenCard({ canteen, onClick, className }: CanteenCardProps) {
+export function CanteenCard({
+  canteen,
+  onClick,
+  className,
+  disabled = false,
+}: CanteenCardProps) {
+  const rootClasses = cn(
+    // interactive / motion classes only when not disabled
+    !disabled
+      ? "group cursor-pointer overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
+      : "overflow-hidden",
+    // border hover only when interactive
+    !disabled ? "border-2 hover:border-primary/20" : "border-2",
+    !canteen.isActive && "opacity-60",
+    className,
+  );
+
   return (
-    <Card
-      className={cn(
-        "group cursor-pointer overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1",
-        "border-2 hover:border-primary/20",
-        !canteen.isActive && "opacity-60",
-        className,
-      )}
-      onClick={onClick}
-    >
+    <Card className={rootClasses} onClick={disabled ? undefined : onClick}>
       {/* Image */}
       <div className="relative aspect-[7/6] md:aspect-[4/3] overflow-hidden bg-muted">
         <Image
@@ -37,7 +46,10 @@ export function CanteenCard({ canteen, onClick, className }: CanteenCardProps) {
           alt={canteen.name}
           fill
           className={cn(
-            "object-cover transition-transform duration-500 group-hover:scale-110",
+            "object-cover",
+            // only apply zoom/transform when not disabled
+            !disabled &&
+              "transition-transform duration-500 group-hover:scale-110",
             !canteen.isActive && "grayscale",
           )}
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -68,7 +80,13 @@ export function CanteenCard({ canteen, onClick, className }: CanteenCardProps) {
 
       {/* Content */}
       <CardHeader className="px-3 md:px-6 md:pt-2">
-        <h3 className="font-bold text-base md:text-xl line-clamp-2 group-hover:text-primary transition-colors">
+        <h3
+          className={cn(
+            "font-bold text-base md:text-xl line-clamp-2",
+            // color transition only when not disabled
+            !disabled && "group-hover:text-primary transition-colors",
+          )}
+        >
           {canteen.name}
         </h3>
       </CardHeader>

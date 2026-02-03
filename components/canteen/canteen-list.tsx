@@ -40,6 +40,7 @@ export function CanteenList({
           key={canteen.id}
           canteen={canteen}
           onClick={() => onCanteenClick?.(canteen)}
+          disabled={!canteen.isActive}
         />
       ))}
     </div>

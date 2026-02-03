@@ -18,6 +18,7 @@ interface MenuItemCardProps {
   onIncrement?: () => void;
   onDecrement?: () => void;
   className?: string;
+  disabled?: boolean;
 }
 
 export function MenuItemCard({
@@ -27,18 +28,21 @@ export function MenuItemCard({
   onIncrement,
   onDecrement,
   className,
+  disabled = false,
 }: MenuItemCardProps) {
   const isOutOfStock = !item.isAvailable || item.stock === 0;
+  const rootClasses = cn(
+    // interactive / motion classes only when not disabled
+    !disabled
+      ? "group overflow-hidden transition-all duration-300 hover:shadow-lg"
+      : "overflow-hidden",
+    "border-2",
+    isOutOfStock && "opacity-60",
+    className,
+  );
 
   return (
-    <Card
-      className={cn(
-        "group overflow-hidden transition-all duration-300 hover:shadow-lg",
-        "border-2",
-        isOutOfStock && "opacity-60",
-        className,
-      )}
-    >
+    <Card className={rootClasses}>
       <div className="flex gap-4 p-4">
         {/* Image */}
         <div className="relative w-24 h-24 rounded-xl overflow-hidden flex-shrink-0 bg-muted">
@@ -46,10 +50,12 @@ export function MenuItemCard({
             src={item.imageUrl}
             alt={item.name}
             fill
-            className={cn(
-              "object-cover transition-transform duration-300 group-hover:scale-110",
-              isOutOfStock && "grayscale",
-            )}
+              className={cn(
+                "object-cover",
+                // only apply zoom when not disabled
+                !disabled && "transition-transform duration-300 group-hover:scale-110",
+                isOutOfStock && "grayscale",
+              )}
             sizes="96px"
           />
           {isOutOfStock && (
@@ -93,20 +99,31 @@ export function MenuItemCard({
               <div>
                 {quantity === 0 ? (
                   <Button
-                    onClick={onAddToCart}
+                    onClick={disabled ? undefined : onAddToCart}
                     size="sm"
                     className="font-semibold"
+                    disabled={disabled}
                   >
                     <Plus className="w-4 h-4 mr-1" />
                     Add
                   </Button>
                 ) : (
-                  <div className="flex items-center gap-2 bg-primary/10 rounded-full p-1 border-2 border-primary/20">
+                  <div
+                    className={cn(
+                      "flex items-center gap-2 bg-primary/10 rounded-full p-1 border-2",
+                      // subtle hover border only when interactive
+                      !disabled && "border-primary/20",
+                    )}
+                  >
                     <Button
-                      onClick={onDecrement}
+                      onClick={disabled ? undefined : onDecrement}
                       size="icon"
                       variant="ghost"
-                      className="h-8 w-8 rounded-full hover:bg-primary hover:text-primary-foreground"
+                      className={cn(
+                        "h-8 w-8 rounded-full",
+                        !disabled && "hover:bg-primary hover:text-primary-foreground",
+                      )}
+                      disabled={disabled}
                     >
                       <Minus className="w-4 h-4" />
                     </Button>
@@ -114,11 +131,14 @@ export function MenuItemCard({
                       {quantity}
                     </span>
                     <Button
-                      onClick={onIncrement}
+                      onClick={disabled ? undefined : onIncrement}
                       size="icon"
                       variant="ghost"
-                      className="h-8 w-8 rounded-full hover:bg-primary hover:text-primary-foreground"
-                      disabled={quantity >= item.stock}
+                      className={cn(
+                        "h-8 w-8 rounded-full",
+                        !disabled && "hover:bg-primary hover:text-primary-foreground",
+                      )}
+                      disabled={disabled || quantity >= item.stock}
                     >
                       <Plus className="w-4 h-4" />
                     </Button>
