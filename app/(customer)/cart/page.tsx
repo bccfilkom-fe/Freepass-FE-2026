@@ -5,7 +5,7 @@
 
 "use client";
 
-import { Minus, Plus, ShoppingBag, Trash2, X } from "lucide-react";
+import { Minus, Plus, ShoppingBag, Trash2, X, Star } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -15,6 +15,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
+import { useCanteen } from "@/hooks/use-canteens";
 import { useCreateOrder } from "@/hooks/use-orders";
 import { useCartStore } from "@/stores/cart-store";
 
@@ -26,6 +27,10 @@ export default function CartPage() {
   const clearCart = useCartStore((state) => state.clearCart);
   const getTotalAmount = useCartStore((state) => state.getTotalAmount());
   const getTotalItems = useCartStore((state) => state.getTotalItems());
+  const getCanteenId = useCartStore((state) => state.getCanteenId());
+
+  // Fetch canteen details
+  const { data: canteen } = useCanteen(getCanteenId || "");
 
   const createOrderMutation = useCreateOrder();
   const [isCheckingOut, setIsCheckingOut] = useState(false);
@@ -116,6 +121,50 @@ export default function CartPage() {
           {getTotalItems} {getTotalItems === 1 ? "item" : "items"} in your cart
         </p>
       </motion.div>
+
+      {/* Canteen Info Card */}
+      {canteen && (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1 }}
+          className="mb-6"
+        >
+          <Card className="border-2">
+            <CardHeader>
+              <div className="flex items-start gap-4">
+                {/* biome-ignore lint/performance/noImgElement: temporary */}
+                <img
+                  src={canteen.imageUrl}
+                  alt={canteen.name}
+                  className="h-20 w-20 rounded-lg object-cover flex-shrink-0"
+                />
+                <div className="flex-1 min-w-0">
+                  <Link
+                    href={`/canteens/${canteen.id}`}
+                    className="group inline-block"
+                  >
+                    <h2 className="text-2xl font-bold mb-2 group-hover:text-primary transition-colors line-clamp-1">
+                      {canteen.name}
+                    </h2>
+                  </Link>
+                  <div className="flex items-center gap-4 flex-wrap">
+                    <div className="flex items-center gap-1">
+                      <Star className="h-5 w-5 fill-yellow-400 text-yellow-400" />
+                      <span className="font-semibold">
+                        {canteen.rating.toFixed(1)}
+                      </span>
+                    </div>
+                    <span className="text-muted-foreground">
+                      {/* {canteen.reviewCount} reviews */}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </CardHeader>
+          </Card>
+        </motion.div>
+      )}
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Cart Items */}

@@ -13,6 +13,9 @@ import { Badge } from "@/components/ui/badge";
 import { useCanteens } from "@/hooks/use-canteens";
 import { useCanteenSearch } from "@/hooks/use-canteen-search";
 
+// TODO: add items canteen's info
+//    - the current UI of this page is confusing because there's no way to know from  which canteen they order. 
+// FIXME: redirect to order on checkout
 export default function CanteensPage() {
   const router = useRouter();
   const { data: canteens, isLoading, error } = useCanteens();
