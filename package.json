@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "pnpm exec biome lint",
+    "fmt": "pnpm exec biome format",
+    "check": "pnpm exec biome check"
   },
   "dependencies": {
     "@base-ui/react": "^1.1.0",
@@ -30,6 +32,7 @@
     "zustand": "^5.0.11"
   },
   "devDependencies": {
+    "@biomejs/biome": "2.3.13",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",

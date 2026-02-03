@@ -3,8 +3,8 @@
  * Real API implementations for user-related calls
  */
 
-import { API_BASE_URL } from '@/lib/constants';
-import type { UserDTO } from '@/types/dto';
+import { API_BASE_URL } from "@/lib/constants";
+import type { UserDTO } from "@/types/dto";
 
 /**
  * Get current authenticated user (real API)
@@ -12,10 +12,10 @@ import type { UserDTO } from '@/types/dto';
  */
 export async function getCurrentUserReal(): Promise<UserDTO> {
   const response = await fetch(`${API_BASE_URL}/users/me`, {
-    credentials: 'include',
+    credentials: "include",
   });
   if (!response.ok) {
-    throw new Error('Failed to fetch user');
+    throw new Error("Failed to fetch user");
   }
   return response.json();
 }
@@ -24,17 +24,19 @@ export async function getCurrentUserReal(): Promise<UserDTO> {
  * Update user profile (real API)
  * TODO: Implement when backend is ready
  */
-export async function updateUserProfileReal(
-  data: { fullName?: string; phoneNumber?: string; avatarUrl?: string }
-): Promise<UserDTO> {
+export async function updateUserProfileReal(data: {
+  fullName?: string;
+  phoneNumber?: string;
+  avatarUrl?: string;
+}): Promise<UserDTO> {
   const response = await fetch(`${API_BASE_URL}/users/me`, {
-    method: 'PATCH',
-    headers: { 'Content-Type': 'application/json' },
-    credentials: 'include',
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    credentials: "include",
     body: JSON.stringify(data),
   });
   if (!response.ok) {
-    throw new Error('Failed to update profile');
+    throw new Error("Failed to update profile");
   }
   return response.json();
 }

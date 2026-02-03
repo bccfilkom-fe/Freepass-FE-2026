@@ -4,9 +4,17 @@
  * Automatically switches between mock and real API based on ENABLE_MOCK
  */
 
-import { createRpc } from './utils';
-import { getCanteensMock, getCanteenByIdMock, getCanteenMenuMock } from './_mock/canteen.mock';
-import { getCanteensReal, getCanteenByIdReal, getCanteenMenuReal } from './_real/canteen.real';
+import {
+  getCanteenByIdMock,
+  getCanteenMenuMock,
+  getCanteensMock,
+} from "./_mock/canteen.mock";
+import {
+  getCanteenByIdReal,
+  getCanteenMenuReal,
+  getCanteensReal,
+} from "./_real/canteen.real";
+import { createRpc } from "./utils";
 
 /**
  * Get all canteens

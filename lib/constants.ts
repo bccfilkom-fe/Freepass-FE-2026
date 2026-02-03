@@ -5,8 +5,10 @@
 // ==================== API Configuration ====================
 
 // TODO: move to dediacted env.ts file
-export const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:3000/api/v1';
-export const ENABLE_MOCK = process.env.NEXT_PUBLIC_ENABLE_MOCK === 'true' || true;
+export const API_BASE_URL =
+  process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:3000/api/v1";
+export const ENABLE_MOCK =
+  process.env.NEXT_PUBLIC_ENABLE_MOCK === "true" || true;
 
 // ==================== Pagination ====================
 
@@ -19,46 +21,46 @@ export const PAGINATION = {
 // ==================== App Configuration ====================
 
 export const APP = {
-  NAME: 'Canteeneo',
-  DESCRIPTION: 'Digital platform for campus canteen operations',
-  VERSION: '1.0.0',
+  NAME: "Canteeneo",
+  DESCRIPTION: "Digital platform for campus canteen operations",
+  VERSION: "1.0.0",
 } as const;
 
 // ==================== Routes ====================
 
 export const ROUTES = {
-  HOME: '/',
-  
+  HOME: "/",
+
   // Auth
-  LOGIN: '/login',
-  REGISTER: '/register',
-  
+  LOGIN: "/login",
+  REGISTER: "/register",
+
   // Customer
-  CANTEENS: '/canteens',
+  CANTEENS: "/canteens",
   CANTEEN_DETAIL: (id: string) => `/canteens/${id}`,
-  CART: '/cart',
-  ORDERS: '/orders',
+  CART: "/cart",
+  ORDERS: "/orders",
   ORDER_DETAIL: (id: string) => `/orders/${id}`,
-  PROFILE: '/profile',
-  
+  PROFILE: "/profile",
+
   // Owner
-  OWNER_DASHBOARD: '/owner/dashboard',
-  OWNER_MENU: '/owner/menu',
-  OWNER_ORDERS: '/owner/orders',
-  
+  OWNER_DASHBOARD: "/owner/dashboard",
+  OWNER_MENU: "/owner/menu",
+  OWNER_ORDERS: "/owner/orders",
+
   // Admin
-  ADMIN_DASHBOARD: '/admin/dashboard',
-  ADMIN_USERS: '/admin/users',
-  ADMIN_OWNERS: '/admin/owners',
+  ADMIN_DASHBOARD: "/admin/dashboard",
+  ADMIN_USERS: "/admin/users",
+  ADMIN_OWNERS: "/admin/owners",
 } as const;
 
 // ==================== Local Storage Keys ====================
 
 export const STORAGE_KEYS = {
-  ACCESS_TOKEN: 'accessToken',
-  REFRESH_TOKEN: 'refreshToken',
-  CART: 'cart',
-  USER: 'user',
+  ACCESS_TOKEN: "accessToken",
+  REFRESH_TOKEN: "refreshToken",
+  CART: "cart",
+  USER: "user",
 } as const;
 
 // ==================== Mock Delays ====================
@@ -72,34 +74,34 @@ export const MOCK_DELAYS = {
 // ==================== Order Status Labels ====================
 
 export const ORDER_STATUS_LABELS = {
-  PENDING: 'Pending',
-  PROCESSING: 'Processing',
-  READY: 'Ready for Pickup',
-  COMPLETED: 'Completed',
-  CANCELLED: 'Cancelled',
+  PENDING: "Pending",
+  PROCESSING: "Processing",
+  READY: "Ready for Pickup",
+  COMPLETED: "Completed",
+  CANCELLED: "Cancelled",
 } as const;
 
 // ==================== Payment Status Labels ====================
 
 export const PAYMENT_STATUS_LABELS = {
-  UNPAID: 'Unpaid',
-  PAID: 'Paid',
+  UNPAID: "Unpaid",
+  PAID: "Paid",
 } as const;
 
 // ==================== Payment Method Labels ====================
 
 export const PAYMENT_METHOD_LABELS = {
-  CASH: 'Cash',
-  BANK_TRANSFER: 'Bank Transfer',
-  E_WALLET: 'E-Wallet',
-  QRIS: 'QRIS',
+  CASH: "Cash",
+  BANK_TRANSFER: "Bank Transfer",
+  E_WALLET: "E-Wallet",
+  QRIS: "QRIS",
 } as const;
 
 // ==================== Menu Category Labels ====================
 
 export const MENU_CATEGORY_LABELS = {
-  FOOD: 'Food',
-  BEVERAGE: 'Beverage',
+  FOOD: "Food",
+  BEVERAGE: "Beverage",
 } as const;
 
 // ==================== Validation ====================
@@ -120,5 +122,5 @@ export const VALIDATION = {
 
 export const UPLOAD = {
   MAX_FILE_SIZE: 5 * 1024 * 1024, // 5MB
-  ALLOWED_IMAGE_TYPES: ['image/jpeg', 'image/png', 'image/webp'],
+  ALLOWED_IMAGE_TYPES: ["image/jpeg", "image/png", "image/webp"],
 } as const;

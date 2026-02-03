@@ -3,9 +3,9 @@
  * Transform payment DTOs from backend to UI-friendly types
  */
 
-import type { OrderDTO } from '../dto';
-import { PaymentMethod } from '../dto';
-import type { PaymentInfo } from '../ui';
+import type { OrderDTO } from "../dto";
+import { PaymentMethod } from "../dto";
+import type { PaymentInfo } from "../ui";
 
 /**
  * Map OrderDTO to PaymentInfo UI type

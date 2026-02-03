@@ -3,8 +3,8 @@
  * Transform DTOs from backend to UI-friendly types
  */
 
-import type { CanteenDTO, MenuItemDTO } from '../dto';
-import type { Canteen, MenuItem } from '../ui';
+import type { CanteenDTO, MenuItemDTO } from "../dto";
+import type { Canteen, MenuItem } from "../ui";
 
 /**
  * Map CanteenDTO to Canteen UI type
@@ -15,7 +15,7 @@ export function mapCanteen(dto: CanteenDTO): Canteen {
     name: dto.name,
     description: dto.description,
     location: dto.location,
-    imageUrl: dto.imageUrl || '/placeholder-canteen.jpg',
+    imageUrl: dto.imageUrl || "/placeholder-canteen.jpg",
     rating: dto.rating,
     totalReviews: dto.totalReviews,
     isActive: dto.isActive,
@@ -33,7 +33,7 @@ export function mapMenuItem(dto: MenuItemDTO): MenuItem {
     description: dto.description,
     price: dto.price,
     category: dto.category,
-    imageUrl: dto.imageUrl || '/placeholder-menu.jpg',
+    imageUrl: dto.imageUrl || "/placeholder-menu.jpg",
     isAvailable: dto.isAvailable,
     stock: dto.stock,
   };

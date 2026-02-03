@@ -3,7 +3,13 @@
  * These types are optimized for UI consumption and may include computed fields
  */
 
-import type { OrderStatus, PaymentStatus, PaymentMethod, MenuCategory, UserRole } from '../dto';
+import type {
+  MenuCategory,
+  OrderStatus,
+  PaymentMethod,
+  PaymentStatus,
+  UserRole,
+} from "../dto";
 
 // ==================== User ====================
 
@@ -192,19 +198,19 @@ export interface CanteenFilters {
 }
 
 export interface MenuFilters {
-  category?: MenuCategory | 'ALL';
+  category?: MenuCategory | "ALL";
   availableOnly?: boolean;
 }
 
 export interface OrderFilters {
-  status?: OrderStatus | 'ALL';
-  paymentStatus?: PaymentStatus | 'ALL';
+  status?: OrderStatus | "ALL";
+  paymentStatus?: PaymentStatus | "ALL";
   page?: number;
   limit?: number;
 }
 
 export interface UserFilters {
-  role?: UserRole | 'ALL';
+  role?: UserRole | "ALL";
   page?: number;
   limit?: number;
 }

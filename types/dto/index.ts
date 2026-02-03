@@ -7,34 +7,34 @@
 // ==================== Enums ====================
 
 export enum UserRole {
-  USER = 'USER',
-  CANTEEN_OWNER = 'CANTEEN_OWNER',
-  ADMIN = 'ADMIN',
+  USER = "USER",
+  CANTEEN_OWNER = "CANTEEN_OWNER",
+  ADMIN = "ADMIN",
 }
 
 export enum OrderStatus {
-  PENDING = 'PENDING',
-  PROCESSING = 'PROCESSING',
-  READY = 'READY',
-  COMPLETED = 'COMPLETED',
-  CANCELLED = 'CANCELLED',
+  PENDING = "PENDING",
+  PROCESSING = "PROCESSING",
+  READY = "READY",
+  COMPLETED = "COMPLETED",
+  CANCELLED = "CANCELLED",
 }
 
 export enum PaymentStatus {
-  UNPAID = 'UNPAID',
-  PAID = 'PAID',
+  UNPAID = "UNPAID",
+  PAID = "PAID",
 }
 
 export enum PaymentMethod {
-  CASH = 'CASH',
-  BANK_TRANSFER = 'BANK_TRANSFER',
-  E_WALLET = 'E_WALLET',
-  QRIS = 'QRIS',
+  CASH = "CASH",
+  BANK_TRANSFER = "BANK_TRANSFER",
+  E_WALLET = "E_WALLET",
+  QRIS = "QRIS",
 }
 
 export enum MenuCategory {
-  FOOD = 'FOOD',
-  BEVERAGE = 'BEVERAGE',
+  FOOD = "FOOD",
+  BEVERAGE = "BEVERAGE",
 }
 
 // ==================== User & Auth ====================

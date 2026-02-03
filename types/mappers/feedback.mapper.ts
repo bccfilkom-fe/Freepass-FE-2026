@@ -3,8 +3,8 @@
  * Transform feedback DTOs from backend to UI-friendly types
  */
 
-import type { FeedbackDTO } from '../dto';
-import type { Feedback } from '../ui';
+import type { FeedbackDTO } from "../dto";
+import type { Feedback } from "../ui";
 
 /**
  * Map FeedbackDTO to Feedback UI type

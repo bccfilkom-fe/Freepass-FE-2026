@@ -3,8 +3,8 @@
  * Real API implementations for canteen-related calls
  */
 
-import { API_BASE_URL } from '@/lib/constants';
-import type { CanteenDTO, MenuItemDTO } from '@/types/dto';
+import { API_BASE_URL } from "@/lib/constants";
+import type { CanteenDTO, MenuItemDTO } from "@/types/dto";
 
 /**
  * Get all canteens (real API)
@@ -13,7 +13,7 @@ import type { CanteenDTO, MenuItemDTO } from '@/types/dto';
 export async function getCanteensReal(): Promise<CanteenDTO[]> {
   const response = await fetch(`${API_BASE_URL}/canteens`);
   if (!response.ok) {
-    throw new Error('Failed to fetch canteens');
+    throw new Error("Failed to fetch canteens");
   }
   return response.json();
 }
@@ -25,7 +25,7 @@ export async function getCanteensReal(): Promise<CanteenDTO[]> {
 export async function getCanteenByIdReal(id: string): Promise<CanteenDTO> {
   const response = await fetch(`${API_BASE_URL}/canteens/${id}`);
   if (!response.ok) {
-    throw new Error('Failed to fetch canteen');
+    throw new Error("Failed to fetch canteen");
   }
   return response.json();
 }
@@ -34,10 +34,12 @@ export async function getCanteenByIdReal(id: string): Promise<CanteenDTO> {
  * Get menu items for a canteen (real API)
  * TODO: Implement when backend is ready
  */
-export async function getCanteenMenuReal(canteenId: string): Promise<MenuItemDTO[]> {
+export async function getCanteenMenuReal(
+  canteenId: string,
+): Promise<MenuItemDTO[]> {
   const response = await fetch(`${API_BASE_URL}/canteens/${canteenId}/menu`);
   if (!response.ok) {
-    throw new Error('Failed to fetch menu items');
+    throw new Error("Failed to fetch menu items");
   }
   return response.json();
 }

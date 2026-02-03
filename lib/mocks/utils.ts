@@ -3,14 +3,17 @@
  * Helper functions for mock data generation and simulation
  */
 
-import { MOCK_DELAYS } from '../constants';
+import { MOCK_DELAYS } from "../constants";
 
 /**
  * Simulate network delay
  * @param min Minimum delay in milliseconds
  * @param max Maximum delay in milliseconds
  */
-export async function delay(min: number = MOCK_DELAYS.MIN, max: number = MOCK_DELAYS.MAX): Promise<void> {
+export async function delay(
+  min: number = MOCK_DELAYS.MIN,
+  max: number = MOCK_DELAYS.MAX,
+): Promise<void> {
   const duration = Math.random() * (max - min) + min;
   return new Promise((resolve) => setTimeout(resolve, duration));
 }
@@ -19,16 +22,19 @@ export async function delay(min: number = MOCK_DELAYS.MIN, max: number = MOCK_DE
  * Generate a random ID
  */
 export function generateId(): string {
-  return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+  return (
+    Math.random().toString(36).substring(2, 15) +
+    Math.random().toString(36).substring(2, 15)
+  );
 }
 
 /**
  * Generate a UUID-like string
  */
 export function generateUUID(): string {
-  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
+  return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (c) => {
     const r = (Math.random() * 16) | 0;
-    const v = c === 'x' ? r : (r & 0x3) | 0x8;
+    const v = c === "x" ? r : (r & 0x3) | 0x8;
     return v.toString(16);
   });
 }
@@ -50,7 +56,11 @@ export function randomNumber(min: number, max: number): number {
 /**
  * Get random float between min and max
  */
-export function randomFloat(min: number, max: number, decimals: number = 2): number {
+export function randomFloat(
+  min: number,
+  max: number,
+  decimals: number = 2,
+): number {
   const value = Math.random() * (max - min) + min;
   return parseFloat(value.toFixed(decimals));
 }
@@ -66,7 +76,9 @@ export function randomBoolean(): boolean {
  * Generate random date within range
  */
 export function randomDate(start: Date, end: Date): Date {
-  return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
+  return new Date(
+    start.getTime() + Math.random() * (end.getTime() - start.getTime()),
+  );
 }
 
 /**
@@ -85,7 +97,7 @@ export function paginate<T>(items: T[], page: number, limit: number) {
   const startIndex = (page - 1) * limit;
   const endIndex = startIndex + limit;
   const paginatedItems = items.slice(startIndex, endIndex);
-  
+
   return {
     data: paginatedItems,
     pagination: {
@@ -100,28 +112,38 @@ export function paginate<T>(items: T[], page: number, limit: number) {
 /**
  * Filter items by search query (case-insensitive)
  */
-export function filterBySearch<T>(items: T[], query: string, fields: (keyof T)[]): T[] {
+export function filterBySearch<T>(
+  items: T[],
+  query: string,
+  fields: (keyof T)[],
+): T[] {
   if (!query) return items;
-  
+
   const lowerQuery = query.toLowerCase();
   return items.filter((item) =>
     fields.some((field) => {
       const value = item[field];
-      return typeof value === 'string' && value.toLowerCase().includes(lowerQuery);
-    })
+      return (
+        typeof value === "string" && value.toLowerCase().includes(lowerQuery)
+      );
+    }),
   );
 }
 
 /**
  * Sort items by field
  */
-export function sortBy<T>(items: T[], field: keyof T, order: 'asc' | 'desc' = 'asc'): T[] {
+export function sortBy<T>(
+  items: T[],
+  field: keyof T,
+  order: "asc" | "desc" = "asc",
+): T[] {
   return [...items].sort((a, b) => {
     const aValue = a[field];
     const bValue = b[field];
-    
-    if (aValue < bValue) return order === 'asc' ? -1 : 1;
-    if (aValue > bValue) return order === 'asc' ? 1 : -1;
+
+    if (aValue < bValue) return order === "asc" ? -1 : 1;
+    if (aValue > bValue) return order === "asc" ? 1 : -1;
     return 0;
   });
 }
