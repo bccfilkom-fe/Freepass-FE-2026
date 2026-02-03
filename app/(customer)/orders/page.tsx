@@ -5,15 +5,19 @@
 
 "use client";
 
-import { Clock, Package, Receipt } from "lucide-react";
+import { Clock, MessageSquare, Package, Receipt } from "lucide-react";
 import Link from "next/link";
+import { CreateReviewSheetContent } from "@/components/review";
 import { Alert } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useOrders } from "@/hooks/use-orders";
+import { useSheetStore } from "@/stores/sheet-store";
 import { cn } from "@/lib/utils";
 import type { OrderStatus, PaymentStatus } from "@/types/dto";
+import type { Order } from "@/types/ui";
 
 const statusConfig: Record<
   OrderStatus,
@@ -39,6 +43,14 @@ const paymentStatusConfig: Record<
 
 export default function OrdersPage() {
   const { data: orders, isLoading, error } = useOrders();
+  const openSheet = useSheetStore((state) => state.openSheet);
+
+  const handleLeaveReview = (order: Order, e: React.MouseEvent) => {
+    e.preventDefault(); // Prevent navigation to order detail
+    openSheet({
+      children: <CreateReviewSheetContent order={order} />,
+    });
+  };
 
   // Loading state
   if (isLoading) {
@@ -183,22 +195,46 @@ export default function OrdersPage() {
               </CardHeader>
 
               <CardContent className="pt-0">
-                <div className="flex items-center gap-2 sm:gap-3 pt-3 border-t overflow-x-auto pb-1">
-                  {order.items.slice(0, 3).map((item) => (
-                    <div
-                      key={item.id}
-                      className="flex items-center gap-1.5 sm:gap-2 px-2 sm:px-3 py-1.5 rounded-lg bg-muted/50 text-xs sm:text-sm whitespace-nowrap"
-                    >
-                      <span className="font-semibold">{item.quantity}x</span>
-                      <span className="line-clamp-1 max-w-[120px] sm:max-w-none overflow-ellipsis">
-                        {item.menuItemName}
+                <div className="space-y-3">
+                  <div className="flex items-center gap-2 sm:gap-3 pt-3 border-t overflow-x-auto pb-1">
+                    {order.items.slice(0, 3).map((item) => (
+                      <div
+                        key={item.id}
+                        className="flex items-center gap-1.5 sm:gap-2 px-2 sm:px-3 py-1.5 rounded-lg bg-muted/50 text-xs sm:text-sm whitespace-nowrap"
+                      >
+                        <span className="font-semibold">{item.quantity}x</span>
+                        <span className="line-clamp-1 max-w-[120px] sm:max-w-none overflow-ellipsis">
+                          {item.menuItemName}
+                        </span>
+                      </div>
+                    ))}
+                    {order.items.length > 3 && (
+                      <span className="text-xs sm:text-sm text-muted-foreground whitespace-nowrap">
+                        +{order.items.length - 3} more
                       </span>
+                    )}
+                  </div>
+
+                  {/* Review Button - Only show for completed orders */}
+                  {order.orderStatus === "COMPLETED" && (
+                    <div className="pt-2">
+                      {order.hasReview ? (
+                        <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                          <MessageSquare className="h-4 w-4" />
+                          <span>✓ Reviewed</span>
+                        </div>
+                      ) : (
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          className="w-full sm:w-auto"
+                          onClick={(e) => handleLeaveReview(order, e)}
+                        >
+                          <MessageSquare className="h-4 w-4 mr-2" />
+                          Leave a Review
+                        </Button>
+                      )}
                     </div>
-                  ))}
-                  {order.items.length > 3 && (
-                    <span className="text-xs sm:text-sm text-muted-foreground whitespace-nowrap">
-                      +{order.items.length - 3} more
-                    </span>
                   )}
                 </div>
               </CardContent>

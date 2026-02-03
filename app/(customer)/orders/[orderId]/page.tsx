@@ -5,9 +5,10 @@
 
 "use client";
 
-import { ArrowLeft, Clock, QrCode, Receipt } from "lucide-react";
+import { ArrowLeft, Clock, MessageSquare, QrCode, Receipt } from "lucide-react";
 import Link from "next/link";
 import { use } from "react";
+import { CreateReviewSheetContent } from "@/components/review";
 import { Alert } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -15,6 +16,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useOrder, useCancelOrder } from "@/hooks/use-orders";
+import { useSheetStore } from "@/stores/sheet-store";
 import { cn } from "@/lib/utils";
 import type { OrderStatus, PaymentStatus } from "@/types/dto";
 
@@ -50,6 +52,7 @@ export default function OrderDetailPage({ params }: OrderDetailPageProps) {
   const { orderId } = use(params);
   const { data: order, isLoading, error } = useOrder(orderId);
   const cancelMutation = useCancelOrder();
+  const openSheet = useSheetStore((state) => state.openSheet);
 
   const handleCancel = async () => {
     if (!order) return;
@@ -60,6 +63,13 @@ export default function OrderDetailPage({ params }: OrderDetailPageProps) {
     } catch (err) {
       console.error("Cancel failed:", err);
     }
+  };
+
+  const handleLeaveReview = () => {
+    if (!order) return;
+    openSheet({
+      children: <CreateReviewSheetContent order={order} />,
+    });
   };
 
   // Loading state
@@ -119,6 +129,7 @@ export default function OrderDetailPage({ params }: OrderDetailPageProps) {
     order.paymentStatus === "UNPAID" && order.orderStatus !== "CANCELLED";
   const canCancelOrder =
     order.orderStatus === "PENDING" && order.paymentStatus === "UNPAID";
+  const canReviewOrder = order.orderStatus === "COMPLETED" && !order.hasReview;
 
   return (
     <div className="container mx-auto p-6 max-w-4xl">
@@ -248,8 +259,7 @@ export default function OrderDetailPage({ params }: OrderDetailPageProps) {
               <p className="text-sm font-medium">
                 <strong>MVP Implementation:</strong> This is a simplified
                 payment flow for prototype purposes. In production, this would
-                integrate with a real payment gateway (e.g., QRIS, GoPay,
-                OVO).
+                integrate with a real payment gateway (e.g., QRIS, GoPay, OVO).
               </p>
             </Alert>
 
@@ -295,13 +305,52 @@ export default function OrderDetailPage({ params }: OrderDetailPageProps) {
         </Card>
       )}
 
+      {/* Review Section */}
+      {canReviewOrder && (
+        <Card
+          className="mb-6 border-2 border-primary/20 animate-in fade-in slide-in-from-bottom-4 duration-700"
+          style={{ animationDelay: "200ms" }}
+        >
+          <CardHeader>
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="font-semibold mb-1">Share Your Experience</p>
+                <p className="text-sm text-muted-foreground">
+                  Let others know how your order was. Your feedback helps
+                  improve service!
+                </p>
+              </div>
+              <Button onClick={handleLeaveReview} className="gap-2">
+                <MessageSquare className="h-4 w-4" />
+                Leave Review
+              </Button>
+            </div>
+          </CardHeader>
+        </Card>
+      )}
+
+      {/* Reviewed Status */}
+      {order.orderStatus === "COMPLETED" && order.hasReview && (
+        <Card
+          className="mb-6 border-2 animate-in fade-in slide-in-from-bottom-4 duration-700"
+          style={{ animationDelay: "200ms" }}
+        >
+          <CardHeader>
+            <div className="flex items-center gap-3 text-muted-foreground">
+              <MessageSquare className="h-5 w-5" />
+              <span className="font-medium">✓ You've reviewed this order</span>
+            </div>
+          </CardHeader>
+        </Card>
+      )}
+
       {/* Cancel Order */}
       {canCancelOrder && (
         <Card
           className="border-2 border-destructive/20 animate-in fade-in slide-in-from-bottom-4 duration-700"
           style={{ animationDelay: "200ms" }}
         >
-          <CardContent className="pt-6">
+          <CardContent>
             <div className="flex items-center justify-between">
               <div>
                 <p className="font-semibold mb-1">Cancel Order</p>
