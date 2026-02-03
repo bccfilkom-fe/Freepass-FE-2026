@@ -30,7 +30,7 @@ function Login() {
       <section className="bg-gray-100 min-h-screen flex box-border justify-center items-center">
         <div className="max-w-9/10">
           <div className="fixed bottom-0 m-5 opacity-70">
-            <p className="text-center">you can login using email:<span className="underline">guest@gmail.com</span> password:<span className="underline">Ab1!cd</span> or create your own account</p>
+            <p className="text-center">You can login using email:<span className="underline">guest@gmail.com</span> password:<span className="underline">Ab1!cd</span> or create your own account</p>
           </div>
           <div className="shadow-xl rounded-2xl flex max-w-4xl max-h-[80dvh] overflow-clip items-center">
             <div className="md:w-1/2 p-15">
