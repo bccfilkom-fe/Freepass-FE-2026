@@ -143,7 +143,7 @@ export default function CartSidebar({ isOpen, onClose }: CartSidebarProps) {
 
             <button
               onClick={onClose}
-              className="w-full border-2 border-gray-300 text-gray-700 py-3 rounded-lg font-medium hover:bg-[#215E61] hover:text-white hover:border-[#215E61] transition-colors"
+              className="w-full border-2 border-gray-300 text-gray-700 mt-2 py-3 rounded-lg font-medium hover:bg-[#215E61] hover:text-white hover:border-[#215E61] transition-colors"
             >
               Continue Shopping
             </button>

@@ -86,7 +86,7 @@ export default function Navbar() {
               >
                 <ShoppingCart className="w-5 h-5" />
                 {cartItemsCount > 0 && (
-                  <span className="absolute hidden lg:flex -top-1 -right-1 bg-red-600 text-white text-xs font-bold rounded-full w-5 h-5 items-center justify-center">
+                  <span className="absolute hidden lg:flex -top-1 -right-1 bg-white text-[#18484b] text-xs font-bold rounded-full w-5 h-5 items-center justify-center">
                     {cartItemsCount > 9 ? '9+' : cartItemsCount}
                   </span>
                 )}
@@ -164,7 +164,7 @@ export default function Navbar() {
                   <ShoppingCart className="w-6 h-6" />
                   <span className="text-xs">Cart ({cartItemsCount})</span>
                   {cartItemsCount > 0 && (
-                    <span className="absolute -top-1 left-1/2 bg-red-600 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
+                    <span className="absolute -top-1 left-1/2 bg-white text-[#18484b] text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
                       {cartItemsCount > 9 ? '9+' : cartItemsCount}
                     </span>
                   )}

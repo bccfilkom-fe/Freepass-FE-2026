@@ -1,5 +1,4 @@
 'use client'
-
 import { useShopProducts } from '@/src/feature/shop/hooks/useShopProducts'
 import ShopHeader from '@/src/feature/shop/components/shop/ShopHeaders'
 import ShopFilters from '@/src/feature/shop/components/shop/ShopFilters'
