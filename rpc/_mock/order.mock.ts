@@ -59,6 +59,7 @@ export async function createOrderMock(data: {
     paymentStatus: PaymentStatus.UNPAID,
     paymentMethod: PaymentMethod.CASH,
     totalAmount: 50000, // Mock amount
+    reviewId: null,
     items: data.items.map((item, index) => ({
       id: `item-${index}`,
       orderId: `order-${Date.now()}`,

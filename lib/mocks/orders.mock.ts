@@ -101,6 +101,10 @@ for (let i = 0; i < 10; i++) {
     orderStatus,
     paymentStatus,
     paymentMethod,
+    reviewId:
+      orderStatus === OrderStatus.COMPLETED && i % 2 === 0
+        ? `review-${orderId}`
+        : null, // Some completed orders have reviews
     createdAt: generateTimestamp(daysAgo),
     updatedAt: generateTimestamp(Math.max(0, daysAgo - 1)),
   });
