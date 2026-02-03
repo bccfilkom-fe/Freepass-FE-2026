@@ -97,7 +97,7 @@ export default function CanteenReviewsPage({
       <Card className="mb-8">
         <CardHeader>
           <div className="flex items-start gap-4">
-            {/* biome-ignore lint/a11y/useAltText: <explanation> */}
+            {/** biome-ignore lint/performance/noImgElement: temporary */}
             <img
               src={canteen.imageUrl}
               alt={canteen.name}
@@ -128,10 +128,8 @@ export default function CanteenReviewsPage({
           <div className="space-y-4">
             {Array.from({ length: 5 }).map((_, index) => (
               <Card
-                key={`skeleton-${
-                  // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
-                  index
-                }`}
+                // biome-ignore lint/suspicious/noArrayIndexKey: stable index
+                key={`skeleton-${index}`}
               >
                 <CardHeader className="pb-3">
                   <div className="flex items-start justify-between gap-4">
@@ -166,29 +164,28 @@ export default function CanteenReviewsPage({
         )}
 
         {/* Reviews grid */}
-        {!isLoadingReviews && !reviewsError && reviews && (
-          <>
-            {reviews.length === 0 ? (
-              <Card>
-                <CardContent className="py-12 text-center">
-                  <p className="text-muted-foreground">
-                    No reviews yet. Be the first to review!
-                  </p>
-                </CardContent>
-              </Card>
-            ) : (
-              <div className="space-y-4">
-                {reviews.map((review) => (
-                  <ReviewCard
-                    key={review.id}
-                    review={review}
-                    className="min-w-full max-w-full"
-                  />
-                ))}
-              </div>
-            )}
-          </>
-        )}
+        {!isLoadingReviews &&
+          !reviewsError &&
+          reviews &&
+          (reviews.length === 0 ? (
+            <Card>
+              <CardContent className="py-12 text-center">
+                <p className="text-muted-foreground">
+                  No reviews yet. Be the first to review!
+                </p>
+              </CardContent>
+            </Card>
+          ) : (
+            <div className="space-y-4">
+              {reviews.map((review) => (
+                <ReviewCard
+                  key={review.id}
+                  review={review}
+                  className="min-w-full max-w-full"
+                />
+              ))}
+            </div>
+          ))}
       </div>
     </div>
   );
