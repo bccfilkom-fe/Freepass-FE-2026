@@ -1,14 +1,14 @@
 import { createClient } from '@/lib/supabase/server';
 import Link from 'next/link'
 import LogoutBtn from './logoutBtn';
-import { headers } from 'next/headers';
+// import { headers } from 'next/headers';
 
 async function Sidebar() {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
 
-  const header = await headers();
-  const pathname = new URL(header.get('referer') || "").pathname;
+  // const header = await headers();
+  // const pathname = new URL(header.get('referer') || "").pathname;
 
   return (
     <div className="hidden md:flex md:w-64 md:flex-col h-screen fixed top-0 left-0">
