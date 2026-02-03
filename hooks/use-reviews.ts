@@ -2,9 +2,10 @@
  * Review Hooks - TanStack Query hooks for review data
  */
 
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { queryKeyStore } from "@/lib/query-keys";
-import { getCanteenReviews } from "@/rpc/review";
+import { createReview, getCanteenReviews } from "@/rpc/review";
+import type { CreateReviewDTO } from "@/types/dto";
 import { mapReviews } from "@/types/mappers";
 
 /**
@@ -20,5 +21,29 @@ export function useCanteenReviews(canteenId: string, limit?: number) {
       return mapReviews(dtos);
     },
     enabled: !!canteenId,
+  });
+}
+
+/**
+ * Hook to create a review
+ */
+export function useCreateReview() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (data: CreateReviewDTO) => {
+      const dto = await createReview(data);
+      return dto;
+    },
+    onSuccess: (data) => {
+      // Invalidate reviews for the canteen
+      queryClient.invalidateQueries({
+        queryKey: queryKeyStore.review.lists(),
+      });
+      // Invalidate orders to update hasReview status
+      queryClient.invalidateQueries({
+        queryKey: queryKeyStore.order.all,
+      });
+    },
   });
 }
