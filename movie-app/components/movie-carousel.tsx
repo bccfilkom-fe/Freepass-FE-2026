@@ -16,7 +16,7 @@ export default function MovieCarousel({ movies, title }: MovieCarouselProp) {
 
     const scroll = (direction: 'left' | 'right') => {
         if (scrollContainerRef.current) {
-            const scrollAmount = 400;
+            const scrollAmount = 500;
             const currentScroll = scrollContainerRef.current.scrollLeft;
             const targetScroll = direction === "left" ? currentScroll - scrollAmount : currentScroll + scrollAmount;
 
@@ -32,17 +32,17 @@ export default function MovieCarousel({ movies, title }: MovieCarouselProp) {
     }
 
     return (
-        <section className="space-y-4 relative group">
+        <section className="space-y-4 relative ">
             <h2 className="text-2xl font-bold">{title}</h2>
 
-            <div className="relative">
+            <div className="relative ">
                 {/* scroll button */}
-                <Button variant="ghost" size="icon" className="absolute left-0 top-1/2 -translate-y-1/2 z-10 h-full rounded-none bg-linear-to-r from-background to-transparent opacity-0 group-hover:opacity-100 transition-opacity" onClick={() => scroll('left')}>
+                <Button variant="ghost" size="icon" className="absolute left-0 top-1/2 -translate-y-1/2 z-10 h-full rounded-none bg-linear-to-r from-background to-transparent opacity-100 transition-opacity" onClick={() => scroll('left')}>
                     <ChevronLeft className="w-8 h-8" />
                 </Button>
 
-                <Button variant="ghost" size="icon" className="absolute right-0 top-1/2 -translate-y-1/2 z-10 h-full rounded-none bg-liner-to-l from-background to-transparent opacity-0 group-hover:opacity-100 transition-opacity" onClick={() => scroll('right')}>
-                    <ChevronRight className="w-8 h8" />
+                <Button variant="ghost" size="icon" className="absolute right-0 top-1/2 -translate-y-1/2 z-10 h-full rounded-none bg-liner-to-l from-background to-transparent opacity-100 transition-opacity" onClick={() => scroll('right')}>
+                    <ChevronRight className="w-8 h8"  />
                 </Button>
 
                 {/* Scroll container */}

@@ -53,7 +53,7 @@ export interface SpokenLanguage {
 
 export interface Cast {
     id: number;
-    case_id: number;
+    cast_id: number;
     character: string;
     credit_id: string;
     name: string;
@@ -70,9 +70,8 @@ export interface TMDBesponse<T> {
 
 type Status = 'want-to-watch' | 'watching' | 'completed';
 
-export interface Watchlist {
+export interface WatchlistItem extends Movie {
     movieId: number;
-    movie: Movie;
     status: Status;
     rating?: number;
     notes?: string;
@@ -83,4 +82,15 @@ export interface WatchlistFormData {
     status: Status;
     rating?: number;
     notes?: string;
+}
+
+export interface Video {
+    id: string;
+    key: string; // yt
+    name: string;
+    site: string; // link
+    size: number;
+    type: string;
+    official: string;
+    published_at: string;
 }

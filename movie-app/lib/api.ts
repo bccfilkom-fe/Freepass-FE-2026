@@ -1,4 +1,4 @@
-import { Movie, MovieDetail, TMDBesponse } from "@/app/types/movie";
+import { Cast, Movie, MovieDetail, TMDBesponse, Video } from "@/app/types/movie";
 
 
 const API_KEY = process.env.NEXT_PUBLIC_TMDB_API_KEY;
@@ -18,8 +18,8 @@ const buildUrl = (endpoint: string, params: Record<string, string> = {}) => {
     Object.entries(params).forEach(([key, value]) => {
         url.searchParams.append(key, value);
     });
-    
-    
+
+
     return url.toString();
 };
 
@@ -59,8 +59,8 @@ export async function getTrendingMovies(timeWindow: 'day' | 'week' = 'week'): Pr
 }
 
 // popular movie
-export async function getPopularMovies(page:number = 1): Promise<TMDBesponse<Movie>> {
-    const data = await fetchFromTMDB<TMDBesponse<Movie>>(`/movie/popular/`, { page: page.toString() });
+export async function getPopularMovies(page: number = 1): Promise<TMDBesponse<Movie>> {
+    const data = await fetchFromTMDB<TMDBesponse<Movie>>(`/movie/popular`, { page: page.toString() });
     return data;
 }
 
@@ -77,7 +77,17 @@ export async function getNowPlayingMovies(page: number = 1): Promise<TMDBesponse
 }
 
 export async function getMovieDetails(movieId: number): Promise<MovieDetail> {
-    const data = await fetchFromTMDB<MovieDetail>(`/movie/${movieId}/credits`);
+    const data = await fetchFromTMDB<MovieDetail>(`/movie/${movieId}`);
+    return data;
+}
+
+export async function getMovieVideos(movieId: number): Promise<Video[]> {
+    const data = await fetchFromTMDB<{results: Video[]}>(`/movie/${movieId}/videos`);
+    return data.results;
+}
+
+export async function getMovieCredits(movieId: number): Promise<{ cast: Cast[] }> {
+    const data = await fetchFromTMDB<{ cast: Cast[] }>(`/movie/${movieId}/credits`);
     return data;
 }
 
@@ -89,23 +99,23 @@ export async function searchMovie(query: string, page: number = 1): Promise<TMDB
     return data;
 }
 
-export async function getMoviesByeGenre(genreId: number, page: number = 1): Promise<TMDBesponse<Movie>> {
-    const data = await fetchFromTMDB<TMDBesponse<Movie>>(`discover/movie`, {
-        genre: genreId.toString(),
+export async function getMoviesByGenre(genreId: number, page: number = 1): Promise<TMDBesponse<Movie>> {
+    const data = await fetchFromTMDB<TMDBesponse<Movie>>(`/discover/movie`, {
+        with_genres: genreId.toString(),
         page: page.toString(),
     });
     return data;
 }
 
-export async function getGenre(): Promise<{id: number, name: string}[]> {
-    const data = await fetchFromTMDB<{genres: { id: number; name: string;}[] }>(`/genre/movie/list`);
+export async function getGenre(): Promise<{ id: number, name: string }[]> {
+    const data = await fetchFromTMDB<{ genres: { id: number; name: string; }[] }>(`/genre/movie/list`);
     return data.genres;
 }
 
 export interface DiscoverFilters {
     genre?: number;
     year?: number;
-    sortBy?: 'popularity.desc' | 'vote_average' | 'release_date' ;
+    sortBy?: 'popularity.desc' | 'vote_average.desc' | 'release_date.desc';
     page?: number;
 }
 
@@ -116,14 +126,14 @@ export async function discoverMovies(filters: DiscoverFilters = {}): Promise<TMD
     };
 
     if (filters.genre) {
-        params.genre = filters.genre.toString();
+        params.with_genres = filters.genre.toString();
     }
 
     if (filters.year) {
-        params.year = filters.year.toString();
+        params.primary_release_year = filters.year.toString();
     }
 
-    return fetchFromTMDB<TMDBesponse<Movie>>(`discover/movie`, params);
+    return fetchFromTMDB<TMDBesponse<Movie>>(`/discover/movie`, params);
 };
 
 
