@@ -3,7 +3,7 @@ import React, { forwardRef } from 'react'
 import { AnimatePresence, motion } from "motion/react"
 
 type InputProps = {
-  label: string;
+  label?: string;
   children?: React.ReactNode;
   isPassword?: boolean;
   placeholder?: string;
@@ -16,19 +16,23 @@ const Input = forwardRef<HTMLInputElement, InputProps>((
   const [reveal, setReveal] = React.useState(false);
   
   return (
-    <div className='flex flex-col gap-1'>
+    <div className='w-full flex flex-col gap-1'>
       <label className='w-full relative h-16 flex gap-2'>
-        <div className='aspect-square rounded-md bg-secondary text-secondary-foreground flex justify-center items-center p-3 absolute top-1/2 -translate-y-1/2 left-2'> 
-          {children}
-        </div>
+        {children && (
+          <div className='aspect-square rounded-md bg-secondary text-secondary-foreground flex justify-center items-center p-3 absolute top-1/2 -translate-y-1/2 left-2'> 
+            {children}
+          </div>
+        )}
     
-        <p className={`text-xs font-light absolute top-2 ${children ? 'left-18' : 'left-2'}`}>{label}</p> 
+        {label && (
+          <p className={`text-xs font-light absolute top-2 ${children ? 'left-18' : 'left-2'}`}>{label}</p> 
+        )}
     
         <input
           {...props}
           ref={ref}
           type={!reveal && isPassword ? 'password' : 'text'}
-          className='w-full h-full bg-secondary/30 rounded-md pl-18 text-md pt-4 pr-8 focus:border-primary transition-all'
+          className={`w-full h-full bg-secondary/30 rounded-md ${children ? "pl-18" : "pl-2"} text-md ${label && "pt-4"} pr-8 focus:border-primary transition-all`}
           placeholder={placeholder}
           />
     

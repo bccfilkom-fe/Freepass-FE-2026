@@ -5,6 +5,7 @@ import { create } from "zustand";
 
 type useSessionType = {
   user: User | null,
+  updateUser: (partial: any) => void,
   accessToken: string | null,
   loading: boolean,
   fetchSession: () => Promise<void>,
@@ -13,6 +14,11 @@ type useSessionType = {
 
 export const useSession = create<useSessionType>(set => ({
   user: null,
+  updateUser: (partial) => {
+    set(state => ({
+      user: state.user ? { ...state.user, ...partial } : state.user
+    }))
+  },
   accessToken: null,
   loading: true,
   fetchSession: async () => {

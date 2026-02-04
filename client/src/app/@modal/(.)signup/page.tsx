@@ -6,9 +6,10 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import SignUpForm from "@/app/(auth)/signup/SignUpForm";
 import AuthLayout from "@/components/layouts/AuthLayout";
+import { useRouter } from '@bprogress/next/app';
 
 export default function SignUpPageInterceptor() {    
   const router = useRouter();
@@ -21,7 +22,7 @@ export default function SignUpPageInterceptor() {
     // if (typeof window !== "undefined" && window.history.length > 1) {
     //   router.back();
     // } else {
-      router.replace("/home");
+      router.replace("/home", { showProgress: true });
     // }
   };
 

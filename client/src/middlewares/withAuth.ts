@@ -1,11 +1,10 @@
-import { useSession } from "@/hooks/useSesssion";
-import { NextFetchEvent, NextProxy, NextRequest, NextResponse } from "next/server";
+import { NextFetchEvent, NextRequest, NextResponse } from "next/server";
 
-const adminOnlyPage = ["/admin"]
-const barberOnlyPage = ["/barber"]
-const customerOnlyPage = ["/profile", "/book"]
+const adminOnlyPage = ["/admin"];
+const barberOnlyPage = ["/barber"];
+const customerOnlyPage = ["/profile", "/book"];
 
-export default function withAuth(proxy: NextProxy) {
+export default function withAuth(proxy: (request: NextRequest, next: NextFetchEvent) => NextResponse) {
   return async (request: NextRequest, next: NextFetchEvent) => {
     const pathname = request.nextUrl.pathname;
 
@@ -13,13 +12,13 @@ export default function withAuth(proxy: NextProxy) {
     const isBarberPage = barberOnlyPage.some(prefix => pathname.startsWith(prefix))
     const isCustomerPage = customerOnlyPage.some(prefix => pathname.startsWith(prefix))
 
-    const user = useSession.getState().user
+    const role = request.cookies.get("role")?.value
 
     const isIllegal =
-      !!(user?.role === "CUSTOMER" && (isAdminPage || isBarberPage)) ||
-      !!(user?.role === "BARBER" && (isAdminPage || isCustomerPage)) ||
-      !!(user?.role === "ADMIN" && (isCustomerPage || isBarberPage)) ||
-      !!(!user && (isAdminPage || isBarberPage || isCustomerPage))
+      !!(role === "CUSTOMER" && (isAdminPage || isBarberPage)) ||
+      !!(role === "BARBER" && (isAdminPage || isCustomerPage)) ||
+      !!(role === "ADMIN" && (isCustomerPage || isBarberPage)) ||
+      !!(!role && (isAdminPage || isBarberPage || isCustomerPage))
     
     if (isIllegal) {
         const url = new URL("signin", request.url);

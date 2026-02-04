@@ -2,35 +2,30 @@ import privateApi from "@/lib/axios-interceptor"
 import { User } from "@/types/type"
 import axios from "axios"
 
-let refreshPromise: Promise<{ user: User, token: string }> | null = null
+const refreshClient = axios.create({
+  baseURL: process.env.NEXT_PUBLIC_API_URL,
+  withCredentials: true,
+})
 
-export function refreshAccessToken() {
+let refreshPromise: Promise<{ token: string, user: User }> | null = null
+
+export async function refreshAccessToken() {
   if (!refreshPromise) {
-    refreshPromise = axios.post(
-      `${process.env.NEXT_PUBLIC_API_URL}/auth/refresh`,
-      {},
-      { withCredentials: true }
-    )
+    refreshPromise = refreshClient.post(`/auth/refresh`)
     .then(res => {
       const token = res.data.accessToken
+      const user = res.data.user
       privateApi.defaults.headers.common.Authorization = `Bearer ${token}`
       
-      const user = {
-        displayName: res.data.user.displayName,
-        email: res.data.user.email,
-        role: res.data.user.role,
-        avatarUrl: res.data.user.avatarUrl
-      }
       return { user, token }
     })
-    .catch ((error) => {
-      console.log(error)
-      throw new Error(error)
-    })
-    .finally(() => {
+    .catch(error => {
       refreshPromise = null
+      throw error
     })
   }
 
-  return refreshPromise
+  const result = await refreshPromise
+  refreshPromise = null
+  return result
 }

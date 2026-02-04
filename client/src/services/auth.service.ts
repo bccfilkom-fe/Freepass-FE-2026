@@ -1,6 +1,6 @@
-import { useSession } from "@/hooks/useSesssion";
+import { useSession } from "@/hooks/useSession";
 import privateApi from "@/lib/axios-interceptor";
-import { SignInCredentials, SignUpCredentials } from "@/schema/schema";
+import { SignInCredentials, SignUpCredentials } from "@/schema/auth.schema";
 import axios, { AxiosError } from "axios";
 
 export const signUpService = async (signUpPayload: SignUpCredentials) => {
@@ -22,16 +22,9 @@ export const signInService = async (signInPayload: SignInCredentials & { remembe
     })
     const { accessToken, user, message } = response.data;
   
-    const mappedUser = {
-      displayName: user.displayName,
-      email: user.email,
-      role: user.role,
-      avatarUrl: user.avatarUrl
-    }
-  
     useSession.setState({
       accessToken,
-      user: mappedUser
+      user
     })
   
     return {message}
@@ -50,16 +43,9 @@ export const loginWithGoogleService = async (payload: { name: string; email: str
     })
     const { accessToken, user, message } = response.data;
   
-    const mappedUser = {
-      displayName: user.displayName,
-      email: user.email,
-      role: user.role,
-      avatarUrl: user.avatarUrl
-    }
-  
     useSession.setState({
       accessToken,
-      user: mappedUser
+      user
     })
   
     return {message}

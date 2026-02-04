@@ -2,18 +2,15 @@
 
 import MainButton from "@/components/button/MainButton"
 import Input from "@/components/input/Input"
-import { ForgotPasswordCredentials, ForgotPasswordSchema } from "@/schema/schema"
+import { ForgotPasswordCredentials, ForgotPasswordSchema } from "@/schema/auth.schema"
 import { forgotPasswordService } from "@/services/auth.service"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Mail } from "lucide-react"
 import Image from "next/image"
-import { useRouter } from "next/navigation"
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
 
 export default function ForgotPassword() {
-  const router = useRouter()
-
   const {
     register,
     handleSubmit,

@@ -2,15 +2,16 @@
 
 import MainButton from "@/components/button/MainButton"
 import Input from "@/components/input/Input"
-import { ResetPasswordCredentials, ResetPasswordSchema } from "@/schema/schema"
+import { ResetPasswordCredentials, ResetPasswordSchema } from "@/schema/auth.schema"
 import { resetPasswordService } from "@/services/auth.service"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Lock } from "lucide-react"
 import Image from "next/image"
-import { useRouter, useSearchParams } from "next/navigation"
+import { useSearchParams } from "next/navigation"
 import { useEffect } from "react"
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
+import { useRouter } from '@bprogress/next/app';
 
 export default function ResetPassword() {
   const router = useRouter()
@@ -40,7 +41,7 @@ export default function ResetPassword() {
 
       reset()
       toast.success(message)
-      router.replace("/signin")
+      router.replace("/signin", { showProgress: true })
     } catch (error) {
       toast.error((error as Error).message)
     }

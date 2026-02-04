@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import { Barlow_Semi_Condensed, Michroma } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "sonner";
-import AuthProvider from "./AuthProvider";
+import AuthProvider from "../components/providers/AuthProvider";
+import ProgressProvider from "../components/providers/ProgressProvider";
+import QueryProvider from "@/components/providers/QueryProvider";
 
 const barlow = Barlow_Semi_Condensed({
   variable: "--font-barlow",
@@ -33,11 +35,15 @@ export default function RootLayout({
       <body
         className={`${barlow.className} text-base lg:text-xl antialiased`}
       >
-        <AuthProvider>
-          <Toaster position="top-center"/>
-          {children}
-          {modal}
-        </AuthProvider>
+        <ProgressProvider>
+          <QueryProvider>
+            <AuthProvider>
+              <Toaster position="top-center"/>
+              {children}
+              {modal}
+            </AuthProvider>
+          </QueryProvider>
+        </ProgressProvider>
       </body>
     </html>
   );

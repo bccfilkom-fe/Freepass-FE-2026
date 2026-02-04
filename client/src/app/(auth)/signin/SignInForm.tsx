@@ -5,13 +5,14 @@ import Checkbox from '@/components/checkbox/Checkbox'
 import Input from '@/components/input/Input'
 import Divider from '@/components/ui/divider'
 import Image from 'next/image'
-import { SignInCredentials, SignInSchema } from '@/schema/schema'
+import { SignInCredentials, SignInSchema } from '@/schema/auth.schema'
 import { signInService } from '@/services/auth.service'
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Check, Lock, UserRound } from 'lucide-react'
 import { AnimatePresence, motion } from 'motion/react'
 import Link from 'next/link'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useSearchParams } from 'next/navigation'
+import { useRouter } from '@bprogress/next/app';
 import { useState } from 'react'
 import { Controller, useForm } from "react-hook-form"
 import { toast } from 'sonner'
@@ -43,7 +44,7 @@ const SignInForm = () => {
 
       reset()
       toast.success(message)
-      router.replace("/home")
+      router.replace("/home", { showProgress: true })
     } catch (error) {
       toast.error((error as Error).message)
     }
@@ -61,6 +62,7 @@ const SignInForm = () => {
       }
       
       toast.success("Login successfully")
+      console.log(response)
       router.replace(response.url ?? "/home")
     } catch (error) {
       toast.error(error instanceof Error ? error.message : "Failed to login with Google")
@@ -142,6 +144,7 @@ const SignInForm = () => {
 
       {/* SUBMIT BUTTON */}
       <MainButton
+        variant='primary'
         className='w-full'
         disabled={(errors.email || errors.password) ? true : false}
         isLoading={isSubmitting}

@@ -1,6 +1,8 @@
 import AuthLayout from '@/components/layouts/AuthLayout'
 import SignInForm from './SignInForm'
 import SimpleNavbar from '@/components/navbar/SimpleNavbar'
+import { Suspense } from 'react'
+import Spinner from '@/components/ui/spinner'
 
 const SignInPage = () => {
   return (
@@ -14,7 +16,9 @@ const SignInPage = () => {
         footerUrl="/signup"
       >
         <div className="w-full h-fit sticky top-0">
-          <SignInForm />
+          <Suspense fallback={<div className='flex justify-center items-center p-10'><Spinner/></div>}>
+            <SignInForm />
+          </Suspense>
         </div>
       </AuthLayout>
     </>

@@ -1,7 +1,8 @@
 import React from 'react'
+import Spinner from '../ui/spinner'
 
 type Props = {
-  variant?: 'primary' | 'secondary' | "outline",
+  variant?: 'primary' | 'secondary' | "outline" | "destructive",
   className?: string,
   children: React.ReactNode,
   onClick?: () => void,
@@ -15,18 +16,20 @@ type Props = {
 const MainButton = ({ animated = true, isLoading = false, disabled = false, type, onClick, variant = "primary", className, children, up }: Props) => {
   return (
     <button
-      disabled={disabled}
+      disabled={disabled || isLoading}
       type={type}
       onClick={onClick}
-      className={`group lando-transition uppercase text-md w-fit h-fit py-[.6em] px-[.8em] rounded-md cursor-pointer flex flex-col relative whitespace-nowrap shadow-2xs
-      hover:scale-105 active:scale-95 hover:shadow-none transition-all duration-300 leading-4
+      className={`group lando-transition uppercase text-md w-fit h-fit py-[.6em] px-[.8em] rounded-md flex flex-col items-center relative whitespace-nowrap shadow-2xs
+      transition-all duration-300 leading-4
+      ${(disabled || isLoading) ? "cursor-not-allowed opacity-80" : "cursor-pointer hover:scale-102 active:scale-95 hover:shadow-none"}
       ${variant === "primary" && "bg-primary-foreground hover:bg-primary-foreground/90"}
       ${variant === "secondary" && "bg-secondary-foreground hover:bg-secondary-foreground/90"}
       ${variant === "outline" && `border border-primary-foreground backdrop-blur-2xl hover:brightness-110`}
-      text-white ` + className}
+      ${variant === "destructive" && `bg-primary-foreground hover:bg-primary-foreground/90`} `
+      + className}
       >
         {isLoading ? (
-          <div>Loading</div>
+          <Spinner color='var(--secondary)'/>
         ) : (
           animated ? (
             <>
@@ -40,10 +43,11 @@ const MainButton = ({ animated = true, isLoading = false, disabled = false, type
                           inline-block
                           transition-all duration-300
                           translate-y-0
-                          group-hover:-translate-y-5
+                          ${!(disabled || isLoading) && "group-hover:-translate-y-5"}
                           ${variant === "primary" && "text-primary"}
                           ${variant === "secondary" && "text-secondary"}
                           ${variant === "outline" && "text-primary-foreground"}
+                          ${variant === "destructive" && "text-destructive font-semibold"}
                         `}
                       >
                         {char === " " ? "\u00A0" : char}
@@ -61,10 +65,11 @@ const MainButton = ({ animated = true, isLoading = false, disabled = false, type
                           inline-block
                           transition-all duration-300
                           translate-y-0
-                          ${up ? up : "group-hover:-translate-y-5"}
+                          ${up ? up : !(disabled || isLoading) && "group-hover:-translate-y-5"}
                           ${variant === "primary" && "text-primary"}
                           ${variant === "secondary" && "text-secondary"}
                           ${variant === "outline" && "text-primary-foreground"}
+                          ${variant === "destructive" && "text-destructive font-semibold"}
                         `}
                       >
                         {char === " " ? "\u00A0" : char}

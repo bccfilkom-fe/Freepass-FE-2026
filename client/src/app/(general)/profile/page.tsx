@@ -1,9 +1,7 @@
-import React from 'react'
+import { redirect } from 'next/navigation'
 
 const ProfilePage = () => {
-  return (
-    <div>page</div>
-  )
+  redirect("/profile/edit")
 }
 
 export default ProfilePage

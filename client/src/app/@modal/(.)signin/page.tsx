@@ -6,9 +6,12 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import AuthLayout from "@/components/layouts/AuthLayout";
 import SignInForm from "@/app/(auth)/signin/SignInForm";
+import { useRouter } from '@bprogress/next/app';
+import { Suspense } from "react";
+import Spinner from "@/components/ui/spinner";
 
 export default function SignInPageInterceptor() {    
   const router = useRouter();
@@ -23,7 +26,7 @@ export default function SignInPageInterceptor() {
     // if (typeof window !== "undefined" && window.history.length > 1) {
     //   router.back();
     // } else {
-      router.replace("/home");
+      router.replace("/home", { showProgress: true });
     // }
   };
 
@@ -43,7 +46,9 @@ export default function SignInPageInterceptor() {
           footerUrl="/signup"
         >
           <div className="w-full h-fit sticky top-0">
-            <SignInForm />
+            <Suspense fallback={<div className='flex justify-center items-center p-10'><Spinner/></div>}>
+              <SignInForm />
+            </Suspense>
           </div>
         </AuthLayout>
       </DialogContent>

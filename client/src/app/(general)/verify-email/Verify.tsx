@@ -2,15 +2,16 @@
 
 import MainButton from "@/components/button/MainButton"
 import Input from "@/components/input/Input"
-import { ResendVerifyCredentials, ResendVerifySchema } from "@/schema/schema"
+import { ResendVerifyCredentials, ResendVerifySchema } from "@/schema/auth.schema"
 import { resendVerifyService, verifyService } from "@/services/auth.service"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Mail } from "lucide-react"
 import Image from "next/image"
-import { useRouter, useSearchParams } from "next/navigation"
+import { useSearchParams } from "next/navigation"
 import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
+import { useRouter } from '@bprogress/next/app';
 
 export default function Verify() {
    const params = useSearchParams()
@@ -45,7 +46,7 @@ export default function Verify() {
             const response = await verifyService({ token })
    
             if (response.success) toast.success(response.message)
-            router.replace("/home?verified=true")
+            router.replace("/home?verified=true", { showProgress: true })
          } catch (error) {
             toast.error((error as Error).message)
             

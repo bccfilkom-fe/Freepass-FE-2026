@@ -8,7 +8,7 @@ import { useState } from 'react'
 import { toast } from 'sonner'
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod";
-import { SignInCredentials, SignInSchema, SignUpCredentials, SignUpSchema } from '@/schema/schema'
+import { SignInCredentials, SignInSchema, SignUpCredentials, SignUpSchema } from '@/schema/auth.schema'
 import Input from '@/components/input/Input'
 import { AnimatePresence, motion } from 'motion/react'
 import { signUpService } from '@/services/auth.service'
