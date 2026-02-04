@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import StokRendah from './stokRendah'
 
 function Page() {
   return (
     <>
-    <StokRendah></StokRendah>
+      <Suspense>
+        <StokRendah></StokRendah>
+      </Suspense>
     </>
   )
 }
