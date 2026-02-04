@@ -42,7 +42,7 @@ export default function CreateMovementModal() {
   if (!modalStore.isOpen || modalStore.type !== "create") return;
 
   return (
-    <div className="fixed flex items-center justify-center top-0 left-0 z-20 bg-black/10 backdrop-blur-xs shadow-sm h-screen w-screen" onClick={() => modalStore.closeModal()}>
+    <div className="fixed flex items-center justify-center top-0 left-0 z-50 bg-black/10 backdrop-blur-xs shadow-sm h-screen w-screen" onClick={() => modalStore.closeModal()}>
       <div className="h-fit mx-auto w-9/10 sm:min-w-md sm:max-w-xl shadow-sm py-4 px-6 sm:px-10 bg-white rounded-xl" onClick={(e) => e.stopPropagation()}>
         <div className="my-3">
           <h1 className="text-center text-2xl font-bold text-gray-900 ">Create New Movement Data</h1>

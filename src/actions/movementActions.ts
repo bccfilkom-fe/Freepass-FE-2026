@@ -70,9 +70,13 @@ export async function handleCreateMovement(prevState: FormState, formData: FormD
       };
     }
 
-    const { error } = await supabase
-      .from("nexstore_inventory_movements")
-      .insert({ user_id: userData.user.id, product_id: product_id, type: type, quantity: quantity, note: note === "" ? null : note });
+    const { error } = await supabase.rpc("handle_inventory_movement", {
+      p_product_id: product_id,
+      p_user_id: userData.user.id,
+      p_type: type,
+      p_quantity: quantity,
+      p_note: note === "" ? null : note,
+    });
 
     if (error) throw new Error(error.message);
 
@@ -143,10 +147,13 @@ export async function handleEditMovement(prevstate: FormState, formData: FormDat
   try {
     const supabase = await createClient();
 
-    const { error } = await supabase
-      .from("nexstore_inventory_movements")
-      .update({ product_id: product_id, type: type, quantity: quantity, note: note === "" ? null : note })
-      .eq("id", id);
+    const { error } = await supabase.rpc("handle_inventory_movement", {
+      p_product_id: product_id,
+      p_type: type,
+      p_quantity: quantity,
+      p_note: note === "" ? null : note,
+      p_movement_id: id
+    });
 
     if (error) throw new Error(error.message);
 

@@ -5,7 +5,7 @@ import { useCategoryModalStore } from "@//stores/CategoryModalStore";
 import CreateCategoryModal from "@//components/ui/modal/CreateCategoryModal";
 import EditCategoryModal from "@//components/ui/modal/EditCategoryModal";
 import { useToastStore } from "@//stores/ToastStore";
-import Loading from "../product/loading";
+import Loading from "@//components/loading";
 import { useEffect } from "react";
 
 function Categories() {
@@ -20,7 +20,7 @@ function Categories() {
     if (delSuccess) toastStore.addToast(true, "Berhasil menghapus kategori");
   }, [pendingCat])
 
-  if (isLoading) return <Loading></Loading>;
+  if (isLoading) return <div className="w-full pt-10"><Loading></Loading></div>;
 
   if (error) return <div className='mx-auto h-[80dvh] flex flex-col gap-3 items-center justify-center'>
     <p className='text-8xl font-extrabold mb-5'>OOPS</p>

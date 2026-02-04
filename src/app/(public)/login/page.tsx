@@ -25,7 +25,7 @@ function Login() {
   useEffect(() => {
     if (state.message) toastStore.addToast(state.success, state.message);
     if (state.success && state.user) {
-      router.push('/dashboard');
+      router.push('/product');
       router.refresh();
     }
   }, [state, router])

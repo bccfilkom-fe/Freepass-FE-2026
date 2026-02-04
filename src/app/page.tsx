@@ -60,10 +60,10 @@ function LandingPage() {
       <section className="mt-18 bg-amber-200 relative h-[70dvh] justify-center p-10 flex flex-col gap-10">
         <p className="text-5xl font-black">Welcome to nexStore</p>
         <p>Kelola inventori Anda dengan mudah dan efisien. Pantau stok, lacak pergerakan barang, dan tingkatkan produktivitas bisnis Anda.</p>
-        <Link href={"/dashboard"}>
+        <Link href={"/product"}>
           <BtnArrow bgArr="bg-black" colorArr="white">
             <p className="w-fit px-4 py-2 text-xl font-bold">
-              Lihat Dashboard
+              Mulai Kelola Produk
             </p>
           </BtnArrow>
         </Link>

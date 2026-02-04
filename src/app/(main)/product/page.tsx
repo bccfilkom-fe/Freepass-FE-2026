@@ -1,6 +1,6 @@
 "use client"
 
-import Loading from "./loading";
+import Loading from "@//components/loading";
 import { useSearchParams } from "next/navigation";
 import DropdownProduct from "@//components/ui/dropdownProduct";
 import { useDeleteProduct, useProducts } from "@//hooks/useProducts";
@@ -25,7 +25,7 @@ function Product() {
   }, [delIsPending])
 
   const { isLoading, data, isError, error } = useProducts(category);
-  if (isLoading) return <Loading></Loading>;
+  if (isLoading) return <div className="w-full pt-10"><Loading></Loading></div>;
   if (isError) return <div className='mx-auto h-[80dvh] flex flex-col gap-3 items-center justify-center'>
     <p className='text-8xl font-extrabold mb-5'>OOPS</p>
     <h2>Something went wrong! {error.message}</h2>

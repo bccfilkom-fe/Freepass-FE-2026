@@ -3,7 +3,7 @@ import { useSearchParams } from "next/navigation";
 import { movement } from "@//types/movements";
 import { useDeleteMovement, useMovements } from "@//hooks/useMovements";
 import { useMovementModalStore } from "@//stores/MovementsModalStore";
-import Loading from "../product/loading";
+import Loading from "@//components/loading";
 import { useToastStore } from "@//stores/ToastStore";
 import { useEffect } from "react";
 

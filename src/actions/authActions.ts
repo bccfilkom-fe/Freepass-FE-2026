@@ -91,9 +91,6 @@ export async function handleLogin(prevState: FormState, formData: FormData) {
     const cookieStore = await cookies();
     cookieStore.set("session_token", data.session.access_token);
 
-    // ini throw error, jadi tidak bisa begini
-    // redirect('/dashboard');
-
     return {
       success: true,
       message: 'Login Berhasil!',
