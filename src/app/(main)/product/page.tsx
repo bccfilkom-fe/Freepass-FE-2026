@@ -1,14 +1,17 @@
-"use client"
 import EditProductModal from "@//components/ui/modal/EditProductModal";
 import DropdownProduct from "@//components/ui/dropdownProduct";
 import { Suspense } from "react";
+import ProductList from "./ProductList";
 
 function page() {
   return (
     <>
       <EditProductModal></EditProductModal>
-      <DropdownProduct></DropdownProduct>
       <Suspense>
+        <DropdownProduct></DropdownProduct>
+      </Suspense>
+      <Suspense>
+        <ProductList></ProductList>
       </Suspense>
     </>
   )
