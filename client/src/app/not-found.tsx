@@ -1,11 +1,11 @@
 'use client'
 
 import MainButton from "@/components/button/MainButton"
-import { useRouter } from "@bprogress/next"
+import { useTransitionRouterWithProgress } from "@/hooks/useTransitionRouterWithProgress"
 import Image from "next/image"
 
 export default function NotFoundPage() {
-  const router = useRouter()
+  const router = useTransitionRouterWithProgress()
 
   return (
     <section className='w-full h-screen flex flex-col items-center justify-center'>
@@ -19,7 +19,7 @@ export default function NotFoundPage() {
 
       <main className="w-full max-w-3xl p-5 flex flex-col gap-5 items-center text-center">
         <p>Sorry, we couldn&apos;t find this page. But don&apos;t worry, you can find another page or back to home</p>
-        <MainButton onClick={() => router.replace("/home", { showProgress: true })}>
+        <MainButton onClick={() => router.replace("/home")}>
           Back to Home
         </MainButton>
       </main>

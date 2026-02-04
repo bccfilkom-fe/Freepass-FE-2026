@@ -1,16 +1,17 @@
 'use client'
 
 import { useIsMobile } from "@/hooks/useIsMobile";
+import { useSession } from "@/hooks/useSession";
+import { useTransitionRouterWithProgress } from "@/hooks/useTransitionRouterWithProgress";
 import { logoutService } from "@/services/auth.service";
-import { useRouter } from '@bprogress/next/app';
+import { User } from "@/types/type";
 import Image from "next/image";
 import { toast } from "sonner";
 import MainButton from "../button/MainButton";
 import HamburgerMenu from "../ui/hamburger-menu";
-import { useSession } from "@/hooks/useSession";
-import { User } from "@/types/type";
+import { useMenu } from "@/hooks/useMenu";
 
-const navListButton = {
+const navListGeneral = {
   guest: [
     {
       content: "Shop",
@@ -62,9 +63,10 @@ const navListButton = {
 }
 
 const Navbar = () => {
-  const router = useRouter()
+  const router = useTransitionRouterWithProgress()
   const isMobile = useIsMobile();
   const { user } = useSession();
+  const { isOpenMenu, setIsOpenMenu } = useMenu()
 
   return (
     <header className='w-full max-w-[1620px] p-6 lg:p-12 lg:py-8 fixed top-0 z-49 left-1/2 -translate-x-1/2'>
@@ -73,7 +75,7 @@ const Navbar = () => {
         >
           {/* LOGO */}
           <button 
-            onClick={() => router.push("/home", { showProgress: true })}
+            onClick={() => router.push("/home")}
             className="flex h-14 gap-2 px-4 py-1 items-center lg:bg-card rounded-md relative cursor-pointer hover:scale-105 active:scale-95 transition-all duration-300">
             <div className="relative h-8 w-8 rounded-md bg-white">
               <Image
@@ -90,11 +92,11 @@ const Navbar = () => {
           <ul className="h-14 flex items-center gap-2 p-2 border rounded-md lg:bg-card">
             { isMobile ? (
               <div className="bg-primary-foreground p-2 rounded-md hover:scale-105 active:scale-95 transition-all duration-300">
-                <HamburgerMenu />
+                <HamburgerMenu isOpenMenu={isOpenMenu} setIsOpenMenu={setIsOpenMenu}/>
               </div>
             ) : (
               <>
-                {navListButton[
+                {navListGeneral[
                   user && user.role && typeof user.role === 'string' && ['customer', 'barber', 'admin'].includes(user?.role.toLowerCase())
                     ? user.role.toLowerCase() as 'customer' | 'barber' | 'admin'
                     : 'guest'
@@ -104,7 +106,7 @@ const Navbar = () => {
                       <div className="relative group w-fit" key={index}>
                         <MainButton
                           variant="outline"
-                          onClick={() => router.push(button.url, { showProgress: true })}
+                          onClick={() => router.push(button.url)}
                         >
                           {button.content}
                         </MainButton>
@@ -117,7 +119,7 @@ const Navbar = () => {
                   }
 
                   return (
-                    <MainButton key={index} variant={button.variant as "outline" | "primary" | "secondary"} onClick={() => router.push(button.url, { showProgress: true })}>
+                    <MainButton key={index} variant={button.variant as "outline" | "primary" | "secondary"} onClick={() => router.push(button.url)}>
                       {button.content}
                     </MainButton>
                   )
@@ -136,13 +138,13 @@ export default Navbar
 
 
 const DropdownProfile = ({ user, profileUrl }: { user: User | null, profileUrl: string }) => {
-  const router = useRouter()
+  const router = useTransitionRouterWithProgress()
 
   const handleLogout = async () => {
     try {
       await logoutService()
 
-      router.replace("/home", { showProgress: true })
+      router.replace("/home")
     } catch (error) {
       toast.error((error as Error).message)
     }
@@ -164,8 +166,7 @@ const DropdownProfile = ({ user, profileUrl }: { user: User | null, profileUrl: 
         <h2 className="text-sm line-clamp-1">{user?.email}</h2>
       </div>
       <hr className="w-[90%] my-3" />
-      <hr className="w-[90%] my-3" />
-      <MainButton className="w-full" variant="outline" onClick={() => router.push(profileUrl, { showProgress: true })}>My Profile</MainButton>
+      <MainButton className="w-full" variant="outline" onClick={() => router.push(profileUrl)}>My Profile</MainButton>
       <MainButton className="w-full" variant="destructive" onClick={() => handleLogout()}>Sign Out</MainButton>
     </div>
   )

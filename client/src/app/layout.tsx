@@ -1,12 +1,12 @@
+import QueryProvider from "@/components/providers/QueryProvider";
+import ThemesProvider from "@/components/providers/ThemesProvider";
 import type { Metadata } from "next";
+import { ViewTransitions } from "next-view-transitions";
 import { Barlow_Semi_Condensed, Michroma } from "next/font/google";
-import "./globals.css";
 import { Toaster } from "sonner";
 import AuthProvider from "../components/providers/AuthProvider";
 import ProgressProvider from "../components/providers/ProgressProvider";
-import QueryProvider from "@/components/providers/QueryProvider";
-import ThemesProvider from "@/components/providers/ThemesProvider";
-import StyledComponentsRegistry from "@/lib/styled-components-registry";
+import "./globals.css";
 
 const barlow = Barlow_Semi_Condensed({
   variable: "--font-barlow",
@@ -35,9 +35,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${barlow.className} text-base lg:text-xl antialiased`}
+        className={`${barlow.variable} ${michroma.variable} text-base lg:text-xl antialiased`}
       >
-        <StyledComponentsRegistry>
+        <ViewTransitions>
           <ThemesProvider>
             <ProgressProvider>
               <QueryProvider>
@@ -49,7 +49,7 @@ export default function RootLayout({
               </QueryProvider>
             </ProgressProvider>
           </ThemesProvider>
-        </StyledComponentsRegistry>
+        </ViewTransitions>
       </body>
     </html>
   );

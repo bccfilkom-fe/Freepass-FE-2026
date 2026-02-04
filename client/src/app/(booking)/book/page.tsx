@@ -1,11 +1,11 @@
 'use client'
 
 import MainButton from "@/components/button/MainButton"
-import { useRouter } from "@bprogress/next"
+import { useTransitionRouterWithProgress } from "@/hooks/useTransitionRouterWithProgress"
 import Image from "next/image"
 
 const BookingPage = () => {
-  const router = useRouter()
+  const router = useTransitionRouterWithProgress()
 
   return (
     <section className='w-full h-screen flex flex-col items-center justify-center'>
@@ -20,7 +20,7 @@ const BookingPage = () => {
       <main className="w-full max-w-3xl p-5 flex flex-col gap-5 items-center text-center">
         <p>We’re busy putting the finishing touches on this page. <br />
           Give us a little time and come back soon for something awesome.</p>
-        <MainButton onClick={() => router.replace("/home", { showProgress: true })}>
+        <MainButton onClick={() => router.replace("/home")}>
           Back to Home
         </MainButton>
       </main>

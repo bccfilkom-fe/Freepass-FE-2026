@@ -17,11 +17,12 @@ import { useState } from 'react'
 import { Controller, useForm } from "react-hook-form"
 import { toast } from 'sonner'
 import { signIn } from "next-auth/react";
+import { useTransitionRouterWithProgress } from '@/hooks/useTransitionRouterWithProgress'
 
 const SignInForm = () => {
   const searchParams = useSearchParams()
   const [onPasswordBlur, setOnPasswordBlur] = useState(false);
-  const router = useRouter()
+  const router = useTransitionRouterWithProgress()
 
   const {
     register,
@@ -44,7 +45,7 @@ const SignInForm = () => {
 
       reset()
       toast.success(message)
-      router.replace("/home", { showProgress: true })
+      router.replace("/home")
     } catch (error) {
       toast.error((error as Error).message)
     }

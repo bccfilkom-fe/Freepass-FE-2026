@@ -1,10 +1,16 @@
 import styled from 'styled-components';
 
-const HamburgerMenu = () => {
+const HamburgerMenu = ({
+  isOpenMenu,
+  setIsOpenMenu
+}: {
+  isOpenMenu: boolean,
+  setIsOpenMenu: (arg: boolean) => void
+}) => {
   return (
     <StyledWrapper>
       <label className="container">
-        <input type="checkbox" />
+        <input type="checkbox" checked={isOpenMenu} onChange={(e) => setIsOpenMenu(e.target.checked)}/>
         <div className="checkmark">
           <span />
           <span />

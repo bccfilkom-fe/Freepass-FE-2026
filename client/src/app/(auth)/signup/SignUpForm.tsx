@@ -1,21 +1,17 @@
 'use client'
 
 import MainButton from '@/components/button/MainButton'
-import Checkbox from '@/components/checkbox/Checkbox'
-import { Lock, UserRound, Check, Mail } from 'lucide-react'
-import Link from 'next/link'
-import { useState } from 'react'
-import { toast } from 'sonner'
-import { useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod";
-import { SignInCredentials, SignInSchema, SignUpCredentials, SignUpSchema } from '@/schema/auth.schema'
 import Input from '@/components/input/Input'
-import { AnimatePresence, motion } from 'motion/react'
+import { SignUpCredentials, SignUpSchema } from '@/schema/auth.schema'
 import { signUpService } from '@/services/auth.service'
-import { AxiosError } from 'axios'
+import { zodResolver } from "@hookform/resolvers/zod"
+import { Check, Lock, Mail, UserRound } from 'lucide-react'
+import { AnimatePresence, motion } from 'motion/react'
+import { useState } from 'react'
+import { useForm } from "react-hook-form"
+import { toast } from 'sonner'
 
 const SignUpForm = () => {
-  const [rememberMe, setRememberMe] = useState(false);
   const [onPasswordBlur, setOnPasswordBlur] = useState(false)
 
   const {
