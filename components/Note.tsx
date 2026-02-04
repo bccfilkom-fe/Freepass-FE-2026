@@ -1,3 +1,5 @@
+"use client";
+
 import { NoteProps } from "@/types/note";
 
 export default function Note({
