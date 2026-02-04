@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:platzi_admin_app/presentation/controllers/product_form_controller.dart';
 import '../../controllers/home_controller.dart';
 import '../../widgets/home/home_drawer.dart';
 import '../../widgets/home/home_app_bar.dart';
 import '../../widgets/home/sticky_header_delegate.dart';
 import '../../widgets/home/search_filter_header.dart';
 import '../../widgets/home/product_grid.dart';
-import '../../../app/routes/app_routes.dart';
 import '../../widgets/common/custom_loading_widget.dart';
 import '../../widgets/product/product_bottom_sheet.dart';
 
@@ -44,7 +44,6 @@ class HomePage extends GetView<HomeController> {
             slivers: [
               HomeAppBar(scaffoldKey: _scaffoldKey),
 
-              // Sticky Header for Search & Filter
               SliverPersistentHeader(
                 pinned: true,
                 delegate: StickyHeaderDelegate(
@@ -56,7 +55,6 @@ class HomePage extends GetView<HomeController> {
                 ),
               ),
 
-              // Product List Title
               SliverToBoxAdapter(
                 child: Padding(
                   padding: EdgeInsets.fromLTRB(16.w, 16.h, 16.w, 8.h),
@@ -69,7 +67,6 @@ class HomePage extends GetView<HomeController> {
                           .categories[controller.selectedCategoryIndex.value]
                           .name;
                     }
-                    // Show price range if active and not default (0 - 5000)
                     final isDefaultRange =
                         (controller.minPrice.value == null ||
                             controller.minPrice.value == 0) &&
@@ -122,24 +119,27 @@ class HomePage extends GetView<HomeController> {
                 ),
               ),
 
-              // Product Grid
               const ProductGrid(),
 
-              // Pagination Loading
               SliverToBoxAdapter(
                 child: Obx(
                   () => controller.isMoreLoading.value
                       ? const PaginationLoadingIndicator()
                       : SizedBox(height: 80.h),
-                ), // Extra padding for FAB
+                ),
               ),
             ],
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: FloatingActionButton.extended(
         heroTag: 'home_fab',
+
         onPressed: () async {
+          if (!Get.isRegistered<ProductFormController>()) {
+            Get.put(ProductFormController(Get.find()));
+          }
+
           final result = await Get.bottomSheet(
             const ProductBottomSheet(),
             isScrollControlled: true,
@@ -154,7 +154,11 @@ class HomePage extends GetView<HomeController> {
           }
         },
         backgroundColor: const Color(0xFFFF7043),
-        child: const Icon(Icons.add, color: Colors.white),
+        icon: const Icon(Icons.add, color: Colors.white),
+        label: const Text(
+          'Add Product',
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        ),
       ),
     );
   }

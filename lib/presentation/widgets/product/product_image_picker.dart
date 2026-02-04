@@ -1,12 +1,15 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import '../../controllers/product_form_controller.dart';
 
 class ProductImagePicker extends StatelessWidget {
   final ProductFormController controller;
 
-  const ProductImagePicker({Key? key, required this.controller}) : super(key: key);
+  const ProductImagePicker({Key? key, required this.controller})
+    : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,32 +28,21 @@ class ProductImagePicker extends StatelessWidget {
               ? ClipRRect(
                   borderRadius: BorderRadius.circular(12.r),
                   child: Image.file(
-                    controller.selectedImage.value!,
+                    controller.selectedImage.value as File,
                     fit: BoxFit.cover,
                   ),
                 )
-              : (controller.productToEdit != null &&
-                      controller.productToEdit!.images.isNotEmpty
-                  ? ClipRRect(
-                      borderRadius: BorderRadius.circular(12.r),
-                      child: Image.network(
-                        controller.productToEdit!.images.first.startsWith('[')
-                            ? controller.productToEdit!.images.first
-                                .replaceAll(RegExp(r'[\[\]"]'), '')
-                            : controller.productToEdit!.images.first,
-                        fit: BoxFit.cover,
-                        errorBuilder: (_, __, ___) => const Center(
-                          child: Icon(Icons.add_a_photo, size: 50),
-                        ),
-                      ),
-                    )
-                  : const Center(
-                      child: Icon(
-                        Icons.add_a_photo,
-                        size: 50,
-                        color: Colors.grey,
-                      ),
-                    )),
+              : controller.editingProduct != null
+              ? ClipRRect(
+                  borderRadius: BorderRadius.circular(12.r),
+                  child: Image.network(
+                    controller.editingProduct!.images.first,
+                    fit: BoxFit.cover,
+                    errorBuilder: (_, __, ___) =>
+                        const Icon(Icons.add_a_photo, size: 50),
+                  ),
+                )
+              : const Center(child: Icon(Icons.add_a_photo, size: 50)),
         );
       }),
     );

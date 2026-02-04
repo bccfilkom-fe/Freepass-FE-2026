@@ -13,7 +13,6 @@ class CategoryPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Ensure controller is loaded
     final controller = Get.put(CategoryController(Get.find()));
 
     return Scaffold(
@@ -55,7 +54,6 @@ class CategoryPage extends StatelessWidget {
               ),
               itemCount: controller.categories.length,
               itemBuilder: (context, index) {
-                // Instruction for the first item
                 if (index == 0) {
                   return Column(
                     children: [
@@ -73,7 +71,6 @@ class CategoryPage extends StatelessWidget {
                           ),
                         ),
                         child: Row(
-                          mainAxisSize: MainAxisSize.min,
                           children: [
                             Icon(
                               Icons.swipe_left_rounded,
@@ -82,7 +79,7 @@ class CategoryPage extends StatelessWidget {
                             ),
                             SizedBox(width: 8.w),
                             Text(
-                              'Swipe left to edit or delete',
+                              'Swipe left to delete',
                               style: TextStyle(
                                 color: const Color(0xFFFF7043),
                                 fontWeight: FontWeight.w600,
@@ -111,26 +108,6 @@ class CategoryPage extends StatelessWidget {
             ),
           );
         }),
-      ),
-      floatingActionButton: FloatingActionButton.extended(
-        heroTag: 'category_fab',
-        onPressed: () async {
-          final result = await Get.bottomSheet(
-            const CategoryBottomSheet(),
-            isScrollControlled: true,
-            backgroundColor: Get.theme.scaffoldBackgroundColor,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.vertical(top: Radius.circular(20.r)),
-            ),
-          );
-          if (result == true) controller.fetchCategories();
-        },
-        backgroundColor: const Color(0xFFFF7043),
-        icon: const Icon(Icons.add, color: Colors.white),
-        label: const Text(
-          'Add Category',
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-        ),
       ),
     );
   }

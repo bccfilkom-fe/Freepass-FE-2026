@@ -1,46 +1,67 @@
-# Platzi Fake Store App
+# 🛒 Platzi Fake Store App
 
-A Flutter E-commerce application built with Clean Architecture and GetX.
+A modern **Flutter E-commerce application** built using **Clean Architecture** principles and **GetX** for scalable state management.
 
-## Features
+This project consumes the **Platzi Fake Store API** and demonstrates best practices in Flutter app structure, API handling, authentication, and UI responsiveness.
 
-- **Clean Architecture**: Separation of concerns into Domain, Data, and Presentation layers.
-- **State Management**: GetX for reactive state management, dependency injection, and routing.
-- **Network**: Dio for efficient API requests.
-- **Local Storage**: Hive for offline data persistence (User session, Products cache).
-- **Responsive Design**: Adapts to various screen sizes using `flutter_screenutil`.
-- **UI/UX**: Modern interface with animations (Hero, Staggered List) and Theme Switching (Light/Dark).
+---
 
-## Tech Stack
+## ✨ Features
 
-- Flutter & Dart
-- GetX
-- Dio
-- Hive
-- CachedNetworkImage
-- Flutter ScreenUtil
+- **Clean Architecture**
+  - Clear separation between **Domain**, **Data**, and **Presentation** layers
+  - Easier to maintain, test, and scale
 
-## Setup
+- **State Management & Dependency Injection**
+  - Powered by **GetX**
+  - Reactive state (`Obx`)
+  - Route management & dependency bindings
 
-1.  **Clone the repository**
-2.  **Install dependencies**:
-    ```bash
-    flutter pub get
-    ```
-3.  **Run the app**:
-    ```bash
-    flutter run
-    ```
+- **Authentication**
+  - Admin login using Platzi Fake Store API
+  - Token-based authentication for protected endpoints (Create / Update / Delete Product)
 
-## Folder Structure
+- **Network**
+  - **Dio** for REST API communication
+  - Centralized API configuration & error handling
 
-- `lib/app`: Application configuration (Bindings, Routes, Theme, Constants).
-- `lib/data`: Data layer implementation (Models, API Services, Local Storage, Repositories).
-- `lib/domain`: Business logic definitions (Entities, Repository Interfaces).
-- `lib/presentation`: UI layer (Pages, Controllers, Widgets).
+- **Local Storage**
+  - **Hive** for:
+    - User session persistence
+    - Cached product data (offline-friendly)
 
-## API
+- **Responsive UI**
+  - Adaptive layouts using **flutter_screenutil**
+  - Works well on different screen sizes
 
-Uses the [Platzi Fake Store API](https://api.escuelajs.co).
-- Base URL: `https://api.escuelajs.co`
-- Endpoints: Products, Categories, Users, Auth.
+- **UI / UX**
+  - Modern Material UI
+  - Light & Dark theme support
+  - Smooth animations (Hero, staggered lists)
+
+---
+
+## 🧰 Tech Stack
+
+- **Flutter & Dart**
+- **GetX**
+- **Dio**
+- **Hive**
+- **CachedNetworkImage**
+- **Flutter ScreenUtil**
+
+---
+
+## 🔐 Admin Login Credentials
+
+⚠️ **Important**
+
+Only **admin users** are allowed to create and update products.
+
+Use the following credentials to log in as admin:
+
+```json
+{
+  "email": "john@mail.com",
+  "password": "changeme"
+}

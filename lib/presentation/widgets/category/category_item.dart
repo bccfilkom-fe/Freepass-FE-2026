@@ -35,30 +35,6 @@ class CategoryItem extends StatelessWidget {
                 motion: const ScrollMotion(),
                 children: [
                   SlidableAction(
-                    onPressed: (context) async {
-                      final result = await Get.bottomSheet(
-                        CategoryBottomSheet(categoryToEdit: category),
-                        isScrollControlled: true,
-                        backgroundColor: Get.theme.scaffoldBackgroundColor,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.vertical(
-                            top: Radius.circular(20.r),
-                          ),
-                        ),
-                      );
-                      if (result == true) {
-                        controller.fetchCategories();
-                      }
-                    },
-                    backgroundColor: Colors.blue,
-                    foregroundColor: Colors.white,
-                    icon: Icons.edit,
-                    label: 'Edit',
-                    borderRadius: BorderRadius.horizontal(
-                      left: Radius.circular(12.r),
-                    ),
-                  ),
-                  SlidableAction(
                     onPressed: (context) {
                       Get.defaultDialog(
                         title: 'Delete Category',
@@ -74,8 +50,8 @@ class CategoryItem extends StatelessWidget {
                         buttonColor: Colors.red,
                         cancelTextColor: Colors.grey,
                         onConfirm: () {
-                          controller.deleteCategory(category.id);
                           Get.back();
+                          controller.deleteCategory(category.id);
                         },
                       );
                     },
@@ -93,7 +69,9 @@ class CategoryItem extends StatelessWidget {
                 height: 70.h,
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  color: Get.isDarkMode ? const Color(0xFF2C2C2C) : Colors.white,
+                  color: Get.isDarkMode
+                      ? const Color(0xFF2C2C2C)
+                      : Colors.white,
                   borderRadius: BorderRadius.circular(12.r),
                   boxShadow: [
                     BoxShadow(

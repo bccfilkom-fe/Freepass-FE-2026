@@ -22,12 +22,11 @@ class ProductDetailController extends GetxController {
 
   Future<void> deleteProduct() async {
     try {
-      // Show loading indicator or confirmation again if needed, but we already have a dialog.
-      // Maybe better to wrap in a try-catch with specific error handling for Dio exceptions
       final success = await _repository.deleteProduct(product.value.id);
       if (success) {
+         Get.back(result: true); 
         Get.snackbar('Success', 'Product deleted');
-        Get.back(result: true); // Return result to calling page (Home)
+       
       } else {
          Get.snackbar('Error', 'Failed to delete product. Please try again.');
       }
@@ -51,7 +50,6 @@ class ProductDetailController extends GetxController {
       ),
     );
     if (result == true) {
-      // Refresh details
       await fetchProductDetails();
       Get.snackbar('Success', 'Product details updated');
     }

@@ -8,7 +8,7 @@ class SearchFilterHeader extends StatelessWidget {
   final TextEditingController searchController;
 
   const SearchFilterHeader({Key? key, required this.searchController})
-      : super(key: key);
+    : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,14 +19,11 @@ class SearchFilterHeader extends StatelessWidget {
       padding: EdgeInsets.symmetric(vertical: 10.h),
       child: Column(
         children: [
-          // Search Bar
           Container(
             margin: EdgeInsets.symmetric(horizontal: 16.w),
             height: 50.h,
             decoration: BoxDecoration(
-              color: Get.isDarkMode
-                  ? const Color(0xFF2C2C2C)
-                  : Colors.white,
+              color: Get.isDarkMode ? const Color(0xFF2C2C2C) : Colors.white,
               borderRadius: BorderRadius.circular(16.r),
               boxShadow: [
                 BoxShadow(
@@ -62,16 +59,9 @@ class SearchFilterHeader extends StatelessWidget {
                         fontWeight: FontWeight.w400,
                       ),
                       border: InputBorder.none,
-                      contentPadding: EdgeInsets.symmetric(
-                        vertical: 10.h,
-                      ),
-                      // isDense: true,
+                      contentPadding: EdgeInsets.symmetric(vertical: 10.h),
                       suffixIcon: Obx(
-                        () =>
-                            controller
-                                .searchQuery
-                                .value
-                                .isNotEmpty
+                        () => controller.searchQuery.value.isNotEmpty
                             ? IconButton(
                                 icon: Icon(
                                   Icons.close,
@@ -114,7 +104,6 @@ class SearchFilterHeader extends StatelessWidget {
 
           SizedBox(height: 11.h),
 
-          // Categories
           SizedBox(
             height: 39.h,
             child: Obx(
@@ -127,15 +116,11 @@ class SearchFilterHeader extends StatelessWidget {
                   final category = controller.categories[index];
                   return Obx(() {
                     final isSelected =
-                        controller.selectedCategoryIndex.value ==
-                        index;
+                        controller.selectedCategoryIndex.value == index;
                     return GestureDetector(
-                      onTap: () =>
-                          controller.filterByCategory(index),
+                      onTap: () => controller.filterByCategory(index),
                       child: AnimatedContainer(
-                        duration: const Duration(
-                          milliseconds: 300,
-                        ),
+                        duration: const Duration(milliseconds: 300),
                         padding: EdgeInsets.symmetric(
                           horizontal: 16.w,
                           vertical: 8.h,
@@ -146,13 +131,13 @@ class SearchFilterHeader extends StatelessWidget {
                               : (Get.isDarkMode
                                     ? const Color(0xFF2C2C2C)
                                     : Colors.white),
-                          borderRadius: BorderRadius.circular(
-                            25.r,
-                          ),
+                          borderRadius: BorderRadius.circular(25.r),
                           border: Border.all(
                             color: isSelected
                                 ? Colors.transparent
-                                : Colors.grey[300]!,
+                                : (Get.isDarkMode
+                                      ? const Color(0xFF2C2C2C)
+                                      : Colors.grey[300]!),
                             width: 1,
                           ),
                         ),

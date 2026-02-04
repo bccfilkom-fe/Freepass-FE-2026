@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:platzi_admin_app/presentation/controllers/product_form_controller.dart';
 import '../../controllers/product_detail_controller.dart';
 import '../../widgets/product/product_image_gallery.dart';
 import '../../widgets/product/product_info_section.dart';
@@ -40,7 +41,12 @@ class ProductDetailPage extends StatelessWidget {
         actions: [
           IconButton(
             icon: const Icon(Icons.edit_outlined),
-            onPressed: () => controller.editProduct(),
+            onPressed: () {
+              if (!Get.isRegistered<ProductFormController>()) {
+                Get.put(ProductFormController(Get.find()));
+              }
+              controller.editProduct();
+            },
           ),
           IconButton(
             icon: const Icon(Icons.delete_outline, color: Colors.red),
@@ -53,8 +59,8 @@ class ProductDetailPage extends StatelessWidget {
                 confirmTextColor: Colors.white,
                 buttonColor: Colors.red,
                 onConfirm: () {
+                  Get.back();
                   controller.deleteProduct();
-                  Get.back(); // Close dialog
                 },
               );
             },
@@ -65,9 +71,6 @@ class ProductDetailPage extends StatelessWidget {
       extendBodyBehindAppBar: false,
       body: Obx(() {
         final product = controller.product.value;
-
-        // Handle null product/loading state gracefully if needed
-        // For now, assuming product is available as per controller logic
 
         return Column(
           children: [

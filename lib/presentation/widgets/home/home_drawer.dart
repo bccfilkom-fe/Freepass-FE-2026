@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../controllers/auth_controller.dart';
-import '../../../app/routes/app_routes.dart';
 
 class HomeDrawer extends StatelessWidget {
   const HomeDrawer({Key? key}) : super(key: key);
@@ -43,7 +42,6 @@ class HomeDrawer extends StatelessWidget {
               ),
             );
           }),
-          // User Details
           Obx(() {
             final user = authController.user.value;
             return Padding(
@@ -59,7 +57,7 @@ class HomeDrawer extends StatelessWidget {
                     ListTile(
                       leading: const Icon(Icons.admin_panel_settings_outlined),
                       title: const Text('Role'),
-                      subtitle: Text(user.role.toUpperCase()),
+                      subtitle: Text("ADMIN"),
                     ),
                   ],
                 ],

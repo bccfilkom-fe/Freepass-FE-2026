@@ -46,7 +46,7 @@ class HomeController extends GetxController {
       await fetchProducts(refresh: true);
     } catch (e) {
       Get.snackbar('Error', 'Failed to load data: $e');
-      isLoading.value = false; // Ensure loading is disabled on error
+      isLoading.value = false; 
     }
   }
 

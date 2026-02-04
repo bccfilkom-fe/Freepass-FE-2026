@@ -44,10 +44,7 @@ class DashboardPage extends StatelessWidget {
         body: Obx(
           () => IndexedStack(
             index: controller.tabIndex.value,
-            children: [
-              HomePage(),
-              const CategoryPage(), // Will create
-            ],
+            children: [HomePage(), const CategoryPage()],
           ),
         ),
         bottomNavigationBar: Obx(
@@ -55,8 +52,10 @@ class DashboardPage extends StatelessWidget {
             onTap: controller.changeTabIndex,
             currentIndex: controller.tabIndex.value,
             type: BottomNavigationBarType.fixed,
-            selectedItemColor: Colors.black,
-            unselectedItemColor: Colors.grey,
+            selectedItemColor: (Get.isDarkMode ? Colors.white : Colors.black),
+            unselectedItemColor: (Get.isDarkMode
+                ? Colors.grey[100]!
+                : Colors.grey),
             showSelectedLabels: false,
             showUnselectedLabels: false,
             items: const [

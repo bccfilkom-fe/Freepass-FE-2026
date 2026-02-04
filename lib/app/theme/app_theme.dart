@@ -20,10 +20,6 @@ class AppTheme {
         fontWeight: FontWeight.bold,
       ),
     ),
-    // cardTheme: CardTheme(
-    //   elevation: 2,
-    //   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-    // ),
   );
 
   static final darkTheme = ThemeData(
@@ -44,10 +40,5 @@ class AppTheme {
         fontWeight: FontWeight.bold,
       ),
     ),
-    // cardTheme: CardTheme(
-    //   color: const Color(0xFF1E1E1E),
-    //   elevation: 2,
-    //   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-    // ),
   );
 }

@@ -189,17 +189,14 @@ class CategoryBottomSheet extends StatelessWidget {
                   text: categoryToEdit != null
                       ? 'Update Category'
                       : 'Create Category',
-                  // backgroundColor: const Color(0xFFFF7043), // Not supported in CustomButton
-                  // textColor: Colors.white, // Not supported in CustomButton
+         
                   onPressed: () async {
                     if (nameController.text.isEmpty) {
                       Get.snackbar('Error', 'Please enter a category name');
                       return;
                     }
                     await controller.saveCategory(nameController.text);
-                    // Close bottom sheet if success (controller handles this usually, but to be safe)
                     if (!controller.isLoading.value) {
-                      // Get.back(result: true); // Controller already handles closing
                     }
                   },
                 ),

@@ -8,118 +8,69 @@ import '../../../app/utils/image_utils.dart';
 class ProductImageGallery extends StatelessWidget {
   final ProductModel product;
 
-  const ProductImageGallery({Key? key, required this.product}) : super(key: key);
+  const ProductImageGallery({Key? key, required this.product})
+    : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        // Main Image
-        Hero(
-          tag: 'product_${product.id}',
-          child: Container(
-            height: 350.h,
-            width: double.infinity,
-            margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(30.r),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.15),
-                  blurRadius: 20,
-                  offset: const Offset(0, 10),
-                ),
-              ],
+    return Hero(
+      tag: 'product_${product.id}',
+      child: Container(
+        height: 350.h,
+        width: double.infinity,
+        margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(30.r),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.15),
+              blurRadius: 20,
+              offset: const Offset(0, 10),
             ),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(30.r),
-              child: CachedNetworkImage(
-                imageUrl: ImageUtils.getValidImageUrl(
-                  product.images.isNotEmpty ? product.images.first : null,
+          ],
+        ),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(30.r),
+          child: CachedNetworkImage(
+            imageUrl: ImageUtils.getValidImageUrl(
+              product.images.isNotEmpty ? product.images.first : null,
+            ),
+            fit: BoxFit.cover,
+            placeholder: (context, url) => Container(
+              color: Colors.grey[200],
+              child: Center(
+                child: LoadingAnimationWidget.staggeredDotsWave(
+                  color: const Color(0xFFFF7043),
+                  size: 40.sp,
                 ),
-                fit: BoxFit.cover,
-                placeholder: (context, url) => Container(
-                  color: Colors.grey[200],
-                  child: Center(
-                    child: LoadingAnimationWidget.staggeredDotsWave(
-                      color: const Color(0xFFFF7043),
-                      size: 40.sp,
-                    ),
-                  ),
-                ),
-                errorWidget: (context, url, error) {
-                  return Container(
-                    color: Colors.grey[200],
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Icon(
-                          Icons.broken_image_outlined,
-                          size: 50,
-                          color: Colors.grey,
-                        ),
-                        SizedBox(height: 8.h),
-                        Text(
-                          'Image not available',
-                          style: TextStyle(
-                            color: Colors.grey[600],
-                            fontSize: 12.sp,
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
-                },
               ),
             ),
-          ),
-        ),
-
-        // Thumbnails
-        if (product.images.length > 1)
-          SizedBox(
-            height: 80.h,
-            child: ListView.separated(
-              padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
-              scrollDirection: Axis.horizontal,
-              itemCount: product.images.length,
-              separatorBuilder: (_, __) => SizedBox(width: 12.w),
-              itemBuilder: (context, index) {
-                final imgUrl = ImageUtils.getValidImageUrl(
-                  product.images[index],
-                );
-
-                return Container(
-                  width: 60.w,
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: index == 0
-                          ? const Color(0xFFFF7043)
-                          : Colors.transparent,
-                      width: 2,
+            errorWidget: (context, url, error) {
+              return Container(
+                color: Colors.grey[200],
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Icon(
+                      Icons.broken_image_outlined,
+                      size: 50,
+                      color: Colors.grey,
                     ),
-                    borderRadius: BorderRadius.circular(16.r),
-                  ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(14.r),
-                    child: CachedNetworkImage(
-                      imageUrl: imgUrl,
-                      fit: BoxFit.cover,
-                      errorWidget: (context, url, error) => Container(
-                        color: Colors.grey[200],
-                        child: const Icon(
-                          Icons.image_not_supported_outlined,
-                          color: Colors.grey,
-                          size: 20,
-                        ),
+                    SizedBox(height: 8.h),
+                    Text(
+                      'Image not available',
+                      style: TextStyle(
+                        color: Colors.grey[600],
+                        fontSize: 12.sp,
                       ),
                     ),
-                  ),
-                );
-              },
-            ),
+                  ],
+                ),
+              );
+            },
           ),
-      ],
+        ),
+      ),
     );
   }
 }

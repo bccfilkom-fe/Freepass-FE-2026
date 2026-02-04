@@ -18,7 +18,6 @@ void main() async {
   await Hive.initFlutter();
   await Hive.openBox(AppConstants.authBox);
   await Hive.openBox(AppConstants.productsBox);
-  await Hive.openBox(AppConstants.cartBox);
 
   // Clear image cache on startup to prevent corrupted image crash
   try {

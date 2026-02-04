@@ -1,6 +1,8 @@
+import 'dart:io';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'dart:io';
+
 import '../../domain/repositories/product_repository.dart';
 import '../../data/models/product_model.dart';
 import '../../data/models/category_model.dart';
@@ -10,35 +12,53 @@ class ProductFormController extends GetxController {
 
   ProductFormController(this._repository);
 
-  final RxBool isLoading = false.obs;
-  final Rx<File?> selectedImage = Rx<File?>(null);
-  final Rx<CategoryModel?> selectedCategory = Rx<CategoryModel?>(null);
-  final RxList<CategoryModel> categories = <CategoryModel>[].obs;
+  // ===== FORM =====
+  final formKey = GlobalKey<FormState>();
+  final titleController = TextEditingController();
+  final priceController = TextEditingController();
+  final descController = TextEditingController();
 
-  // For Edit Mode
-  ProductModel? productToEdit;
+  // ===== STATE =====
+  final isLoading = false.obs;
+  final selectedImage = Rx<File?>(null);
+  final selectedCategory = Rx<CategoryModel?>(null);
+  final categories = <CategoryModel>[].obs;
+
+  ProductModel? editingProduct;
 
   @override
   void onInit() {
     super.onInit();
     fetchCategories();
-    if (Get.arguments is ProductModel) {
-      setProductToEdit(Get.arguments);
-    }
   }
 
-  void setProductToEdit(ProductModel product) {
-    productToEdit = product;
-    // Set selected category when categories are loaded
-    if (categories.isNotEmpty) {
-      selectedCategory.value = categories.firstWhereOrNull(
-        (c) => c.id == product.category?.id,
-      );
-    }
+  @override
+  void onClose() {
+    titleController.dispose();
+    priceController.dispose();
+    descController.dispose();
+    super.onClose();
   }
 
+  // ===== EDIT MODE =====
+  void setEditProduct(ProductModel product) {
+    editingProduct = product;
+
+    titleController.text = product.title;
+    priceController.text = product.price.toString();
+    descController.text = product.description;
+
+    selectedCategory.value = categories.firstWhereOrNull(
+      (c) => c.id == product.category?.id,
+    );
+  }
+
+  // ===== CREATE MODE =====
   void clearForm() {
-    productToEdit = null;
+    editingProduct = null;
+    titleController.clear();
+    priceController.clear();
+    descController.clear();
     selectedImage.value = null;
     selectedCategory.value = null;
   }
@@ -46,78 +66,77 @@ class ProductFormController extends GetxController {
   Future<void> fetchCategories() async {
     try {
       categories.value = await _repository.getCategories();
-      if (productToEdit != null) {
-        // Find category
-        selectedCategory.value = categories.firstWhereOrNull(
-          (c) => c.id == productToEdit!.category?.id,
-        );
-      }
     } catch (e) {
-      print(e);
+      debugPrint(e.toString());
     }
   }
 
   Future<void> pickImage() async {
-    try {
-      final picker = ImagePicker();
-      final pickedFile = await picker.pickImage(source: ImageSource.gallery);
-      if (pickedFile != null) {
-        selectedImage.value = File(pickedFile.path);
-      }
-    } catch (e) {
-      if (e.toString().contains('already_active')) {
-        // Ignore if already active, or show a gentle message
-        return;
-      }
-      print('Error picking image: $e');
-      Get.snackbar('Error', 'Failed to pick image');
+    final image = await ImagePicker().pickImage(
+      source: ImageSource.gallery,
+      imageQuality: 80,
+    );
+
+    if (image != null) {
+      selectedImage.value = File(image.path);
     }
   }
 
-  Future<void> saveProduct(
-    String title,
-    String price,
-    String description,
-  ) async {
-    if (title.isEmpty ||
-        price.isEmpty ||
-        description.isEmpty ||
-        (selectedImage.value == null && productToEdit == null)) {
-      Get.snackbar('Error', 'Please fill all fields');
+  Future<void> saveProduct() async {
+    if (!formKey.currentState!.validate()) return;
+
+    final priceText = priceController.text.trim();
+    debugPrint('PRICE RAW: "$priceText"');
+
+    if (priceText.isEmpty) {
+      Get.snackbar('Error', 'Price tidak boleh kosong');
       return;
     }
 
-    try {
-      isLoading.value = true;
-      String? imageUrl;
+    final price = double.tryParse(priceText);
+    if (price == null) {
+      Get.snackbar('Error', 'Format price tidak valid');
+      return;
+    }
 
-      // Upload image if selected
+    if (selectedImage.value == null && editingProduct == null) {
+      Get.snackbar('Error', 'Image wajib dipilih');
+      return;
+    }
+
+    isLoading.value = true;
+    try {
+      String imageUrl;
+
       if (selectedImage.value != null) {
         imageUrl = await _repository.uploadFile(selectedImage.value!);
       } else {
-        imageUrl =
-            productToEdit?.images.firstOrNull ?? 'https://placehold.co/600x400';
+        imageUrl = editingProduct!.images.first;
       }
 
-      final Map<String, dynamic> data = {
-        'title': title,
-        'price': double.tryParse(price) ?? 0,
-        'description': description,
+      final data = {
+        'title': titleController.text,
+        'price': price,
+        'description': descController.text,
         'categoryId': selectedCategory.value?.id ?? 1,
         'images': [imageUrl],
       };
 
-      if (productToEdit != null) {
-        await _repository.updateProduct(productToEdit!.id, data);
+      if (editingProduct != null) {
+        await _repository.updateProduct(editingProduct!.id, data);
+        Get.back(result: true);
         Get.snackbar('Success', 'Product updated');
       } else {
+        print(data);
+        Get.back();
         await _repository.createProduct(data);
         Get.snackbar('Success', 'Product created');
       }
-      // Get.back(result: true); // Move this inside try block to ensure it only closes on success
-      Get.back(result: true);
+
+      clearForm();
     } catch (e) {
-      Get.snackbar('Error', 'Failed to save product: $e');
+      debugPrint(e.toString());
+      Get.snackbar('Error', 'Failed to save product');
     } finally {
       isLoading.value = false;
     }
