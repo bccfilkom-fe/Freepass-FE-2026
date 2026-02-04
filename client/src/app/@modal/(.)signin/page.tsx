@@ -34,7 +34,7 @@ export default function SignInPageInterceptor() {
 
   return (
     <Dialog open={isOpen} onOpenChange={handleOpenChange}>
-      <DialogContent className="bg-white">
+      <DialogContent className="bg-primary">
         <DialogHeader>
           <DialogTitle>Sign In</DialogTitle>
         </DialogHeader>

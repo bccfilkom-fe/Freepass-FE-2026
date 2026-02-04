@@ -1,6 +1,12 @@
 import { Suspense } from "react"
 import ProfileEdit from "./ProfileEdit"
 import Spinner from "@/components/ui/spinner"
+import { Metadata } from "next"
+
+export const metadata: Metadata = {
+  title: "Edit Profile",
+  description: "Edit profile to manage your personalization at Toeankoe Barbershop Apps. Update your info, track past appointments, and view upcoming bookings effortlessly."
+}
 
 const ProfileEditPage = () => {
   return (

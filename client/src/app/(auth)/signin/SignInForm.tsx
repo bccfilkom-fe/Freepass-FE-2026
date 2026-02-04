@@ -4,25 +4,24 @@ import MainButton from '@/components/button/MainButton'
 import Checkbox from '@/components/checkbox/Checkbox'
 import Input from '@/components/input/Input'
 import Divider from '@/components/ui/divider'
-import Image from 'next/image'
+import { useTransitionRouterWithProgress } from '@/hooks/useTransitionRouterWithProgress'
 import { SignInCredentials, SignInSchema } from '@/schema/auth.schema'
 import { signInService } from '@/services/auth.service'
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Check, Lock, UserRound } from 'lucide-react'
 import { AnimatePresence, motion } from 'motion/react'
+import Image from 'next/image'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
-import { useRouter } from '@bprogress/next/app';
 import { useState } from 'react'
 import { Controller, useForm } from "react-hook-form"
 import { toast } from 'sonner'
-import { signIn } from "next-auth/react";
-import { useTransitionRouterWithProgress } from '@/hooks/useTransitionRouterWithProgress'
 
 const SignInForm = () => {
   const searchParams = useSearchParams()
   const [onPasswordBlur, setOnPasswordBlur] = useState(false);
   const router = useTransitionRouterWithProgress()
+  const [isLoadingGoogle, setIsLoadingGoogle] = useState(false);
 
   const {
     register,
@@ -52,22 +51,25 @@ const SignInForm = () => {
   };
 
   const handleLoginWithGoogle = async () => {
-    try {
-      const response = await signIn("google", {
-        redirect: false,
-        callbackUrl: searchParams.get("callbackUrl") ?? "/home"
-      })
+    toast.warning("Google login is unavailable. Please log in using your email and password.")
+    // setIsLoadingGoogle(true)
+    // try {
+    //   const response = await signIn("google", {
+    //     redirect: false,
+    //     callbackUrl: searchParams.get("callbackUrl") ?? "/home"
+    //   })
       
-      if (!response?.ok) {
-        throw new Error(response?.error || "Failed to login with Google")
-      }
+    //   if (!response?.ok) {
+    //     throw new Error(response?.error || "Failed to login with Google")
+    //   }
       
-      toast.success("Login successfully")
-      console.log(response)
-      router.replace(response.url ?? "/home")
-    } catch (error) {
-      toast.error(error instanceof Error ? error.message : "Failed to login with Google")
-    }
+    //   toast.success("Login successfully")
+    //   router.replace(response.url ?? "/home")
+    // } catch (error) {
+    //   toast.error(error instanceof Error ? error.message : "Failed to login with Google")
+    // } finally {
+    //   setIsLoadingGoogle(false)
+    // }
   }
 
 
@@ -157,6 +159,7 @@ const SignInForm = () => {
       <Divider>Or continue with Google</Divider>
 
       <MainButton
+        isLoading={isLoadingGoogle}
         className='w-full'
         variant='outline'
         animated={false}

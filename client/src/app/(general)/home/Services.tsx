@@ -1,7 +1,6 @@
 import MainButton from "@/components/button/MainButton";
 import { Dialog, DialogClose, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { useServices } from "@/hooks/useService";
 import { useTransitionRouterWithProgress } from "@/hooks/useTransitionRouterWithProgress";
 import { Service } from "@/types/type";

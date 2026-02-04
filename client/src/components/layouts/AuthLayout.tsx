@@ -1,8 +1,6 @@
-import { ChevronLeft } from "lucide-react";
 // import SimpleNavbar from "../SimpleNavbar";
+import Image from "next/image";
 import Link from "next/link";
-import Image from "next/image"
-import SimpleNavbar from "../navbar/SimpleNavbar";
 
 type AuthLayoutType = {
   level: "page" | "dialog"
@@ -22,9 +20,9 @@ export default function AuthLayout({
   footerUrl
 } : AuthLayoutType) {
   return (
-    <section className={`relative w-full ${level === "page" ? "h-screen" : "h-fit"} flex flex-col justify-start items-center`}>
+    <section className={`relative w-full ${level === "page" ? "h-screen" : "h-fit"} flex flex-col justify-start items-center bg-primary`}>
       <header className="w-xs flex flex-col justify-center items-center gap-5 my-6">
-        <div className="relative h-20 w-30">
+        <div className="relative h-20 w-30 bg-white rounded-md">
           <Image fill src="/logo.svg" alt="logo" className="object-contain"/>
         </div>
         <h2 className="font-bold text-3xl text-center">{welcomeTitle}</h2>

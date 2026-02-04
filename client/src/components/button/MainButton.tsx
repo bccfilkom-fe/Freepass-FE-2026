@@ -29,7 +29,7 @@ const MainButton = ({ animated = true, isLoading = false, disabled = false, type
       + className}
       >
         {isLoading ? (
-          <Spinner color='var(--secondary)'/>
+          <Spinner color='var(--primary)'/>
         ) : (
           animated ? (
             <>

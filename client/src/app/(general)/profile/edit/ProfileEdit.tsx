@@ -14,6 +14,7 @@ import { useSession } from '@/hooks/useSession'
 import { useMutation } from '@tanstack/react-query'
 import { AxiosError } from 'axios'
 import { changeCustomerPassword, deleteCustomerAccount, updateDisplayName } from '@/services/customer.service'
+import { useTransitionRouterWithProgress } from '@/hooks/useTransitionRouterWithProgress'
 
 const ProfileEdit = () => {
   return (
@@ -121,6 +122,7 @@ const ChangePassword = () => {
         <Input
           {...register("oldPassword")}
           className='w-full'
+          label='Old Password'
           error={errors.oldPassword?.message}
           placeholder='●󠁯●󠁯●󠁯●󠁯●󠁯●󠁯●󠁯●󠁯'
           isPassword
@@ -130,6 +132,7 @@ const ChangePassword = () => {
           <Input
             {...register("newPassword")}
             className='w-full'
+            label='New Password'
             error={errors.newPassword?.message}
             placeholder='●󠁯●󠁯●󠁯●󠁯●󠁯●󠁯●󠁯●󠁯'
             isPassword
@@ -152,16 +155,25 @@ const ChangePassword = () => {
 
 
 const SelfDelete = () => {
+  const router = useTransitionRouterWithProgress()
   const [open, setIsOpen] = useState(false)
   const { logout } = useSession()
-
-  const handleDelete = async () => {
-    try {
-      await deleteCustomerAccount()
+  const mutation = useMutation({
+    mutationFn: deleteCustomerAccount,
+    onSuccess: () => {
+      router.replace("/home")
       logout()
-    } catch (error) {
-      toast.error((error as Error).message)
+    },
+    onError: (error) => {
+      const err = error as AxiosError<{ message?: string }>;
+      toast.error(err.response?.data?.message ?? "Delete account failed");
     }
+  })
+  
+  const handleDelete = async () => {
+    await mutation.mutateAsync()
+    router.replace("/home")
+    logout()
   };
 
   return (
@@ -190,6 +202,7 @@ const SelfDelete = () => {
 
           <DialogFooter className="flex flex-col gap-2 px-5">
             <MainButton
+              isLoading={mutation.isPending}
               className='w-full flex-1'
               variant='destructive'
               onClick={() => handleDelete()}
