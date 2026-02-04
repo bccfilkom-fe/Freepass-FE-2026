@@ -2,11 +2,9 @@
 
 import Loading from "@//components/loading";
 import { useSearchParams } from "next/navigation";
-
 import { useDeleteProduct, useProducts } from "@//hooks/useProducts";
 import { product } from "@//types/product";
 import { useProductModalStore } from "@//stores/productModalStore";
-
 import { useEffect } from "react";
 import { useToastStore } from "@//stores/ToastStore";
 

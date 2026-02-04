@@ -1,3 +1,4 @@
+"use client"
 import EditProductModal from "@//components/ui/modal/EditProductModal";
 import DropdownProduct from "@//components/ui/dropdownProduct";
 import { Suspense } from "react";

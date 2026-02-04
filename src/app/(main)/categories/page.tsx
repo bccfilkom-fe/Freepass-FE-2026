@@ -1,3 +1,4 @@
+"use client"
 import CreateCategoryModal from "@//components/ui/modal/CreateCategoryModal";
 import EditCategoryModal from "@//components/ui/modal/EditCategoryModal";
 import Categories from "./CategoryList";
