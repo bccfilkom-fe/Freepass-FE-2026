@@ -196,7 +196,6 @@ function CuriousBuddies({ className, colors }: CuriousBuddiesProps) {
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, [calculatePosition]);
 
-  // Blinking effect for purple character
   useEffect(() => {
     const getRandomBlinkInterval = () => Math.random() * 4000 + 3000;
 
@@ -216,7 +215,6 @@ function CuriousBuddies({ className, colors }: CuriousBuddiesProps) {
     return () => clearTimeout(timeout);
   }, []);
 
-  // Blinking effect for black character
   useEffect(() => {
     const getRandomBlinkInterval = () => Math.random() * 4000 + 3000;
 
@@ -239,7 +237,6 @@ function CuriousBuddies({ className, colors }: CuriousBuddiesProps) {
   return (
     <div className={className} style={{ width: "550px", height: "400px" }}>
       <div className="relative w-full h-full">
-        {/* Alto - Tall purple character (Back layer) */}
         <div
           ref={purpleRef}
           className="absolute bottom-0 transition-all duration-700 ease-in-out"
@@ -254,7 +251,6 @@ function CuriousBuddies({ className, colors }: CuriousBuddiesProps) {
             transformOrigin: "bottom center",
           }}
         >
-          {/* Eyes */}
           <div
             className="absolute flex gap-8 transition-all duration-700 ease-in-out"
             style={{
@@ -281,7 +277,6 @@ function CuriousBuddies({ className, colors }: CuriousBuddiesProps) {
           </div>
         </div>
 
-        {/* Shade - Dark character (Middle layer) */}
         <div
           ref={blackRef}
           className="absolute bottom-0 transition-all duration-700 ease-in-out"
@@ -296,7 +291,6 @@ function CuriousBuddies({ className, colors }: CuriousBuddiesProps) {
             transformOrigin: "bottom center",
           }}
         >
-          {/* Eyes */}
           <div
             className="absolute flex gap-6 transition-all duration-700 ease-in-out"
             style={{
@@ -323,7 +317,6 @@ function CuriousBuddies({ className, colors }: CuriousBuddiesProps) {
           </div>
         </div>
 
-        {/* Peach - Round orange character (Front left) */}
         <div
           ref={orangeRef}
           className="absolute bottom-0 transition-all duration-700 ease-in-out"
@@ -338,7 +331,6 @@ function CuriousBuddies({ className, colors }: CuriousBuddiesProps) {
             transformOrigin: "bottom center",
           }}
         >
-          {/* Eyes - just pupils, no white */}
           <div
             className="absolute flex gap-8 transition-all duration-200 ease-out"
             style={{
@@ -351,7 +343,6 @@ function CuriousBuddies({ className, colors }: CuriousBuddiesProps) {
           </div>
         </div>
 
-        {/* Sunny - Yellow character with mouth (Front right) */}
         <div
           ref={yellowRef}
           className="absolute bottom-0 transition-all duration-700 ease-in-out"
@@ -366,7 +357,6 @@ function CuriousBuddies({ className, colors }: CuriousBuddiesProps) {
             transformOrigin: "bottom center",
           }}
         >
-          {/* Eyes - just pupils, no white */}
           <div
             className="absolute flex gap-6 transition-all duration-200 ease-out"
             style={{
@@ -377,7 +367,6 @@ function CuriousBuddies({ className, colors }: CuriousBuddiesProps) {
             <Pupil size={12} maxDistance={5} pupilColor={c.pupil} />
             <Pupil size={12} maxDistance={5} pupilColor={c.pupil} />
           </div>
-          {/* Horizontal line for mouth */}
           <div
             className="absolute w-20 h-[4px] rounded-full transition-all duration-200 ease-out"
             style={{
