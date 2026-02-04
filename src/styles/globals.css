@@ -79,6 +79,14 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+
+  /* Curious Buddies Characters */
+  --buddy-alto: #8b5cf6; /* Tall purple character */
+  --buddy-shade: #1f2937; /* Dark character */
+  --buddy-peach: #fb923c; /* Round orange character */
+  --buddy-sunny: #fbbf24; /* Yellow character with mouth */
+  --buddy-pupil: #1f2937;
+  --buddy-eye: #ffffff;
 }
 
 .dark {
@@ -113,6 +121,14 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
+
+    /* Curious Buddies Characters */
+  --buddy-alto: #1a1a1a; /* Tall character */
+  --buddy-shade: #0f0f0f; /* Dark character */
+  --buddy-peach: #262626; /* Round character */
+  --buddy-sunny: #333333; /* Character with mouth */
+  --buddy-pupil: #000000;
+  --buddy-eye: #ffffff;
 }
 
 @layer base {
