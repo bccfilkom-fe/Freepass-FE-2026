@@ -71,12 +71,12 @@ const Navbar = () => {
   return (
     <header className='w-full max-w-[1620px] p-6 lg:p-12 lg:py-8 fixed top-0 z-49 left-1/2 -translate-x-1/2'>
       <nav
-        className="w-full h-14 flex justify-between gap-2 items-center bg-card lg:bg-transparent lg:backdrop-blur-none backdrop-blur-2xl rounded-md"
+        className="w-full h-14 flex justify-between gap-2 items-center bg-secondary lg:bg-transparent lg:backdrop-blur-none backdrop-blur-2xl rounded-md"
         >
           {/* LOGO */}
           <button 
             onClick={() => router.push("/home")}
-            className="flex h-14 gap-2 px-4 py-1 items-center lg:bg-card rounded-md relative cursor-pointer hover:scale-105 active:scale-95 transition-all duration-300">
+            className="flex h-14 gap-2 px-4 py-1 items-center lg:bg-primary rounded-md relative cursor-pointer hover:scale-105 active:scale-95 transition-all duration-300">
             <div className="relative h-8 w-8 rounded-md bg-white">
               <Image
                 src="/logo.svg"
@@ -89,7 +89,7 @@ const Navbar = () => {
           </button>
 
           {/* NAVIGATION */}
-          <ul className="h-14 flex items-center gap-2 p-2 border rounded-md lg:bg-card">
+          <ul className="h-14 flex items-center gap-2 p-2 rounded-md lg:bg-primary">
             { isMobile ? (
               <div className="bg-primary-foreground p-2 rounded-md hover:scale-105 active:scale-95 transition-all duration-300">
                 <HamburgerMenu isOpenMenu={isOpenMenu} setIsOpenMenu={setIsOpenMenu}/>

@@ -31,6 +31,15 @@ export type Reservation = {
   rescheduleHistory: []
 }
 
+export type Service = {
+  _id: string,
+  name: string,
+  description: string,
+  price: number,
+  durationMinute: number,
+  imageUrl: string
+}
+
 export type Role = "CUSTOMER" | "ADMIN" | "BARBER"
 
 export type AppointmentStatus = "WAITING" | "IN_PROGRESS" | "COMPLETED" | "CANCELLED"
