@@ -6,11 +6,11 @@ export default function ToastContainer() {
   const { toasts } = useToastStore();
 
   return (
-    <div className="fixed bottom-10 lg:bottom-5 right-5 z-100 flex flex-col gap-3">
+    <div className="fixed bottom-10 max-w-2/3 lg:bottom-5 right-5 z-100 flex flex-col gap-3">
       {toasts.map((toast) => (
         <div
           key={toast.id}
-          className={`flex items-center p-3 min-w-xs border-l-5 rounded shadow-lg transition-all animate-in slide-in-from-right-full ${toast.success ?
+          className={`flex items-center p-3 md:min-w-xs max-w-full border-l-5 rounded shadow-lg transition-all animate-in ${toast.success ?
             "bg-white border-green-600 text-gray-800"
             :
             "bg-white border-red-600 text-gray-800"

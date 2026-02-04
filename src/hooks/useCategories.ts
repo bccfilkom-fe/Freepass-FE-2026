@@ -14,7 +14,7 @@ export function useCategories() {
         .from("nexstore_category")
         .select("*")
         .eq("user_id", userid)
-        .order("id", {ascending: true})
+        .order("id", { ascending: true })
 
       if (error) throw new Error(error.message)
 
@@ -30,13 +30,17 @@ export function useDeleteCategories() {
   return useMutation({
     mutationFn: async (id: number) => {
       const supabase = createClient();
-      const response = await supabase
+      const { data, error } = await supabase
         .from('nexstore_category')
         .delete()
         .eq('id', id)
+
+      if (error && error?.message.includes("violates foreign key constraint")) {
+        throw new Error("Kategori tidak dapat dihapus karena masih ada produk dengan kategori ini");
+      }
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({queryKey: ["categories"]})
+      queryClient.invalidateQueries({ queryKey: ["categories"] })
     },
     onError: (error) => {
       toastStore.addToast(false, error.message)

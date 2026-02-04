@@ -6,7 +6,7 @@ import { ReactNode } from "react";
 function SidebarContainer({ children }: { children: ReactNode }) {
   const sidebarStore = useSidebarStore();
   return (
-    <div className="fixed top-0 left-0 z-100">
+    <div className="fixed top-0 left-0 z-50">
       <div className="hidden md:flex">
         {children}
       </div>

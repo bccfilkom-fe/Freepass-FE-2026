@@ -37,7 +37,7 @@ export default function CreateMovementModal() {
       queryClient.invalidateQueries({ queryKey: ["movements"] });
       modalStore.closeModal();
     }
-  }, [state.success, queryClient])
+  }, [state, queryClient])
 
   if (!modalStore.isOpen || modalStore.type !== "create") return;
 

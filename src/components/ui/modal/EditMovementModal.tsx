@@ -37,7 +37,7 @@ export default function EditMovementModal() {
       queryClient.invalidateQueries({ queryKey: ["movements"] });
       modalStore.closeModal();
     }
-  }, [state.success, queryClient])
+  }, [state, queryClient])
 
   if (!modalStore.isOpen || modalStore.type !== "edit") return;
 

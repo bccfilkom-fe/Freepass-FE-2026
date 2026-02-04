@@ -28,7 +28,7 @@ const DropdownProduct = () => {
   return (
     <>
       <CreateProductModal></CreateProductModal>
-      <div className="flex m-6 mx-10 p-3 px-6 items-center rounded-2xl justify-between shadow-sm border-black/10 border [&_p]:lg:text-lg [&_p]:font-bold sticky top-0 bg-white z-10">
+      <div className="flex m-6 lg:mx-10 p-3 px-6 items-center rounded-2xl justify-between shadow-sm border-black/10 border [&_p]:lg:text-lg [&_p]:font-bold sticky top-0 bg-white z-10">
         <div className="relative">
           <div
             className="flex items-center gap-1 cursor-pointer transition-colors"
@@ -78,8 +78,12 @@ const DropdownProduct = () => {
           )}
         </div>
         {/* <SerachBar></SerachBar> */}
-        <button className='border-2 px-4 py-1 cursor-pointer rounded-full' onClick={() => modalStore.setOpenCreateModal()}>
-          tambah produk
+        <button className="bg-black text-white p-2 px-4 rounded-full cursor-pointer flex gap-2" onClick={() => modalStore.setOpenCreateModal()}>
+          <span className="text- lg:text-base">tambah produk</span>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-5 lg:size-6">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+          </svg>
+
         </button>
       </div>
     </>

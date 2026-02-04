@@ -20,7 +20,13 @@ function Movements() {
             <FilterBtns></FilterBtns>
           </Suspense>
         </div>
-        <button className="bg-black text-white p-2 px-4 rounded-full cursor-pointer" onClick={() => modalStore.openCreate()}>tambah data</button>
+        <button className="bg-black text-white p-2 px-4 rounded-full cursor-pointer flex gap-2 items-center justify-center" onClick={() => modalStore.openCreate()}>
+          <span className="lg:text-base">tambah movement</span>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-5 lg:size-6">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+          </svg>
+
+        </button>
       </div>
       <Suspense>
         <MovementList></MovementList>
