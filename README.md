@@ -10,8 +10,7 @@
 
 ## 📌 Overview
 
-**Finexa** adalah aplikasi **personal finance tracker** berbasis web yang membantu pengguna memantau kondisi keuangan secara real-time, mulai dari total saldo, pemasukan, pengeluaran, hingga riwayat transaksi.
-Aplikasi ini dirancang dengan pendekatan **modern dashboard UI**, fokus pada keterbacaan data, visualisasi yang informatif, serta pengalaman pengguna yang responsif di semua perangkat.
+**Finexa** adalah aplikasi **personal finance tracker** berbasis web yang yang penggunaannya bertujuan untuk memantau keuangan secara real-time, mulai dari total saldo, pemasukan, pengeluaran, hingga riwayat transaksi.
 
 ---
 
@@ -46,7 +45,7 @@ Aplikasi ini dirancang dengan pendekatan **modern dashboard UI**, fokus pada ket
 * **TypeScript**
 * **Tailwind CSS**
 * **Recharts** — Data Visualization
-* **MockAPI** — REST API untuk simulasi backend
+* **MockAPI** — REST API
 
 ---
 
