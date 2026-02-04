@@ -5,6 +5,8 @@ import { Toaster } from "sonner";
 import AuthProvider from "../components/providers/AuthProvider";
 import ProgressProvider from "../components/providers/ProgressProvider";
 import QueryProvider from "@/components/providers/QueryProvider";
+import ThemesProvider from "@/components/providers/ThemesProvider";
+import StyledComponentsRegistry from "@/lib/styled-components-registry";
 
 const barlow = Barlow_Semi_Condensed({
   variable: "--font-barlow",
@@ -35,15 +37,19 @@ export default function RootLayout({
       <body
         className={`${barlow.className} text-base lg:text-xl antialiased`}
       >
-        <ProgressProvider>
-          <QueryProvider>
-            <AuthProvider>
-              <Toaster position="top-center"/>
-              {children}
-              {modal}
-            </AuthProvider>
-          </QueryProvider>
-        </ProgressProvider>
+        <StyledComponentsRegistry>
+          <ThemesProvider>
+            <ProgressProvider>
+              <QueryProvider>
+                <AuthProvider>
+                  <Toaster position="top-center"/>
+                  {children}
+                  {modal}
+                </AuthProvider>
+              </QueryProvider>
+            </ProgressProvider>
+          </ThemesProvider>
+        </StyledComponentsRegistry>
       </body>
     </html>
   );

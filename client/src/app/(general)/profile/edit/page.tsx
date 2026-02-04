@@ -6,7 +6,7 @@ const ProfileEditPage = () => {
   return (
     <Suspense fallback={
       <section className="w-full py-20 flex justify-center items-center">
-        <Spinner size="3rem"/>
+        <Spinner size="3rem" color="var(--color-primary-foreground)"/>
       </section>
     }>
       <ProfileEdit />

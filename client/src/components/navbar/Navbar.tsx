@@ -151,9 +151,9 @@ const DropdownProfile = ({ user, profileUrl }: { user: User | null, profileUrl: 
   return (
     <div
       className="
-        absolute top-full w-fit
+        absolute top-full
         p-3 rounded-md bg-card
-        flex flex-col gap-1
+        flex flex-col gap-1 w-48
         opacity-0 pointer-events-none
         group-hover:opacity-100 group-hover:pointer-events-auto
         transition
@@ -164,8 +164,9 @@ const DropdownProfile = ({ user, profileUrl }: { user: User | null, profileUrl: 
         <h2 className="text-sm line-clamp-1">{user?.email}</h2>
       </div>
       <hr className="w-[90%] my-3" />
+      <hr className="w-[90%] my-3" />
       <MainButton className="w-full" variant="outline" onClick={() => router.push(profileUrl, { showProgress: true })}>My Profile</MainButton>
       <MainButton className="w-full" variant="destructive" onClick={() => handleLogout()}>Sign Out</MainButton>
-      </div>
+    </div>
   )
 }
