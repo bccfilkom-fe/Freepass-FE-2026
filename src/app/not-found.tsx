@@ -29,7 +29,7 @@ export default function NotFound() {
                     </p>
                     <div className="pt-6">
                         <Button size="lg" asChild>
-                            <Link href="/" aria-label="Navigate to home page">
+                            <Link href="/products" aria-label="Navigate to home page">
                                 <Home aria-hidden="true" />
                                 Take me home
                             </Link>
