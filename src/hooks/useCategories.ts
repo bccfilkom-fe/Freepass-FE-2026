@@ -1,0 +1,49 @@
+"use client"
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { createClient } from "../lib/supabase/client";
+import { category } from "../types/categories";
+import { useToastStore } from "../stores/ToastStore";
+
+export function useCategories() {
+  return useQuery({
+    queryKey: ["categories"],
+    queryFn: async () => {
+      const supabase = createClient();
+      const userid = (await supabase.auth.getUser()).data.user?.id;
+      const { data, error } = await supabase
+        .from("nexstore_category")
+        .select("*")
+        .eq("user_id", userid)
+        .order("id", { ascending: true })
+
+      if (error) throw new Error(error.message)
+
+      const cat: category[] = data;
+      return cat;
+    }
+  })
+}
+
+export function useDeleteCategories() {
+  const queryClient = useQueryClient();
+  const toastStore = useToastStore();
+  return useMutation({
+    mutationFn: async (id: number) => {
+      const supabase = createClient();
+      const { data, error } = await supabase
+        .from('nexstore_category')
+        .delete()
+        .eq('id', id)
+
+      if (error && error?.message.includes("violates foreign key constraint")) {
+        throw new Error("Kategori tidak dapat dihapus karena masih ada produk dengan kategori ini");
+      }
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["categories"] })
+    },
+    onError: (error) => {
+      toastStore.addToast(false, error.message)
+    }
+  })
+}
