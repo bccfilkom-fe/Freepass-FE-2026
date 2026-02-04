@@ -1,7 +1,7 @@
 import EditProductModal from "@//components/ui/modal/EditProductModal";
 import DropdownProduct from "@//components/ui/dropdownProduct";
 import { Suspense } from "react";
-import ProductList from "./ProductList";
+import ProductList from "./productList";
 
 function page() {
   return (
