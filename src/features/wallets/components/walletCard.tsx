@@ -16,53 +16,36 @@ export default function WalletCard({ wallet, onEdit }: Props) {
       onClick={() => onEdit(wallet)}
       className={`
         relative
-        w-full sm:min-w-[200px] md:min-w-[220px] lg:min-w-[260px]
-        h-[150px]
+        w-full           
+        max-w-md      
+        h-[140px]      
+        sm:h-[160px] 
         rounded-3xl
         overflow-hidden
         shadow-lg
-        transition-transform transform hover:scale-105 hover:shadow-2xl
+        transition-all 
+        active:scale-95
+        hover:scale-[1.02] 
         text-white
         flex flex-col justify-between
-        p-4
+        p-5          
+        shrink-0 
       `}
       style={{ background: wallet.color }}
     >
-      <svg
-        className="absolute bottom-0 left-0 w-full h-full pointer-events-none"
-        viewBox="0 0 260 160"
-        preserveAspectRatio="none"
-      >
-        <path
-          d="M0,100 C60,150 200,50 260,120 L260,160 L0,160 Z"
-          fill="rgba(255,255,255,0.05)"
-        />
+      <svg className="absolute bottom-0 left-0 w-full h-full pointer-events-none opacity-40" viewBox="0 0 260 160" preserveAspectRatio="none">
+        <path d="M0,100 C60,150 200,50 260,120 L260,160 L0,160 Z" fill="rgba(255,255,255,0.1)" />
       </svg>
 
-      <svg
-        className="absolute inset-0 w-full h-full pointer-events-none rounded-3xl"
-        preserveAspectRatio="none"
-      >
-        <defs>
-          <pattern
-            id="walletPattern"
-            patternUnits="userSpaceOnUse"
-            width="20"
-            height="20"
-          >
-            <path
-              d="M0,0 L20,20 M20,0 L0,20"
-              stroke="rgba(255,255,255,0.05)"
-              strokeWidth="1"
-            />
-          </pattern>
-        </defs>
-        <rect width="100%" height="100%" fill="url(#walletPattern)" />
-      </svg>
+      <div className="relative z-10 text-left">
+        <p className="text-xs sm:text-sm font-medium opacity-80 uppercase tracking-wider">
+          Total Balance
+        </p>
+        <div className="font-semibold text-lg sm:text-xl truncate">{wallet.name}</div>
+      </div>
 
-      <div className="relative z-10">
-        <div className="font-semibold text-lg">{wallet.name}</div>
-        <div className="text-2xl font-bold mt-2">
+      <div className="relative z-10 text-left mb-2">
+        <div className="text-xl sm:text-2xl font-extrabold tracking-tight">
           Rp {wallet.balance.toLocaleString("id-ID")}
         </div>
       </div>
