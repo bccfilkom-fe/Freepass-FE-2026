@@ -12,8 +12,8 @@ class ImageUtils {
        return 'https://via.placeholder.com/300';
     }
 
-    // Block placeimg.com as it is offline/unreachable
-    if (cleanUrl.contains('placeimg.com')) {
+    // Check for Lorem Space and other unreliable image providers
+    if (cleanUrl.contains('lorem.space') || cleanUrl.contains('placeimg.com')) {
       return 'https://via.placeholder.com/300';
     }
 

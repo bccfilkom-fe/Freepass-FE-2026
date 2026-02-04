@@ -21,7 +21,6 @@ void main() async {
   await Hive.openBox(AppConstants.cartBox);
 
   // Clear image cache on startup to prevent corrupted image crash
-  // This is a temporary fix for "Invalid image data" exception
   try {
     PaintingBinding.instance.imageCache.clear();
     PaintingBinding.instance.imageCache.clearLiveImages();

@@ -34,9 +34,18 @@ class CategoryController extends GetxController {
       if (success) {
         categories.removeWhere((c) => c.id == id);
         Get.snackbar('Success', 'Category deleted');
+      } else {
+        Get.snackbar('Error', 'Failed to delete category. It might be in use.');
       }
     } catch (e) {
-      Get.snackbar('Error', 'Failed to delete category: $e');
+      print('Delete Category Error: $e');
+      // Often categories cannot be deleted if they have products
+      // Checking for 400 status code which Platzi API uses for integrity constraints
+      if (e.toString().contains('400') || e.toString().contains('foreign key constraint') || e.toString().contains('integrity constraint')) {
+        Get.snackbar('Error', 'Cannot delete category because it is being used by existing products.');
+      } else {
+        Get.snackbar('Error', 'Failed to delete category: $e');
+      }
     }
   }
 }

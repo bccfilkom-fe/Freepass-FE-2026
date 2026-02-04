@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../home/home_page.dart';
 import '../category/category_page.dart';
-import '../user/user_page.dart';
-import '../profile/profile_page.dart';
 
 class DashboardController extends GetxController {
   final RxInt tabIndex = 0.obs;
@@ -47,10 +45,8 @@ class DashboardPage extends StatelessWidget {
           () => IndexedStack(
             index: controller.tabIndex.value,
             children: [
-              const HomePage(),
+              HomePage(),
               const CategoryPage(), // Will create
-              const UserPage(), // Will create
-              const ProfilePage(), // Will create
             ],
           ),
         ),
@@ -73,16 +69,6 @@ class DashboardPage extends StatelessWidget {
                 icon: Icon(Icons.category_outlined),
                 activeIcon: Icon(Icons.category),
                 label: 'Categories',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.people_outline),
-                activeIcon: Icon(Icons.people),
-                label: 'Users',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.person_outline),
-                activeIcon: Icon(Icons.person),
-                label: 'Profile',
               ),
             ],
           ),

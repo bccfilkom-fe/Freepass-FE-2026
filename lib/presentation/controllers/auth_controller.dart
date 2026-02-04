@@ -17,6 +17,10 @@ class AuthController extends GetxController {
     checkLoginStatus();
   }
 
+  Future<void> checkAuthStatus() async {
+    await checkLoginStatus();
+  }
+
   Future<void> checkLoginStatus() async {
     final isLoggedIn = await _authRepository.isLoggedIn();
     if (isLoggedIn) {

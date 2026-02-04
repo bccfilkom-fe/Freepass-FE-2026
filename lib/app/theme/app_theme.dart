@@ -10,11 +10,11 @@ class AppTheme {
     ),
     scaffoldBackgroundColor: const Color(0xFFF8F9FA),
     textTheme: GoogleFonts.poppinsTextTheme(ThemeData.light().textTheme),
-    appBarTheme: const AppBarTheme(
+    appBarTheme: AppBarTheme(
       backgroundColor: Colors.white,
       elevation: 0,
-      iconTheme: IconThemeData(color: Colors.black),
-      titleTextStyle: TextStyle(
+      iconTheme: const IconThemeData(color: Colors.black),
+      titleTextStyle: GoogleFonts.poppins(
         color: Colors.black,
         fontSize: 18,
         fontWeight: FontWeight.bold,
@@ -34,11 +34,11 @@ class AppTheme {
     ),
     scaffoldBackgroundColor: const Color(0xFF121212),
     textTheme: GoogleFonts.poppinsTextTheme(ThemeData.dark().textTheme),
-    appBarTheme: const AppBarTheme(
-      backgroundColor: Color(0xFF1E1E1E),
+    appBarTheme: AppBarTheme(
+      backgroundColor: const Color(0xFF1E1E1E),
       elevation: 0,
-      iconTheme: IconThemeData(color: Colors.white),
-      titleTextStyle: TextStyle(
+      iconTheme: const IconThemeData(color: Colors.white),
+      titleTextStyle: GoogleFonts.poppins(
         color: Colors.white,
         fontSize: 18,
         fontWeight: FontWeight.bold,

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shimmer/shimmer.dart';
-import '../../data/models/product_model.dart';
-import '../../app/utils/image_utils.dart';
+import '../../../data/models/product_model.dart';
+import '../../../app/utils/image_utils.dart';
 
 class ProductCard extends StatelessWidget {
   final ProductModel product;
@@ -25,8 +25,8 @@ class ProductCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(16.r),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withAlpha(13),
-              blurRadius: 10,
+              color: Colors.black.withAlpha(10),
+              blurRadius: 15,
               offset: const Offset(0, 5),
             ),
           ],
@@ -51,11 +51,17 @@ class ProductCard extends StatelessWidget {
                     ),
                     errorWidget: (context, url, error) {
                       try {
+                        // Evict failed image from cache to prevent retry loops
                         CachedNetworkImage.evictFromCache(url);
                       } catch (e) {
                         // ignore
                       }
-                      return const Center(child: Icon(Icons.broken_image, color: Colors.grey));
+                      return Container(
+                        color: Colors.grey[100],
+                        child: const Center(
+                          child: Icon(Icons.image_not_supported_outlined, color: Colors.grey)
+                        ),
+                      );
                     },
                   ),
                 ),
@@ -63,10 +69,19 @@ class ProductCard extends StatelessWidget {
             ),
             // Details
             Padding(
-              padding: EdgeInsets.all(12.w),
+              padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  Text(
+                    product.category?.name ?? 'Unknown',
+                    style: TextStyle(
+                      color: Colors.grey[600],
+                      fontSize: 10.sp,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  SizedBox(height: 4.h),
                   Text(
                     product.title,
                     maxLines: 1,
@@ -74,15 +89,16 @@ class ProductCard extends StatelessWidget {
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 14.sp,
+                      color: Theme.of(context).textTheme.bodyLarge?.color,
                     ),
                   ),
-                  SizedBox(height: 4.h),
+                  SizedBox(height: 6.h),
                   Text(
                     '\$${product.price.toStringAsFixed(2)}',
                     style: TextStyle(
-                      fontWeight: FontWeight.bold,
+                      fontWeight: FontWeight.w800,
                       fontSize: 16.sp,
-                      color: Theme.of(context).primaryColor,
+                      color: Colors.black,
                     ),
                   ),
                 ],

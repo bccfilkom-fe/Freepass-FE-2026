@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart'; // Ensure screenutil is imported
 import '../../controllers/auth_controller.dart';
-import '../../widgets/custom_button.dart';
-import '../../widgets/custom_text_field.dart';
+import '../../widgets/common/custom_button.dart';
+import '../../widgets/common/custom_text_field.dart';
 
 class LoginPage extends GetView<AuthController> {
   final TextEditingController emailController = TextEditingController(text: 'john@mail.com');
@@ -48,16 +50,26 @@ class LoginPage extends GetView<AuthController> {
                 prefixIcon: Icons.lock_outline,
               ),
               SizedBox(height: 24.h),
-              Obx(() => CustomButton(
+              Obx(() {
+                 if (controller.isLoading.value) {
+                   return Center(
+                     child: LoadingAnimationWidget.staggeredDotsWave(
+                       color: Colors.black, // Or primary color
+                       size: 40.sp,
+                     ),
+                   );
+                 }
+                 return CustomButton(
                     text: 'Login',
-                    isLoading: controller.isLoading.value,
+                    isLoading: false, // Handled above
                     onPressed: () {
                       controller.login(
                         emailController.text,
                         passwordController.text,
                       );
                     },
-                  )),
+                  );
+              }),
             ],
           ),
         ),

@@ -1,7 +1,10 @@
+import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import '../../data/models/product_model.dart';
 import '../../domain/repositories/product_repository.dart';
-import '../../app/routes/app_routes.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../widgets/product/product_bottom_sheet.dart';
 
 class ProductDetailController extends GetxController {
   late Rx<ProductModel> product;
@@ -19,18 +22,34 @@ class ProductDetailController extends GetxController {
 
   Future<void> deleteProduct() async {
     try {
+      // Show loading indicator or confirmation again if needed, but we already have a dialog.
+      // Maybe better to wrap in a try-catch with specific error handling for Dio exceptions
       final success = await _repository.deleteProduct(product.value.id);
       if (success) {
         Get.snackbar('Success', 'Product deleted');
         Get.back(result: true); // Return result to calling page (Home)
+      } else {
+         Get.snackbar('Error', 'Failed to delete product. Please try again.');
       }
     } catch (e) {
-      Get.snackbar('Error', 'Failed to delete product: $e');
+      print('Delete Error: $e');
+      if (e is DioException) {
+         Get.snackbar('Error', 'Network error: ${e.message}');
+      } else {
+         Get.snackbar('Error', 'Failed to delete product: $e');
+      }
     }
   }
 
   Future<void> editProduct() async {
-    final result = await Get.toNamed(Routes.PRODUCT_FORM, arguments: product.value);
+    final result = await Get.bottomSheet(
+      ProductBottomSheet(productToEdit: product.value),
+      isScrollControlled: true,
+      backgroundColor: Get.theme.scaffoldBackgroundColor,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20.r)),
+      ),
+    );
     if (result == true) {
       // Refresh details
       await fetchProductDetails();

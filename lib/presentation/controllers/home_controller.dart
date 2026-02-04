@@ -18,8 +18,8 @@ class HomeController extends GetxController {
   // Search & Filter
   final RxString searchQuery = ''.obs;
   Timer? _debounce;
-  double? minPrice;
-  double? maxPrice;
+  final Rxn<double> minPrice = Rxn<double>();
+  final Rxn<double> maxPrice = Rxn<double>();
 
   // Pagination
   int offset = 0;
@@ -46,14 +46,16 @@ class HomeController extends GetxController {
       await fetchProducts(refresh: true);
     } catch (e) {
       Get.snackbar('Error', 'Failed to load data: $e');
-    } finally {
-      isLoading.value = false;
+      isLoading.value = false; // Ensure loading is disabled on error
     }
   }
 
   Future<void> fetchProducts({bool refresh = false}) async {
     if (refresh) {
       offset = 0;
+      // Show loading only if not initial load (handled by fetchInitialData)
+      // or we can set it true here to cover all refresh cases
+      if (!isLoading.value) isLoading.value = true;
     }
     
     try {
@@ -66,8 +68,8 @@ class HomeController extends GetxController {
         offset: offset, 
         limit: limit,
         title: searchQuery.value.isEmpty ? null : searchQuery.value,
-        priceMin: minPrice,
-        priceMax: maxPrice,
+        priceMin: minPrice.value,
+        priceMax: maxPrice.value,
         categoryId: categoryId,
       );
 
@@ -79,6 +81,8 @@ class HomeController extends GetxController {
       offset += limit;
     } catch (e) {
       print('Error fetching products: $e');
+    } finally {
+      if (refresh) isLoading.value = false;
     }
   }
 
@@ -104,8 +108,14 @@ class HomeController extends GetxController {
   }
 
   void applyPriceFilter(double? min, double? max) {
-    minPrice = min;
-    maxPrice = max;
+    minPrice.value = min;
+    maxPrice.value = max;
+    fetchProducts(refresh: true);
+  }
+  
+  void resetFilters() {
+    minPrice.value = null;
+    maxPrice.value = null;
     fetchProducts(refresh: true);
   }
 }

@@ -22,11 +22,29 @@ class CategoryFormController extends GetxController {
   }
 
   Future<void> pickImage() async {
-    final picker = ImagePicker();
-    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
-    if (pickedFile != null) {
-      selectedImage.value = File(pickedFile.path);
+    try {
+      final picker = ImagePicker();
+      final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+      if (pickedFile != null) {
+        selectedImage.value = File(pickedFile.path);
+      }
+    } catch (e) {
+      if (e.toString().contains('already_active')) {
+        return;
+      }
+      print('Error picking image: $e');
+      Get.snackbar('Error', 'Failed to pick image');
     }
+  }
+
+  void setCategoryToEdit(CategoryModel? category) {
+    categoryToEdit = category;
+    selectedImage.value = null; // Reset image when setting category
+  }
+
+  void clearForm() {
+    categoryToEdit = null;
+    selectedImage.value = null;
   }
 
   Future<void> saveCategory(String name) async {
@@ -57,7 +75,13 @@ class CategoryFormController extends GetxController {
         await _repository.createCategory(data);
         Get.snackbar('Success', 'Category created');
       }
-      Get.back(result: true);
+      
+      // Delay closing slightly to allow snackbar to start showing, 
+      // avoiding race conditions with bottomsheet disposal
+      Future.delayed(const Duration(milliseconds: 500), () {
+         Get.back(result: true);
+      });
+      
     } catch (e) {
       Get.snackbar('Error', 'Failed to save category: $e');
     } finally {
