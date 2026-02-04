@@ -7,7 +7,6 @@ import { useRef } from "react"
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
 import { ScrollTrigger, SplitText } from "gsap/all"
-import BlockReveal from "../components/BlockReveal"
 import LineReveal from "../components/LineReveal"
 import LineLineReveal from "../components/LineLineReveal"
 import Pointer2 from "../components/Pointer2"
@@ -139,7 +138,6 @@ function LandingPage() {
           </div>
         </div>
       </section>
-      {/* <div className="h-screen"></div> */}
     </>
   )
 }

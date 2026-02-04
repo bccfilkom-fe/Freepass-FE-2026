@@ -84,12 +84,12 @@ export default function EditMovementModal() {
               <div className="flex gap-4
               [&_label]:relative [&_label]:flex [&_label]:w-fit [&_label]:cursor-pointer [&_label]:items-center [&_label]:justify-center [&_label]:rounded-lg [&_label]:border-2 [&_label]:border-black/10 [&_label]:px-4 [&_label]:p-2 [&_label]:hover:bg-black/5 [&_label]:has-checked:border-black/40 [&_label]:has-checked:bg-black/5 [&_label]:transition-all">
                 <label className="">
-                  <input type="radio" name="type" value="IN" className="sr-only" defaultChecked={modalStore.data?.type === "IN"}/>
+                  <input type="radio" name="type" value="IN" className="sr-only" defaultChecked={modalStore.data?.type === "IN"} />
                   <span className="text-sm font-semibold">Masuk</span>
                 </label>
 
                 <label className="">
-                  <input type="radio" name="type" value="OUT" className="sr-only" defaultChecked={modalStore.data?.type === "OUT"}/>
+                  <input type="radio" name="type" value="OUT" className="sr-only" defaultChecked={modalStore.data?.type === "OUT"} />
                   <span className="text-sm font-semibold">Keluar</span>
                 </label>
               </div>
@@ -120,15 +120,6 @@ export default function EditMovementModal() {
                 {isLoading ? "Menyimpan..." : "Save"}
               </button>
             </div>
-            {/* {state.message &&
-              <>
-                {state.success ?
-                  <p>{state.message}</p>
-                  :
-                  <ErrText teks={state.message}></ErrText>
-                }
-              </>
-            } */}
           </form>
         </div>
       </div>

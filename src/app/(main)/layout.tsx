@@ -11,7 +11,6 @@ export default function RootLayout({
       <SidebarContainer>
         <Sidebar></Sidebar>
       </SidebarContainer>
-      {/* <p>ini main</p> */}
       <div className="md:ml-64 mb-20 mt-20 md:mt-0">
         {children}
       </div>

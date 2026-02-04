@@ -77,17 +77,11 @@ export default function CreateProductModal() {
                     defaultValue={state.fields.category_id}
                   >
                     <option value=""></option>
-                    {/* {categories ?
-                    <> */}
                     {
                       categories?.map((cat, idx) => (
                         <option key={idx} value={cat.id}>{cat.name}</option>
                       ))
                     }
-                    {/* </>
-                    :
-                    <p>tidak ada kategori</p>
-                  } */}
                   </select>
 
                   <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2 text-black/80">
@@ -128,15 +122,6 @@ export default function CreateProductModal() {
                 {isLoading ? "Menyimpan..." : "Save"}
               </button>
             </div>
-            {/* {state.message &&
-              <>
-                {state.success ?
-                  <p>{state.message}</p>
-                  :
-                  <ErrText teks={state.message}></ErrText>
-                }
-              </>
-            } */}
           </form>
         </div>
       </div>

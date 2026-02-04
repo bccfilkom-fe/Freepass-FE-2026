@@ -71,16 +71,6 @@ export default function CreateCategoryModal() {
                 {isPending ? "Memproses..." : "Save"}
               </button>
             </div>
-            {/* {state.message &&
-              <>
-                {
-                  state.success ?
-                    <p>{state.message}</p>
-                    :
-                    <ErrText teks={state.message}></ErrText>
-                }
-              </>
-            } */}
           </form>
         </div>
       </div>

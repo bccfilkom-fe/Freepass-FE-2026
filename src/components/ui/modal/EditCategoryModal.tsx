@@ -70,16 +70,6 @@ export default function EditCategoryModal() {
                 {isPending ? "Memproses..." : "Save"}
               </button>
             </div>
-            {/* {state.message &&
-              <>
-                {
-                  state.success ?
-                    <p>berhasil mengedit kategori</p>
-                    :
-                    <ErrText teks={state.message}></ErrText>
-                }
-              </>
-            } */}
           </form>
         </div>
       </div>

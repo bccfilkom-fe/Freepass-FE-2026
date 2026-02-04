@@ -1,8 +1,7 @@
 import { cookies } from 'next/headers';
 import { NextResponse, NextRequest } from 'next/server'
 
-// hilangkan test
-const protectedRoutes = ['/categories', '/movements', '/product', '/test']
+const protectedRoutes = ['/categories', '/movements', '/product']
 
 export async function proxy(request: NextRequest) {
   const pathname = request.nextUrl.pathname;

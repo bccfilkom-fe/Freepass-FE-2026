@@ -2,7 +2,6 @@
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useState } from 'react';
-// import SerachBar from '../searchBar';
 import { useCategories } from '@//hooks/useCategories';
 import { useProductModalStore } from '@//stores/productModalStore';
 import CreateProductModal from './modal/CreateProductModal';
@@ -77,7 +76,6 @@ const DropdownProduct = () => {
             </>
           )}
         </div>
-        {/* <SerachBar></SerachBar> */}
         <button className="bg-black text-white p-2 px-4 rounded-full cursor-pointer flex gap-2" onClick={() => modalStore.setOpenCreateModal()}>
           <span className="text- lg:text-base">tambah produk</span>
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-5 lg:size-6">

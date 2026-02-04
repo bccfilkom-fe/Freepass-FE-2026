@@ -31,12 +31,6 @@ export function useDeleteProduct() {
           id: id
         })
       })
-
-      // const result = await res.json();
-
-      // if (!res.ok) throw new Error(`${result.error}`);
-
-      // return result;
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["products"] })
