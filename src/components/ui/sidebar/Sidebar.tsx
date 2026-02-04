@@ -2,7 +2,6 @@ import Link from 'next/link'
 import LogoutBtn from './logoutBtn';
 import { createClient } from '@//lib/supabase/server';
 import ActiveMenu from './activeMenu';
-import { useSidebarStore } from '@//stores/sidebarStore';
 
 async function Sidebar() {
   const supabase = await createClient();
@@ -24,14 +23,15 @@ async function Sidebar() {
 
         <nav className={`flex flex-col gap-2 py-2
         `}>
-          {/* <Link href={"/dashboard"} className='flex'>
+          <Link href={"/dashboard"} className='flex'>
             <ActiveMenu href='/dashboard'>
               <svg className="shrink-0 w-5 h-5 mr-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 7.125C2.25 6.504 2.754 6 3.375 6h6c.621 0 1.125.504 1.125 1.125v3.75c0 .621-.504 1.125-1.125 1.125h-6a1.125 1.125 0 0 1-1.125-1.125v-3.75ZM14.25 8.625c0-.621.504-1.125 1.125-1.125h5.25c.621 0 1.125.504 1.125 1.125v8.25c0 .621-.504 1.125-1.125 1.125h-5.25a1.125 1.125 0 0 1-1.125-1.125v-8.25ZM3.75 16.125c0-.621.504-1.125 1.125-1.125h5.25c.621 0 1.125.504 1.125 1.125v2.25c0 .621-.504 1.125-1.125 1.125h-5.25a1.125 1.125 0 0 1-1.125-1.125v-2.25Z" />
               </svg>
+
               Dashboard
             </ActiveMenu>
-          </Link> */}
+          </Link>
           <Link href={"/product"} className='flex'>
             <ActiveMenu href='/product'>
               <svg className="shrink-0 w-5 h-5 mr-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">

@@ -20,7 +20,7 @@ function CharFlow({ children }: { children: ReactNode }) {
 
             tl.current = gsap.timeline({ paused: true })
                 .to(split.chars, {
-                    yPercent: -100,
+                    y: -30,
                     ease: "power4.inOut",
                     stagger: {
                         each: 0.05,
@@ -37,7 +37,7 @@ function CharFlow({ children }: { children: ReactNode }) {
     const backChar = () => { tl.current?.reverse() }
 
     return (
-        <div ref={target} className=" relative container overflow-clip w-fit" onMouseOver={animateChar} onMouseLeave={backChar}>
+        <div ref={target} className="relative container overflow-clip w-fit" onMouseOver={animateChar} onMouseLeave={backChar}>
             {children}
             <div className="absolute">
                 {children}
