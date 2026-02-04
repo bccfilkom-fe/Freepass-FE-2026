@@ -11,7 +11,8 @@ import { useEffect } from "react";
 
 export default function Create() {
   const colorAvailible = ["bg-pink", "bg-green-light", "bg-yellow", "bg-cyan"];
-  const { id, name, text, color, setName, setText, setColor } = useUserStore();
+  const { id, name, text, color, setName, setText, setColor, setDate } =
+    useUserStore();
   const date = new Date().toLocaleDateString("en-GB");
   const router = useRouter();
   const params = useParams();
@@ -23,6 +24,7 @@ export default function Create() {
     setName(data?.name as string);
     setText(data?.text as string);
     setColor(data?.color as string);
+    setDate(data?.date as string);
   }, [data, setName, setText, setColor]);
 
   const handleDelete = () => {
@@ -73,6 +75,7 @@ export default function Create() {
             name={name}
             text={text}
             color={color}
+            date={date}
             className="shadow-lg"
           ></Note>
         </div>

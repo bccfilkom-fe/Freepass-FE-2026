@@ -51,6 +51,7 @@ export default function Create() {
             name={name}
             text={text}
             color={color}
+            date={date}
             className="shadow-lg"
           ></Note>
         </div>

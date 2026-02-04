@@ -6,6 +6,7 @@ export const useUserStore = create<User>((set) => ({
   name: "",
   text: "",
   color: "bg-pink",
+  date: new Date().toLocaleDateString("en-GB"),
 
   setName: (value: string) =>
     set({
@@ -21,4 +22,6 @@ export const useUserStore = create<User>((set) => ({
     set({
       color: value,
     }),
+
+  setDate: (value: string) => set({ date: value }),
 }));

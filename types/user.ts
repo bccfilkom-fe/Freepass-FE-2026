@@ -3,9 +3,10 @@ export interface User {
   name: string;
   text: string;
   color: string;
-  date?: string;
+  date: string;
 
   setName: (value: string) => void;
   setText: (value: string) => void;
   setColor: (value: string) => void;
+  setDate: (value: string) => void;
 }
