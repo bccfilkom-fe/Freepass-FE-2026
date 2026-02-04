@@ -1,5 +1,5 @@
 import { Star, ShoppingCart, Plus, Minus } from 'lucide-react'
-import { Product } from '@/src/shared/types'
+import { Product } from '@/src/shared/types/product'
 
 interface Props {
   product: Product

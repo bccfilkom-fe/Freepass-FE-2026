@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import { Product } from '@/src/shared/types'
+import { Product } from '@/src/shared/types/product'
 
 interface Props {
   product: Product

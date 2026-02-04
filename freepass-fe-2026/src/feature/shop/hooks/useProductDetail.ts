@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { useParams, useRouter } from 'next/navigation'
-import { Product } from '@/src/shared/types'
+import { Product } from '@/src/shared/types/product'
 import { productService } from '@/src/api/services/product'
 import { useCart } from '@/src/shared/hooks/useCart'
 

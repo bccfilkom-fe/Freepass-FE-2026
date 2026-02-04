@@ -1,5 +1,6 @@
 import api from "../core/axios"
-import { User, Product } from "@/src/shared/types"
+import { User } from "@/src/shared/types/user"
+import { Product } from "@/src/shared/types/product"
 
 export const productService = {
   getAllProducts: async (): Promise<Product[]> => {

@@ -1,5 +1,5 @@
 import { ChevronDown, SlidersHorizontal } from 'lucide-react'
-import { SortOption } from '@/src/shared/types'
+import { SortOption } from '@/src/shared/types/filter'
 
 interface Props {
   categories: string[]

@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react"
-import { Product } from "@/src/shared/types"
+import { Product } from "@/src/shared/types/product"
 import { productService } from "@/src/api/services/product"
 
 export function useSearchBar() {

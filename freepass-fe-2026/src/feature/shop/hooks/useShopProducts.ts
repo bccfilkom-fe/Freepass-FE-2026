@@ -2,7 +2,8 @@
 
 import { useEffect, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
-import { Product, SortOption } from '@/src/shared/types'
+import { Product } from '@/src/shared/types/product'
+import { SortOption } from '@/src/shared/types/filter'
 import { productService } from '@/src/api/services/product'
 
 export function useShopProducts() {

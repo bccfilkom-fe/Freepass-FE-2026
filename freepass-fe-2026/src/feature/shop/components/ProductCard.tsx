@@ -2,7 +2,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { ShoppingCart, Star } from 'lucide-react'
-import { Product } from '@/src/shared/types'
+import { Product } from '@/src/shared/types/product'
 import { useCart } from '@/src/shared/hooks/useCart'
 
 interface ProductCardProps {
