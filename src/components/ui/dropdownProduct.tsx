@@ -2,7 +2,7 @@
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useState } from 'react';
-import SerachBar from '../searchBar';
+// import SerachBar from '../searchBar';
 import { useCategories } from '@//hooks/useCategories';
 import { useProductModalStore } from '@//stores/productModalStore';
 import CreateProductModal from './modal/CreateProductModal';
@@ -21,15 +21,14 @@ const DropdownProduct = () => {
     setOpenDropdown(openDropdown === name ? "" : name);
   };
 
-  const { data : categories, isError, isLoading } = useCategories();
+  const { data: categories, isError, isLoading } = useCategories();
 
   const modalStore = useProductModalStore();
 
   return (
     <>
       <CreateProductModal></CreateProductModal>
-      <div className="border-b flex justify-between items-center p-3 lg:p-4 px-6 lg:px-12
-    [&_p]:lg:text-lg [&_p]:font-bold sticky top-0 bg-white z-10">
+      <div className="flex m-6 mx-10 p-3 px-6 items-center rounded-2xl justify-between shadow-sm border-black/10 border [&_p]:lg:text-lg [&_p]:font-bold sticky top-0 bg-white z-10">
         <div className="relative">
           <div
             className="flex items-center gap-1 cursor-pointer transition-colors"
@@ -78,7 +77,7 @@ const DropdownProduct = () => {
             </>
           )}
         </div>
-        <SerachBar></SerachBar>
+        {/* <SerachBar></SerachBar> */}
         <button className='border-2 px-4 py-1 cursor-pointer rounded-full' onClick={() => modalStore.setOpenCreateModal()}>
           tambah produk
         </button>

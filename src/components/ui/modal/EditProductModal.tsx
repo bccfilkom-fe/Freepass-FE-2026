@@ -4,6 +4,7 @@ import { useProductModalStore } from "@//stores/productModalStore";
 import { useQueryClient } from "@tanstack/react-query";
 import { useActionState, useEffect } from "react";
 import ErrText from "../../errText";
+import { useToastStore } from "@//stores/ToastStore";
 
 export default function EditProductModal() {
   const { data: categories, error: catError } = useCategories();
@@ -31,20 +32,23 @@ export default function EditProductModal() {
     }
   })
 
-  useEffect(()=>{
-    if(state.success) {
-      queryClient.invalidateQueries({queryKey: ["products"]});
+  const toastStore = useToastStore();
+
+  useEffect(() => {
+    if (state.message) toastStore.addToast(state.success, state.message);
+    if (state.success) {
+      queryClient.invalidateQueries({ queryKey: ["products"] });
       modalStore.closeModal();
     }
-  },[modalStore.closeModal, queryClient, state])
+  }, [modalStore.closeModal, queryClient, state])
 
   if (!modalStore.openEditModal) return;
 
   return (
     <div className="fixed flex items-center justify-center top-0 left-0 z-20 bg-black/10 backdrop-blur-xs shadow-sm h-screen w-screen" onClick={() => modalStore.closeModal()}>
-      <div className="h-fit mx-auto min-w-xs max-w-xs sm:min-w-md sm:max-w-xl shadow-sm py-4 px-6 sm:px-10 bg-white rounded-xl" onClick={(e) => e.stopPropagation()}>
+      <div className="h-fit mx-auto w-9/10 sm:min-w-md sm:max-w-xl shadow-sm py-4 px-6 sm:px-10 bg-white rounded-xl" onClick={(e) => e.stopPropagation()}>
         <div className="my-3">
-          <h1 className="text-center text-2xl font-bold text-gray-900 dark:text-white">Edit Product</h1>
+          <h1 className="text-center text-2xl font-bold text-gray-900 ">Edit Product</h1>
           <form action={formAction} key={modalStore.data?.category_id} className="flex flex-col mt-2 gap-2
           [&_label]:text-sm [&_label]:font-semibold [&_label]:capitalize
           [&_input,textarea,select]:w-full [&_input,textarea,select]:border [&_input,textarea,select]:outline-black/60 [&_input,textarea,select]:px-2 [&_input,textarea,select]:py-2 [&_input,textarea,select]:text-sm [&_input,textarea,select]:rounded-md [&_input,textarea,select]:bg-white
@@ -124,7 +128,7 @@ export default function EditProductModal() {
                 {isLoading ? "Menyimpan..." : "Save"}
               </button>
             </div>
-            {state.message &&
+            {/* {state.message &&
               <>
                 {state.success ?
                   <p>{state.message}</p>
@@ -132,7 +136,7 @@ export default function EditProductModal() {
                   <ErrText teks={state.message}></ErrText>
                 }
               </>
-            }
+            } */}
           </form>
         </div>
       </div>

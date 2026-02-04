@@ -9,7 +9,7 @@ function LogoutBtn() {
   })
   return (
     <form action={formAction}>
-      <button type="submit" className='menus w-full hover:bg-red-700! disabled:opacity-50 disabled:bg-red-700' disabled={isPending}>
+      <button type="submit" className='flex w-full items-center px-4 py-3 text-sm font-medium hover:text-white hover:[&_svg]:text-white transition-all duration-200 hover:bg-black/70 rounded-lg group cursor-pointer hover:bg-red-700! disabled:opacity-50 disabled:bg-red-700' disabled={isPending}>
         {isPending ? "Memproses..." : "Logout"}
       </button>
     </form>

@@ -3,8 +3,9 @@ import { handleRegister } from "@//actions/authActions";
 import BtnBulat from "@//components/BtnBulat"
 import ErrText from "@//components/errText";
 import LineBar from "@//components/LineBar";
+import { useToastStore } from "@//stores/ToastStore";
 import Link from "next/link"
-import { useActionState, useState } from "react"
+import { useActionState, useEffect, useState } from "react"
 
 function Register() {
   const [showPass, setShowPass] = useState<boolean>(false);
@@ -17,6 +18,13 @@ function Register() {
     emailError: "",
     passError: ""
   })
+
+  const toastStore = useToastStore();
+
+  useEffect(()=>{
+    if(state.message) toastStore.addToast(state.success, state.message);
+  }, [pending])
+  
 
   return (
     <>
@@ -73,12 +81,12 @@ function Register() {
                   <BtnBulat teks={pending ? "Memproses..." : "Register"} btnBg="bg-black" pointerBg="bg-slate-300" border="none" cl="text-white rounded-xl" ></BtnBulat>
                 </button>
               </form>
-              {state &&
+              {/* {state &&
                 state.success ?
                 <p className="text-sm mt-2">{state.message}</p>
                 :
                 <p className="text-sm mt-2 text-red-700">✖ {state.message}</p>
-              }
+              } */}
               <div className="mt-4 text-sm md:text-xs flex gap-2 items-baseline container-mr">
                 <p className="mr-3 md:mr-0 ">If you already have an account</p>
                 <Link href='/login' className="**:font-bold"><LineBar>login</LineBar></Link>

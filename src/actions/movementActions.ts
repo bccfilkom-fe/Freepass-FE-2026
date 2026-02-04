@@ -1,7 +1,7 @@
 "use server"
 
 import z, { success } from "zod";
-import { categorySchema, MovementSchema } from "../lib/zodSchemas";
+import { MovementSchema } from "../lib/zodSchemas";
 import { createClient } from "../lib/supabase/server";
 
 type FormState = {
@@ -78,7 +78,7 @@ export async function handleCreateMovement(prevState: FormState, formData: FormD
 
     return {
       success: true,
-      message: `berhasil create category`,
+      message: `berhasil create movement`,
       errors: {
         product_id: "",
         type: "",
@@ -113,57 +113,74 @@ export async function handleCreateMovement(prevState: FormState, formData: FormD
 }
 
 
-export async function handleEditCategory(prevstate: FormState, formData: FormData) {
+export async function handleEditMovement(prevstate: FormState, formData: FormData) {
   const rawData = Object.fromEntries(formData.entries());
-  const validateData = categorySchema.safeParse(rawData);
+  const validateData = MovementSchema.safeParse(rawData);
 
   if (!validateData.success) {
     const errors = z.treeifyError(validateData.error);
     return {
       success: false,
       message: "Input tidak valid",
-      catError: errors.properties?.name?.errors[0],
-      descError: errors.properties?.description?.errors[0],
+      errors: {
+        product_id: errors.properties?.product_id?.errors[0],
+        type: errors.properties?.type?.errors[0],
+        quantity: errors.properties?.quantity?.errors[0],
+        note: errors.properties?.note?.errors[0],
+      },
       fields: {
-        name: rawData.name as string,
-        description: rawData.description as string
+        product_id: rawData.product_id as string,
+        type: rawData.type as string,
+        quantity: rawData.quantity as string,
+        note: rawData.note as string === "" ? null : rawData.note as string,
       }
     }
   }
 
-  const name = validateData.data.name;
-  const description = validateData.data.description;
+  const { product_id, type, quantity, note } = validateData.data;
   const id = rawData.id;
 
   try {
     const supabase = await createClient();
 
     const { error } = await supabase
-      .from("nexstore_category")
-      .update({ name: name, description: description })
+      .from("nexstore_inventory_movements")
+      .update({ product_id: product_id, type: type, quantity: quantity, note: note === "" ? null : note })
       .eq("id", id);
 
     if (error) throw new Error(error.message);
 
     return {
       success: true,
-      message: `berhasil edit category`,
-      catError: "",
-      descError: "",
+      message: `berhasil edit movement`,
+      errors: {
+        product_id: "",
+        type: "",
+        quantity: "",
+        note: "",
+      },
       fields: {
-        name: name,
-        description: description
+        product_id: "",
+        type: "",
+        quantity: "",
+        note: "",
       }
     }
   } catch (error) {
     return {
       success: false,
       message: `${error}`,
-      catError: "",
-      descError: "",
+      errors: {
+        product_id: "",
+        type: "",
+        quantity: "",
+        note: "",
+      },
       fields: {
-        name: name,
-        description: description
+        product_id: String(product_id),
+        type: String(type),
+        quantity: String(quantity),
+        note: String(note),
       }
     }
   }

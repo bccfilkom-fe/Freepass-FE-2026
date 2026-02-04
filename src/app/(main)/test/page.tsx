@@ -5,7 +5,7 @@ export default function page() {
     <div className="fixed flex items-center justify-center top-0 left-0 z-10 bg-black/10 h-screen w-screen">
       <div className="h-fit mx-auto min-w-xs max-w-xs sm:min-w-md sm:max-w-xl shadow-sm py-4 px-6 sm:px-10 bg-white rounded-xl">
         <div className="my-3">
-          <h1 className="text-center text-2xl font-bold text-gray-900 dark:text-white">Create New Product</h1>
+          <h1 className="text-center text-2xl font-bold text-gray-900 ">Create New Product</h1>
           <form action="" className="flex flex-col mt-2 gap-2
           [&_label]:text-sm [&_label]:font-semibold [&_label]:capitalize
           [&_input,textarea,select]:w-full [&_input,textarea,select]:border [&_input,textarea,select]:outline-black/60 [&_input,textarea,select]:px-2 [&_input,textarea,select]:py-2 [&_input,textarea,select]:text-sm [&_input,textarea,select]:rounded-md [&_input,textarea,select]:bg-white

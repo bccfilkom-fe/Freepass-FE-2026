@@ -3,9 +3,11 @@
 import { handleLogin } from "@//actions/authActions";
 import BtnBulat from "@//components/BtnBulat";
 import LineBar from "@//components/LineBar";
+import { useToastStore } from "@//stores/ToastStore";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useActionState, useEffect, useState } from "react"
+import { success } from "zod";
 
 function Login() {
   const [showPass, setShowPass] = useState<boolean>(false);
@@ -18,12 +20,15 @@ function Login() {
     user: null
   })
 
+  const toastStore = useToastStore();
+
   useEffect(() => {
+    if (state.message) toastStore.addToast(state.success, state.message);
     if (state.success && state.user) {
       router.push('/dashboard');
       router.refresh();
     }
-  }, [state.user, state.success, router])
+  }, [state, router])
 
   return (
     <>
@@ -71,12 +76,12 @@ function Login() {
                   <BtnBulat teks={pending ? "Memproses..." : "Login"} btnBg="bg-black" pointerBg="bg-slate-300" border="none" cl="text-white rounded-xl " ></BtnBulat>
                 </button>
               </form>
-              {state &&
+              {/* {state &&
                 state.success ?
                 <p className="text-sm mt-2">{state.message}</p>
                 :
                 <p className="text-sm mt-2 text-red-700">✖ {state.message}</p>
-              }
+              } */}
               <div className="mt-4 text-sm md:text-xs flex gap-2 items-baseline container-mr">
                 <p className="mr-3 md:mr-0">If you don&apos;t have an account</p>
                 <Link href='/register' className="**:font-bold"><LineBar>register</LineBar></Link>

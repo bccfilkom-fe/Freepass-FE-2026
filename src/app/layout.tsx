@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Figtree, Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { QueryProvider } from "../lib/QueryProvider";
+import ToastContainer from "../components/toast";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -33,6 +34,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} ${def.className} antialiased`}
       >
         <QueryProvider>
+          <ToastContainer></ToastContainer>
           {children}
         </QueryProvider>
       </body>

@@ -26,8 +26,8 @@ function Product() {
     <>
       <EditProductModal></EditProductModal>
       <DropdownProduct></DropdownProduct>
-      <div className="p-8 px-10 ">
-        <div className="shadow-sm overflow-clip overflow-x-scroll no-scrollbar rounded-xl
+      <div className="px-10 ">
+        <div className="shadow-sm overflow-clip overflow-x-auto  rounded-xl
         [&_p]:line-clamp-1
         ">
           <table className="w-full min-w-fit
@@ -40,7 +40,7 @@ function Product() {
             <thead>
               <tr>
                 <th className="sticky left-0 bg-gray-300">produk</th>
-                <th>sku</th>
+                <th>code</th>
                 <th>kategori</th>
                 <th>stok</th>
                 <th>harga</th>
@@ -59,7 +59,7 @@ function Product() {
                 <>
                   {data.map((item: product) => (
                     <tr key={item.id} className="group">
-                      <td className="sticky left-0 bg-white"><p>{item.title}</p></td>
+                      <td className="sticky left-0 bg-gray-100 lg:bg-white"><p>{item.title}</p></td>
                       <td><p>{item.code ?? "-"}</p></td>
                       <td><p>{item.nexstore_category?.name}</p></td>
                       <td><p>{item.qty}</p></td>

@@ -1,4 +1,5 @@
 import Sidebar from "@//components/ui/sidebar/Sidebar";
+import SidebarContainer from "@//components/ui/sidebar/sidebarContainer";
 
 export default function RootLayout({
   children,
@@ -7,9 +8,11 @@ export default function RootLayout({
 }>) {
   return (
     <>
-      <Sidebar></Sidebar>
+      <SidebarContainer>
+        <Sidebar></Sidebar>
+      </SidebarContainer>
       {/* <p>ini main</p> */}
-      <div className="md:ml-64">
+      <div className="md:ml-64 mb-20 mt-20 md:mt-0">
         {children}
       </div>
     </>

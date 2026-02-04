@@ -2,6 +2,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { createClient } from "../lib/supabase/client";
 import { category } from "../types/categories";
+import { useToastStore } from "../stores/ToastStore";
 
 export function useCategories() {
   return useQuery({
@@ -25,6 +26,7 @@ export function useCategories() {
 
 export function useDeleteCategories() {
   const queryClient = useQueryClient();
+  const toastStore = useToastStore();
   return useMutation({
     mutationFn: async (id: number) => {
       const supabase = createClient();
@@ -35,6 +37,9 @@ export function useDeleteCategories() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({queryKey: ["categories"]})
+    },
+    onError: (error) => {
+      toastStore.addToast(false, error.message)
     }
   })
 }

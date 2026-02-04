@@ -1,7 +1,12 @@
-export default function Home() {
+import React from 'react'
+import StokRendah from './stokRendah'
+
+function Page() {
   return (
     <>
-      <p>home</p>
+    <StokRendah></StokRendah>
     </>
-  );
+  )
 }
+
+export default Page
