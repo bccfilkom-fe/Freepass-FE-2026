@@ -1,3 +1,4 @@
+"use client"
 import { handleEditCategory } from "@//actions/categoryActions";
 import { useCategoryModalStore } from "@//stores/CategoryModalStore";
 import { useActionState, useEffect } from "react";

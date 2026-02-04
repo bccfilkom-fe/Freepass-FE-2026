@@ -1,3 +1,4 @@
+"use client"
 import { handleEditProduct } from "@//actions/productActions";
 import { useCategories } from "@//hooks/useCategories";
 import { useProductModalStore } from "@//stores/productModalStore";

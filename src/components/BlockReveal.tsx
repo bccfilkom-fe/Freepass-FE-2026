@@ -29,7 +29,6 @@ function BlockReveal({ twBlockColor, children }: { twBlockColor: string, childre
                 scrollTrigger: {
                     trigger: split.lines,
                     start: "top 80%",
-                    markers: true,
                     toggleActions: "play none none reverse"
             }
             })

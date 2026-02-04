@@ -1,3 +1,4 @@
+"use client"
 import { handleCreateProduct } from "@//actions/productActions";
 import ErrText from "@//components/errText";
 import { useCategories } from "@//hooks/useCategories";

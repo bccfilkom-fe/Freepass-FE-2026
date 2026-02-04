@@ -9,7 +9,7 @@ export async function proxy(request: NextRequest) {
   const cookieStore = await cookies();
   const session = cookieStore.get("session_token");
 
-  if (!session && protectedRoutes.includes(pathname)) return NextResponse.redirect(new URL('/login', request.nextUrl));
+  if (!session && protectedRoutes.includes(pathname)) return NextResponse.redirect(new URL('/', request.nextUrl));
   if (session && !protectedRoutes.includes(pathname)) return NextResponse.redirect(new URL('/product', request.nextUrl));
 
   return NextResponse.next();

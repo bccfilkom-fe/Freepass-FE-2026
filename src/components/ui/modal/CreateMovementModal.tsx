@@ -1,3 +1,4 @@
+"use client"
 import { handleCreateMovement } from "@//actions/movementActions";
 import ErrText from "@//components/errText";
 import { useProducts } from "@//hooks/useProducts";

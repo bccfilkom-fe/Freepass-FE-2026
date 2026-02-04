@@ -118,7 +118,7 @@ export async function handleLogout(prevState: FormState) {
   const cookieStore = await cookies();
   cookieStore.delete("session_token");
 
-  redirect('/login');
+  redirect('/');
 
   return {
     success: true,
