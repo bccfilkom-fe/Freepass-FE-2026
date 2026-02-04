@@ -11,7 +11,6 @@ import { Alert } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
 import { useCanteenSearch } from "@/hooks/use-canteen-search";
 import { useCanteens } from "@/hooks/use-canteens";
-import { motion } from "motion/react";
 import { useRouter } from "next/navigation";
 
 
@@ -41,30 +40,19 @@ export default function CanteensPage() {
   // Error state
   if (error) {
     return (
-       <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
-       >
-      <div className="container mx-auto p-6">
+       <div className="container mx-auto p-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
         <h1 className="text-3xl font-bold mb-8">Canteeneo</h1>
         <Alert variant="destructive">
           <p className="font-semibold">Failed to load canteens</p>
           <p className="text-sm mt-1">{error.message}</p>
         </Alert>
-      </div>
-       </motion.div>
+       </div>
     );
   }
 
   // Empty/Success state handled by CanteenList component
   return (
-     <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.1 }}
-     >
-    <div className="container mx-auto p-4 md:p-6">
+     <div className="container mx-auto p-4 md:p-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
       <div className="flex flex-col gap-4 mb-6 md:mb-8">
         <div className="flex justify-between items-center">
           <h1 className="text-2xl md:text-3xl font-bold">Canteeneo</h1>
@@ -90,7 +78,6 @@ export default function CanteensPage() {
           onCanteenClick={(canteen) => router.push(`/canteens/${canteen.id}`)}
         />
       </div>
-        </div> 
-     </motion.div>
+     </div>
   );
 }
