@@ -21,10 +21,10 @@ function Register() {
 
   const toastStore = useToastStore();
 
-  useEffect(()=>{
-    if(state.message) toastStore.addToast(state.success, state.message);
+  useEffect(() => {
+    if (state.message) toastStore.addToast(state.success, state.message);
   }, [pending])
-  
+
 
   return (
     <>
@@ -32,7 +32,7 @@ function Register() {
         <div className="max-w-9/10">
           <div className="shadow-xl rounded-2xl flex max-w-4xl max-h-[80dvh] overflow-clip items-center">
             <div className="md:block hidden w-1/2">
-              <img className="" src="https://images.unsplash.com/photo-1589318549101-41a51f4ede6b?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="login form image"></img>
+              <img className="" src="https://images.unsplash.com/photo-1570086625846-f33f679eb4f5?q=80&w=686&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="login form image"></img>
             </div>
             <div className="md:w-1/2 p-15">
               <h2 className="font-bold text-3xl text-black">Register</h2>

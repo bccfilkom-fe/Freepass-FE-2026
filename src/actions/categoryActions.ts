@@ -1,6 +1,6 @@
 "use server"
 
-import z, { success } from "zod";
+import z from "zod";
 import { categorySchema } from "../lib/zodSchemas";
 import { createClient } from "../lib/supabase/server";
 
