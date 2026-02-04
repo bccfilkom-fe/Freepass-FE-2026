@@ -25,8 +25,8 @@ export function ProductFilters({ categories }: ProductFiltersProps) {
   const hasActiveFilters = filters.category || filters.search || filters.sortBy;
 
   return (
-    <div className="space-y-4">
-      <div className="flex flex-col sm:flex-row gap-3">
+    <div className="space-y-4 max-w-4xl">
+      <div className="flex gap-3">
 
         <div className="relative flex-1">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
@@ -41,7 +41,7 @@ export function ProductFilters({ categories }: ProductFiltersProps) {
 
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="gap-2 w-full sm:w-auto">
+            <Button variant="outline" className="gap-2 w-auto">
               <SlidersHorizontal className="h-4 w-4" />
               Sort
               {filters.sortBy && (

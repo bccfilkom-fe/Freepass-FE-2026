@@ -38,7 +38,7 @@ export function ProductGrid({ products, isLoading }: ProductGridProps) {
   }
 
   return (
-    <div className="flex flex-wrap justify-center gap-4">
+    <div className="flex flex-wrap justify-center gap-4 gap-y-10">
       {products.map((product, index) => (
         <div
           key={product.id}

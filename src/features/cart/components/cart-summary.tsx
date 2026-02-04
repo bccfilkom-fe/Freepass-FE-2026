@@ -4,6 +4,7 @@ import { ShoppingBag, Loader2 } from 'lucide-react';
 import { Button } from '@/shared/components/button';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/shared/components/card';
 import { Separator } from '@/shared/components/separator';
+import { formatPrice } from '@/shared/lib/utils';
 import { useCartStore } from '../store';
 import { useSyncCart } from '../hooks';
 import { useAuthStore } from '@/features/auth/store';
@@ -39,11 +40,11 @@ export function CartSummary() {
           <span className="text-muted-foreground">
             Items ({getTotalItems()})
           </span>
-          <span>${subtotal.toFixed(2)}</span>
+          <span>{formatPrice(subtotal)}</span>
         </div>
         <div className="flex justify-between text-sm">
           <span className="text-muted-foreground">Shipping</span>
-          <span>{shipping === 0 ? 'Free' : `$${shipping.toFixed(2)}`}</span>
+          <span>{shipping === 0 ? 'Free' : formatPrice(shipping)}</span>
         </div>
         {shipping > 0 && (
           <p className="text-xs text-muted-foreground">
@@ -53,7 +54,7 @@ export function CartSummary() {
         <Separator />
         <div className="flex justify-between font-semibold text-lg">
           <span>Total</span>
-          <span>${total.toFixed(2)}</span>
+          <span>{formatPrice(total)}</span>
         </div>
       </CardContent>
       <CardFooter>
