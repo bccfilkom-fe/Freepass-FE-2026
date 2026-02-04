@@ -69,10 +69,10 @@ function LandingPage() {
           <p className="md:text-lg">Kelola inventori Anda dengan mudah dan efisien. Pantau stok, lacak pergerakan barang, dan tingkatkan produktivitas bisnis Anda.</p>
         }></LineLineReveal>
 
-        <Link href={"/product"}>
+        <Link href={"/register"}>
           <BtnArrow bgArr="bg-black" colorArr="white">
             <p className="w-fit px-4 py-2 text-xl font-bold">
-              Mulai Kelola Produk
+              Daftar Sekarang
             </p>
           </BtnArrow>
         </Link>
