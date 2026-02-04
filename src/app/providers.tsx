@@ -5,6 +5,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { ThemeProvider } from 'next-themes';
 import { Toaster } from '@/shared/components/sonner';
 import { queryClient } from '@/shared/lib/queryClient';
+import CustomCursor from '@/shared/components/custom-cursor';
 
 interface ProvidersProps {
   children: React.ReactNode;
@@ -19,6 +20,7 @@ export function Providers({ children }: ProvidersProps) {
         enableSystem
         disableTransitionOnChange
       >
+        <CustomCursor />
         {children}
         <Toaster richColors position="top-right" />
       </ThemeProvider>
