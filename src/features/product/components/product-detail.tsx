@@ -2,11 +2,14 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import { ArrowLeft, Minus, Plus, ShoppingCart, Star } from 'lucide-react';
+import { ArrowLeft, ShoppingCart } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from '@/shared/components/button';
 import { Badge } from '@/shared/components/badge';
 import { Separator } from '@/shared/components/separator';
+import { QuantitySelector } from '@/shared/components/quantity-selector';
+import { StarRating } from '@/features/product/components/star-rating';
+import { formatPrice } from '@/shared/lib/utils';
 import { useAddToCart } from '@/features/cart/hooks';
 import type { Product } from '../schema';
 
@@ -28,27 +31,26 @@ export function ProductDetail({ product }: ProductDetailProps) {
 
       <Link
         href="/products"
-        className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors"
+        className="inline-flex items-center gap-2  text-muted-foreground hover:text-primary transition-colors"
       >
         <ArrowLeft className="h-4 w-4" />
         Back to Products
       </Link>
 
-      <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
+      <div className="grid md:grid-cols-3 gap-8 lg:gap-12">
 
-        <div className="relative aspect-square bg-white rounded-lg overflow-hidden border">
+        <div className="relative aspect-square">
           <Image
             src={product.image}
             alt={product.title}
             fill
             className="object-contain p-8"
             priority
-            sizes="(max-width: 768px) 100vw, 50vw"
           />
         </div>
 
 
-        <div className="space-y-6">
+        <div className="space-y-6 md:col-span-2">
           <div className="space-y-2">
             <Badge variant="secondary" className="capitalize">
               {product.category}
@@ -57,27 +59,14 @@ export function ProductDetail({ product }: ProductDetailProps) {
           </div>
 
           {product.rating && (
-            <div className="flex items-center gap-2">
-              <div className="flex items-center gap-1">
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <Star
-                    key={i}
-                    className={`h-5 w-5 ${
-                      i < Math.round(product.rating!.rate)
-                        ? 'fill-yellow-400 text-yellow-400'
-                        : 'text-muted-foreground'
-                    }`}
-                  />
-                ))}
-              </div>
-              <span className="text-sm text-muted-foreground">
-                {product.rating.rate} ({product.rating.count} reviews)
-              </span>
-            </div>
+            <StarRating
+              rating={product.rating.rate}
+              count={product.rating.count}
+            />
           )}
 
           <p className="text-3xl font-bold text-primary">
-            ${product.price.toFixed(2)}
+            {formatPrice(product.price)}
           </p>
 
           <Separator />
@@ -92,41 +81,27 @@ export function ProductDetail({ product }: ProductDetailProps) {
           <Separator />
 
 
-          <div className="space-y-4">
-            <div className="flex items-center gap-4">
-              <span className="font-medium">Quantity:</span>
-              <div className="flex items-center gap-2">
-                <Button
-                  variant="outline"
-                  size="icon"
-                  onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                  disabled={quantity <= 1}
-                >
-                  <Minus className="h-4 w-4" />
-                </Button>
-                <span className="w-12 text-center font-medium">{quantity}</span>
-                <Button
-                  variant="outline"
-                  size="icon"
-                  onClick={() => setQuantity(quantity + 1)}
-                >
-                  <Plus className="h-4 w-4" />
-                </Button>
-              </div>
-            </div>
+          <div className="flex items-center gap-6">
 
             <Button
               onClick={handleAddToCart}
               size="lg"
-              className="w-full gap-2 text-lg"
+              className="gap-2 bg-chart-2/90 hover:bg-chart-2"
             >
               <ShoppingCart className="h-5 w-5" />
               Add to Cart
             </Button>
+
+            <QuantitySelector
+              quantity={quantity}
+              onIncrease={() => setQuantity(quantity + 1)}
+              onDecrease={() => setQuantity(Math.max(1, quantity - 1))}
+            />
           </div>
         </div>
       </div>
     </div>
   );
 }
+
 

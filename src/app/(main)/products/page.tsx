@@ -6,7 +6,7 @@ import { ProductFilters } from '@/features/product/components/product-filters';
 import { ErrorState } from '@/shared/components/error-state';
 
 export default function ProductsPage() {
-    const { data: products, isError, error, refetch } = useProducts();
+    const { data: products, isError, refetch } = useProducts();
     const { data: categories = [] } = useCategories();
     const filteredProducts = useFilteredProducts(products);
 
@@ -14,9 +14,9 @@ export default function ProductsPage() {
         return (
             <div className="w-full px-4 sm:px-6 lg:px-8 py-8">
                 <ErrorState
-                    message={error?.message}
+                    message="Failed to load products."
                     onRetry={() => refetch()}
-                    className="min-h-[50vh]"
+                    className="min-h-[70vh]"
                 />
             </div>
         );

@@ -13,7 +13,7 @@ interface ProductPageProps {
 export default function ProductPage({ params }: ProductPageProps) {
     const { id } = use(params);
     const productId = parseInt(id, 10);
-    const { data: product, isLoading, isError, error, refetch } = useProduct(productId);
+    const { data: product, isLoading, isError, refetch } = useProduct(productId);
 
     if (isLoading) {
         return (
@@ -28,9 +28,9 @@ export default function ProductPage({ params }: ProductPageProps) {
             <section className="w-full px-4 sm:px-6 lg:px-8 py-8">
                 <ErrorState
                     title="Product not found"
-                    message={error?.message || 'The product you are looking for does not exist.'}
+                    message='The product you are looking for does not exist.'
                     onRetry={() => refetch()}
-                    className="min-h-[50vh]"
+                    className="min-h-[70vh]"
                 />
             </section>
         );

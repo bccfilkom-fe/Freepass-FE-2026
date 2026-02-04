@@ -2,8 +2,10 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { Minus, Plus, Trash2 } from 'lucide-react';
+import { Trash2 } from 'lucide-react';
 import { Button } from '@/shared/components/button';
+import { QuantitySelector } from '@/shared/components/quantity-selector';
+import { formatPrice } from '@/shared/lib/utils';
 import { useCartStore } from '../store';
 import { useRemoveFromCart } from '../hooks';
 import type { CartItem as CartItemType } from '../schema';
@@ -48,32 +50,17 @@ export function CartItem({ item }: CartItemProps) {
 
         <div className="flex items-center justify-between gap-2">
 
-          <div className="flex items-center gap-1">
-            <Button
-              variant="outline"
-              size="icon"
-              className="h-8 w-8"
-              onClick={() => updateQuantity(item.id, item.quantity - 1)}
-            >
-              <Minus className="h-3 w-3" />
-            </Button>
-            <span className="w-8 text-center text-sm font-medium">
-              {item.quantity}
-            </span>
-            <Button
-              variant="outline"
-              size="icon"
-              className="h-8 w-8"
-              onClick={() => updateQuantity(item.id, item.quantity + 1)}
-            >
-              <Plus className="h-3 w-3" />
-            </Button>
-          </div>
+          <QuantitySelector
+            quantity={item.quantity}
+            onIncrease={() => updateQuantity(item.id, item.quantity + 1)}
+            onDecrease={() => updateQuantity(item.id, item.quantity - 1)}
+            size="sm"
+          />
 
 
           <div className="flex items-center gap-3">
             <span className="font-semibold">
-              ${(item.price * item.quantity).toFixed(2)}
+              {formatPrice(item.price * item.quantity)}
             </span>
             <Button
               variant="ghost"
@@ -89,4 +76,5 @@ export function CartItem({ item }: CartItemProps) {
     </div>
   );
 }
+
 

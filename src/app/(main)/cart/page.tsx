@@ -22,7 +22,7 @@ export default function CartPage() {
                         label: 'Browse Products',
                         onClick: () => router.push('/products'),
                     }}
-                    className="min-h-[60vh]"
+                    className="min-h-[70vh]"
                 />
             </section>
         );

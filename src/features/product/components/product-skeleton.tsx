@@ -11,7 +11,7 @@ export function ProductCardSkeleton() {
             <Skeleton className="h-4 w-4 rounded-full" />
             <Skeleton className="h-4 w-20" />
           </div>
-          
+
           <div className="space-y-4">
             <Skeleton className="h-10 w-24" />
             <div className="space-y-2">
@@ -27,14 +27,12 @@ export function ProductCardSkeleton() {
 
 export function ProductDetailSkeleton() {
   return (
-    <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
+    <div className="grid md:grid-cols-3 gap-8 lg:gap-12">
 
-      <div className="aspect-square bg-muted rounded-lg">
-        <Skeleton className="w-full h-full" />
-      </div>
+      <Skeleton className="aspect-square max-w-lg" />
 
 
-      <div className="space-y-6">
+      <div className="space-y-6 md:col-span-2">
         <div className="space-y-2">
           <Skeleton className="h-4 w-24" />
           <Skeleton className="h-8 w-full" />
