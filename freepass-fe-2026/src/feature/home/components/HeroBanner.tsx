@@ -6,7 +6,7 @@ const HeroBanner = () => {
   return (
     <section className="relative w-screen h-[250px] md:h-[500px] lg:h-[600px] overflow-hidden flex items-center justify-center bg-cover bg-center">
         
-        <div className="absolute w-full h-full ">
+        <div className="absolute w-screen h-full ">
           <Image src="/BgBanner.webp" alt="BgBanner" width={1400} height={1400} />
         </div>
 
