@@ -49,9 +49,15 @@ export default function Home() {
         </div>
         <button
           onClick={handleAdd}
-          className="w-64 text-center text-white font-semibold bg-[#2563EB] hover:bg-[#4e82f2] py-3.5  mt-9 mb-3.5 rounded-2xl cursor-pointer"
+          className="w-64 text-center text-white font-semibold bg-[#2563EB] hover:bg-[#4e82f2] py-3.5  mt-9 mb-2 rounded-2xl cursor-pointer font-poppins-l text-sm"
         >
           + Add Note
+        </button>
+        <button
+          onClick={handleAdd}
+          className="w-64 text-center text-gray-400 font-semibold border-gray-400 border-2 py-3.5  mb-3.5 rounded-2xl cursor-pointer font-poppins-l text-sm"
+        >
+          Click the note for edit mode
         </button>
 
         <div className="px-1 md:px-3 lg:px-4 columns-2 md:columns-4 xl:columns-6 gap-3">

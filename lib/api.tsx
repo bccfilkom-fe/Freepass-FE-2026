@@ -2,7 +2,7 @@ import axios from "axios";
 
 import { User } from "@/types/user";
 
-const API_URL = `${process.env.MOCK_API_URL}`;
+const API_URL = `${process.env.NEXT_PUBLIC_API_URL}`;
 
 export const api = {
   getAll: async () => {
